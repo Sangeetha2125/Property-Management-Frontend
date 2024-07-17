@@ -13,7 +13,7 @@ export function AddProperty() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline">Add Property</Button>
+        <Button variant="default">Add Property</Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
