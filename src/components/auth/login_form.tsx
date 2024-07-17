@@ -105,7 +105,7 @@ export default function LogIn_Form() {
         />
 
         <div className="flex justify-center">
-        <Button type='submit'> Submit</Button>
+        <Button type='submit' className="w-full"> Submit</Button>
         </div>
         </form>
     </Form>

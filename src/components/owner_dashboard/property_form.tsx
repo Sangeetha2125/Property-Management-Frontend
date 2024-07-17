@@ -3,7 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { number, z } from "zod"
-
+import { Label } from "../ui/label"
 import {
   Form,
   FormControl,
@@ -24,40 +24,39 @@ import {
 import { Input } from "../ui/input"
 import { Button } from "../ui/button"
 
-const roleSchema = z.enum(['Owner', 'Tenant', 'Buyer']);
+const typeSchema = z.enum(['Apartment', 'House', 'Gated Community']);
 
 const formSchema = z.object({
-  first_name: z.string()
-    .min(1, {message: "Please enter first name.",})
-    .max(50, {message: "Character limit exceeded."}),
+  name: z.string()
+  .min(1, {message: "Please enter property name.",})
+  .max(50, {message: "Character limit exceeded."}),
 
-  last_name: z.string()
-    .min(1, {message: "Please enter last name.",})
-    .max(50, {message: "Character limit exceeded."}),
+  address: z.string()
+  .min(1, { message: "Please enter valid address." }),
 
-  email: z.string()
-  .min(1, { message: "Please enter your email id." })
-  .email("This is not a valid email."),
+  city: z.string()
+  .min(1, { message: "Please enter valid city." }),
 
-  phone: z.string()
-  .refine((value) => {return /^\d{10}$/.test(value);}, {message: "Enter a valid phone number.",
-  }),
+  state: z.string()
+  .min(1, { message: "Please enter valid state." }),
+
+  pincode: z.string()
+  .refine((value) => {return /^\d{6}$/.test(value);}, {message: "Enter a valid pincode.",}),
+
+  num_units: z.number(),
   
-  password: z.string()
-  .min(10, {message:"Enter stronger password."})
-  .max(25, {message:"Character limit exceeded. Maximum allowed: 25."}),
-
-  role: roleSchema
+  type: typeSchema
 })
 
-export default function SignUp_Form() {
+export default function Property_Form() {
     const form = useForm<z.infer<typeof formSchema>>({
       resolver: zodResolver(formSchema),
       defaultValues: {
-        first_name: "",
-        last_name: "",
-        email: "",
-        password:""
+        name: "",
+        address: "",
+        city: "",
+        state:"",
+        num_units:0,
       },
     })
    
@@ -67,15 +66,16 @@ export default function SignUp_Form() {
     }
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2">
+        
         <FormField
           control={form.control}
-          name="first_name"
+          name="name"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>First Name</FormLabel>
+              <FormLabel>Name</FormLabel>
               <FormControl>
-                <Input placeholder="First Name" {...field} />
+                <Input placeholder="Name " {...field} />
               </FormControl>
               <FormMessage/>
             </FormItem>
@@ -85,12 +85,12 @@ export default function SignUp_Form() {
 
         <FormField
           control={form.control}
-          name="last_name"
+          name="address"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Last Name</FormLabel>
+              <FormLabel>Address</FormLabel>
               <FormControl>
-                <Input placeholder="Last Name" {...field} />
+                <Input placeholder="Address" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -99,12 +99,12 @@ export default function SignUp_Form() {
 
         <FormField
           control={form.control}
-          name="email"
+          name="city"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Email</FormLabel>
+              <FormLabel>City</FormLabel>
               <FormControl>
-                <Input placeholder="email" {...field} />
+                <Input placeholder="City" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -113,12 +113,12 @@ export default function SignUp_Form() {
 
         <FormField
           control={form.control}
-          name="phone"
+          name="state"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Phone</FormLabel>
+              <FormLabel>State</FormLabel>
               <FormControl>
-                <Input placeholder="Phone" {...field} />
+                <Input placeholder="State" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -127,12 +127,12 @@ export default function SignUp_Form() {
 
         <FormField
           control={form.control}
-          name="password"
+          name="pincode"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Password</FormLabel>
+              <FormLabel>Pincode</FormLabel>
               <FormControl>
-                <Input type="password" placeholder="Enter a password with minimum 10 characters." {...field} />
+                <Input placeholder="Pincode" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -141,19 +141,33 @@ export default function SignUp_Form() {
 
         <FormField
           control={form.control}
-          name="role"
+          name="num_units"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Number of Units</FormLabel>
+              <FormControl>
+                <Input placeholder="0" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="type"
           render={({ field }) => (
             <FormItem>
               <FormLabel style={{display:"none"}}>Role</FormLabel>
               <FormControl>
                 <DropdownMenu>
                   <DropdownMenuTrigger>
-                    <Button variant="outline">{field.value || 'Click to select role'}</Button>
+                    <Button variant="outline">{field.value || 'Click to select type of property'}</Button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent>
-                    <DropdownMenuItem onSelect={() => field.onChange('Owner')}>Owner</DropdownMenuItem>
-                    <DropdownMenuItem onSelect={() => field.onChange('Tenant')}>Tenant</DropdownMenuItem>
-                    <DropdownMenuItem onSelect={() => field.onChange('Buyer')}>Buyer</DropdownMenuItem>
+                    <DropdownMenuItem onSelect={() => field.onChange('apartment')}>Apartment</DropdownMenuItem>
+                    <DropdownMenuItem onSelect={() => field.onChange('house')}>House</DropdownMenuItem>
+                    <DropdownMenuItem onSelect={() => field.onChange('gated community')}>Gated Community</DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
               </FormControl>
@@ -161,7 +175,6 @@ export default function SignUp_Form() {
             </FormItem>
           )}
         />
-
         <div className="flex justify-center">
         <Button type='submit' className="w-full"> Submit</Button>
         </div>
