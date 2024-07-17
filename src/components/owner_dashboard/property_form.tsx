@@ -23,8 +23,9 @@ import {
 
 import { Input } from "../ui/input"
 import { Button } from "../ui/button"
+import axios from "axios"
 
-const typeSchema = z.enum(['Apartment', 'House', 'Gated Community']);
+const typeSchema = z.enum(['APARTMENT', 'HOUSE', 'GATED_COMMUNITY']);
 
 const formSchema = z.object({
   name: z.string()
@@ -41,9 +42,9 @@ const formSchema = z.object({
   .min(1, { message: "Please enter valid state." }),
 
   pincode: z.string()
-  .refine((value) => {return /^\d{6}$/.test(value);}, {message: "Enter a valid pincode.",}),
+  .length(6),
 
-  num_units: z.number(),
+  numUnits: z.string(),
   
   type: typeSchema
 })
@@ -56,13 +57,26 @@ export default function Property_Form() {
         address: "",
         city: "",
         state:"",
-        num_units:0,
+        numUnits:"0",
       },
     })
    
     function onSubmit(values: z.infer<typeof formSchema>) {
-        
-        console.log(values)
+        axios({
+          method:'post',
+          url: "http://localhost:8080/api/properties/",
+          data:values,
+          headers:{
+              "Content-Type":"application/json",
+              "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzYW5nZWV0aGFAZ21haWwuY29tIiwiaWF0IjoxNzIxMjE0NTI3LCJleHAiOjE3MjEyMjg5Mjd9.K8hSU5eGTOd06XwMUC4oXgDn1K8VHLiyl0mlWg3I484"
+          }
+        })
+        .then((res)=>{
+          console.log(res)
+        })
+        .catch((err)=>{
+          console.log(err)
+        })
     }
   return (
     <Form {...form}>
@@ -141,7 +155,7 @@ export default function Property_Form() {
 
         <FormField
           control={form.control}
-          name="num_units"
+          name="numUnits"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Number of Units</FormLabel>
@@ -165,9 +179,9 @@ export default function Property_Form() {
                     <Button variant="outline">{field.value || 'Click to select type of property'}</Button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent>
-                    <DropdownMenuItem onSelect={() => field.onChange('apartment')}>Apartment</DropdownMenuItem>
-                    <DropdownMenuItem onSelect={() => field.onChange('house')}>House</DropdownMenuItem>
-                    <DropdownMenuItem onSelect={() => field.onChange('gated community')}>Gated Community</DropdownMenuItem>
+                    <DropdownMenuItem onSelect={() => field.onChange('APARTMENT')}>Apartment</DropdownMenuItem>
+                    <DropdownMenuItem onSelect={() => field.onChange('HOUSE')}>House</DropdownMenuItem>
+                    <DropdownMenuItem onSelect={() => field.onChange('GATED_COMMUNITY')}>Gated Community</DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
               </FormControl>
