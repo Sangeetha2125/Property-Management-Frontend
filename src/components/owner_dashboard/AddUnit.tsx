@@ -8,21 +8,22 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "../ui/dialog"
+import Unit_Form from "./unit_form"
 
-export function AddProperty() {
+export function AddUnit() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="default">Add Property</Button>
+        <Button variant="default">Add Unit</Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Add Property</DialogTitle>
+          <DialogTitle>Add Unit</DialogTitle>
           <DialogDescription>
-            Add you property here. Click submit when you're done.
+            Add you unit here. Click submit when you're done.
           </DialogDescription>
         </DialogHeader>
-        <Property_Form/>
+        <Unit_Form/>
       </DialogContent>
     </Dialog>
   )

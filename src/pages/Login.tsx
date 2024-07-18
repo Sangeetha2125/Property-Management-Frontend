@@ -10,9 +10,10 @@ import {
 import LogIn_Form from "../components/auth/login_form"
 
 
+
 export default function LogIn() {
   return (
-    <div className=" flex justify-center items-center h-screen">
+    <div className=" flex justify-center items-center h-screen" >
       <Card className="w-[500px]">
       <CardHeader className="text-center">
         <CardTitle>Log In</CardTitle>
