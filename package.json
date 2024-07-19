@@ -1,7 +1,7 @@
 {
   "name": "my-app",
   "version": "0.1.0",
-  "proxy":"http://localhost:8080",
+  "proxy": "http://localhost:8080",
   "private": true,
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",
@@ -11,6 +11,7 @@
     "@radix-ui/react-label": "^2.1.0",
     "@radix-ui/react-navigation-menu": "^1.2.0",
     "@radix-ui/react-radio-group": "^1.2.0",
+    "@radix-ui/react-separator": "^1.1.0",
     "@radix-ui/react-slot": "^1.1.0",
     "@radix-ui/react-tooltip": "^1.1.2",
     "@testing-library/jest-dom": "^5.17.0",

@@ -23,29 +23,26 @@ import {
 
 import { Input } from "../ui/input"
 import { Button } from "../ui/button"
-
-const typeSchema = z.enum(['Apartment', 'House', 'Gated Community']);
+import { Textarea } from "../ui/textarea"
 
 const formSchema = z.object({
   name: z.string()
-  .min(1, {message: "Please enter property name.",})
+  .min(1, {message: "Please enter unit name.",})
   .max(50, {message: "Character limit exceeded."}),
 
-  address: z.string()
-  .min(1, { message: "Please enter valid address." }),
+  floor: z.string()
+  .min(1, { message: "Required." }),
 
-  city: z.string()
-  .min(1, { message: "Please enter valid city." }),
+  square_footage: z.string()
+  .min(1, { message: "Please enter valid area." }),
 
-  state: z.string()
-  .min(1, { message: "Please enter valid state." }),
+  bedrooms: z.string()
+  .min(1, { message: "Required." }),
 
-  pincode: z.string()
-  .refine((value) => {return /^\d{6}$/.test(value);}, {message: "Enter a valid pincode.",}),
-
-  num_units: z.number(),
+  bathrooms: z.string()
+  .min(1, { message: "Required." }),
   
-  type: typeSchema
+  description: z.string(),
 })
 
 export default function Unit_Form() {
@@ -53,10 +50,11 @@ export default function Unit_Form() {
       resolver: zodResolver(formSchema),
       defaultValues: {
         name: "",
-        address: "",
-        city: "",
-        state:"",
-        num_units:0,
+        floor: "",
+        square_footage: "",
+        bedrooms:"",
+        bathrooms:"",
+        description:""
       },
     })
    
@@ -85,66 +83,25 @@ export default function Unit_Form() {
 
         <FormField
           control={form.control}
-          name="address"
+          name="square_footage"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Address</FormLabel>
+              <FormLabel>Square Footage</FormLabel>
               <FormControl>
-                <Input placeholder="Address" {...field} />
+                <Input placeholder="0" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-
+        <div className="grid grid-cols-3 gap-4">
+          
         <FormField
           control={form.control}
-          name="city"
+          name="floor"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>City</FormLabel>
-              <FormControl>
-                <Input placeholder="City" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
-          name="state"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>State</FormLabel>
-              <FormControl>
-                <Input placeholder="State" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
-          name="pincode"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Pincode</FormLabel>
-              <FormControl>
-                <Input placeholder="Pincode" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
-          name="num_units"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Number of Units</FormLabel>
+              <FormLabel>Floor</FormLabel>
               <FormControl>
                 <Input placeholder="0" {...field} />
               </FormControl>
@@ -155,23 +112,43 @@ export default function Unit_Form() {
 
         <FormField
           control={form.control}
-          name="type"
+          name="bedrooms"
           render={({ field }) => (
             <FormItem>
-              <FormLabel style={{display:"none"}}>Role</FormLabel>
+              <FormLabel>Bedrooms</FormLabel>
               <FormControl>
-                <DropdownMenu>
-                  <DropdownMenuTrigger>
-                    <Button variant="outline">{field.value || 'Click to select type of property'}</Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent>
-                    <DropdownMenuItem onSelect={() => field.onChange('apartment')}>Apartment</DropdownMenuItem>
-                    <DropdownMenuItem onSelect={() => field.onChange('house')}>House</DropdownMenuItem>
-                    <DropdownMenuItem onSelect={() => field.onChange('gated community')}>Gated Community</DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
+                <Input placeholder="0" {...field} />
               </FormControl>
-              <FormMessage/>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="bathrooms"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Bathrooms</FormLabel>
+              <FormControl>
+                <Input placeholder="0" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        </div>
+        
+        <FormField
+          control={form.control}
+          name="description"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Description</FormLabel>
+              <FormControl>
+                <Textarea placeholder="Enter any description of your unit." {...field} />
+              </FormControl>
+              <FormMessage />
             </FormItem>
           )}
         />

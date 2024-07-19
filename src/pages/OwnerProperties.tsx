@@ -3,6 +3,9 @@ import {
     CircleUserRound,
     Home,
     MessageSquareDot,
+    PanelLeft,
+    Search,
+    Sheet,
   } from "lucide-react"
 import { Link } from 'react-router-dom'
 import {
@@ -11,13 +14,16 @@ import {
     TooltipTrigger,
   } from "../components/ui/tooltip"
 import { TooltipProvider } from "@radix-ui/react-tooltip"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu"
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu"
 import { Button } from "../components/ui/button"
+import { Input } from "../components/ui/input"
 import { AddProperty } from "../components/owner_dashboard/AddProperty"
+
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "../components/ui/card"
 import { AddUnit } from "../components/owner_dashboard/AddUnit"
 
 import home from "../assets/home.jpg"
+import { Separator } from "@radix-ui/react-separator"
 
 export default function Owner(){
     return(
@@ -40,7 +46,7 @@ export default function Owner(){
           </TooltipProvider>
           <TooltipProvider>
           <Link
-            to="/"
+            to="/owner"
             className="group flex h-9 w-9 shrink-0 items-center justify-center gap-2 rounded-full bg-primary text-lg font-semibold text-primary-foreground md:h-8 md:w-8 md:text-base"
           >
             <Building className="h-4 w-4 transition-all group-hover:scale-110" />
@@ -98,14 +104,14 @@ export default function Owner(){
          <div className="flex items-center justify-center h-50 rounded bg-gray-50 dark:bg-gray-800">
          <Card className="w-[450px]">
       <CardHeader>
-        <CardTitle className="pb-7">Property Name</CardTitle>
-        <img src={home} className="object-scale-down h-50 w-50" />
+        <CardTitle className="pb-10">Property Name</CardTitle>
+        <img src={home} height="10px"/>
       </CardHeader>
       <CardContent>
         <CardDescription>Property description</CardDescription>
         <CardDescription>Pincode</CardDescription>
         <CardDescription>No.of units</CardDescription>
-        <CardDescription>Unit type</CardDescription>
+        <CardDescription>unit type</CardDescription>
       </CardContent>
       <CardFooter className="flex justify-between">
         <AddUnit/>
@@ -115,7 +121,8 @@ export default function Owner(){
          <div className="flex items-center justify-center h-50 rounded bg-gray-50 dark:bg-gray-800">
          <Card className="w-[450px]">
       <CardHeader>
-        <CardTitle>Property Name</CardTitle>
+        <CardTitle className="pb-10">Property Name</CardTitle>
+        <img src={home} height="10px"/>
       </CardHeader>
       <CardContent>
         <CardDescription>Property description</CardDescription>
@@ -131,7 +138,8 @@ export default function Owner(){
          <div className="flex items-center justify-center h-50 rounded bg-gray-50 dark:bg-gray-800">
          <Card className="w-[450px]">
       <CardHeader>
-        <CardTitle>Property Name</CardTitle>
+        <CardTitle className="pb-10">Property Name</CardTitle>
+        <img src={home} height="10px"/>
       </CardHeader>
       <CardContent>
         <CardDescription>Property description</CardDescription>
