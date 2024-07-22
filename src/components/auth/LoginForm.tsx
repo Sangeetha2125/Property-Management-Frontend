@@ -11,28 +11,19 @@ import {
   FormMessage,
 } from "../ui/form"
 
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "../ui/dropdown-menu"
-
 import { Input } from "../ui/input"
 import { Button } from "../ui/button"
 import axios from "axios"
 import { toast } from "sonner"
 import { useNavigate } from "react-router-dom"
 
-const roleSchema = z.enum(['Owner', 'Tenant', 'Buyer']);
-
 const formSchema = z.object({
   email: z.string()
-    .min(1, { message: "Please enter your email id." })
-    .email("This is not a valid email."),
+    .min(1, { message: "Please enter your email id" })
+    .email("This is not a valid email"),
 
   password: z.string()
-    .min(1, { message: "Please enter your password." }),
+    .min(1, { message: "Please enter your password" }),
 
 })
 
@@ -57,7 +48,7 @@ export default function LoginForm() {
     })
       .then((res) => {
         console.log(res)
-        if (res.status == 200) {
+        if (res.status === 200) {
           localStorage.setItem("token", res.data.token)
           localStorage.setItem("role", res.data.role)
           toast.success("Logged in successfully")
@@ -67,10 +58,10 @@ export default function LoginForm() {
         }
       })
       .catch((err) => {
-        if (err.message == "Network Error") {
+        if (err.message === "Network Error") {
           toast.error("Please try again later")
         }
-        else if (err.response.status == 403) {
+        else if (err.response.status === 403) {
           toast.error("Invalid credentials")
         }
       })
@@ -85,7 +76,7 @@ export default function LoginForm() {
             <FormItem>
               <FormLabel>Email</FormLabel>
               <FormControl>
-                <Input placeholder="email" {...field} />
+                <Input placeholder="Enter your email address" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>

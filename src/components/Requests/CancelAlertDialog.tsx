@@ -25,8 +25,8 @@ import {
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel>Yes,Cancel</AlertDialogCancel>
-            <AlertDialogAction>No, do not cancel.</AlertDialogAction>
+            <AlertDialogCancel>Yes, Cancel</AlertDialogCancel>
+            <AlertDialogAction>No, Don't Cancel</AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>

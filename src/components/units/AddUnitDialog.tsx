@@ -34,16 +34,16 @@ export function AddUnit({ refresh, setRefresh, propertyId }: AddUnitProps) {
     })
       .then((res) => {
         console.log(res)
-        if (res.status == 201) {
+        if (res.status === 201) {
           toast.success(res.data)
           setRefresh(!refresh)
         }
       })
       .catch((err) => {
-        if (err.message == "Network Error") {
+        if (err.message === "Network Error") {
           toast.error("Please try again later")
         }
-        else if (err.response.status == 400) {
+        else if (err.response.status === 400) {
           toast.error(err.response.data)
         }
       })

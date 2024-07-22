@@ -33,13 +33,13 @@ const UnitPage = () => {
         setUnits(res.data)
       })
       .catch((err) => {
-        if (err.message == "Network Error") {
+        if (err.message === "Network Error") {
           toast.error("Please try again later")
         }
         else {
           console.log(err)
         }
-      })
+      }) // eslint-disable-next-line
   }, [refresh])
 
   return (

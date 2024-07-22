@@ -26,17 +26,17 @@ const typeSchema = z.enum(['APARTMENT', 'HOUSE', 'GATED_COMMUNITY']);
 
 const formSchema = z.object({
   name: z.string()
-    .min(1, { message: "Please enter property name.", })
-    .max(50, { message: "Character limit exceeded." }),
+    .min(3, { message: "Please enter property name", })
+    .max(50, { message: "Character limit exceeded" }),
 
   address: z.string()
-    .min(1, { message: "Please enter valid address." }),
+    .min(3, { message: "Please enter valid address" }),
 
   city: z.string()
-    .min(1, { message: "Please enter valid city." }),
+    .min(3, { message: "Please enter valid city" }),
 
   state: z.string()
-    .min(1, { message: "Please enter valid state." }),
+    .min(3, { message: "Please enter valid state" }),
 
   pincode: z.string()
     .length(6),
@@ -150,7 +150,7 @@ export default function Property_Form({ addProperty }: AddPropertyFormProps) {
               <FormControl>
                 <Input type="number" onChange={(e) =>
                   field.onChange(parseInt(e.target.value))
-                } placeholder="0" />
+                }/>
               </FormControl>
               <FormMessage />
             </FormItem>

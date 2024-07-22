@@ -17,14 +17,14 @@ import { Textarea } from "../ui/textarea"
 
 const formSchema = z.object({
   name: z.string()
-    .min(1, { message: "Please enter unit name.", })
-    .max(50, { message: "Character limit exceeded." }),
+    .min(1, { message: "Please enter unit name", })
+    .max(50, { message: "Character limit exceeded" }),
 
   floor: z.number()
     .min(1, { message: "Required" }),
 
   squareFootage: z.number()
-    .min(1, { message: "Please enter valid area." }),
+    .min(1, { message: "Please enter valid area" }),
 
   bedrooms: z.number()
     .min(1, { message: "Required" }),

@@ -28,25 +28,25 @@ const roleSchema = z.enum(['OWNER', 'TENANT', 'BUYER']);
 
 const formSchema = z.object({
   firstName: z.string()
-    .min(1, { message: "Please enter first name.", })
-    .max(50, { message: "Character limit exceeded." }),
+    .min(1, { message: "Please enter first name", })
+    .max(50, { message: "Character limit exceeded" }),
 
   lastName: z.string()
-    .min(1, { message: "Please enter last name.", })
-    .max(50, { message: "Character limit exceeded." }),
+    .min(1, { message: "Please enter last name", })
+    .max(50, { message: "Character limit exceeded" }),
 
   email: z.string()
-    .min(1, { message: "Please enter your email id." })
-    .email("This is not a valid email."),
+    .min(1, { message: "Please enter your email id" })
+    .email("This is not a valid email"),
 
   phoneNumber: z.string()
     .refine((value) => { return /^\d{10}$/.test(value); }, {
-      message: "Enter a valid phone number.",
+      message: "Enter a valid phone number",
     }),
 
   password: z.string()
-    .min(10, { message: "Enter stronger password." })
-    .max(25, { message: "Character limit exceeded. Maximum allowed: 25." }),
+    .min(10, { message: "Enter stronger password" })
+    .max(25, { message: "Maximum 25 characters are only allowed" }),
 
   role: roleSchema
 })
@@ -74,7 +74,7 @@ export default function SignupForm() {
     })
       .then((res) => {
         console.log(res)
-        if (res.status == 201) {
+        if (res.status === 201) {
           toast.success(res.data)
           setTimeout(() => {
             navigate("/login")
@@ -82,10 +82,10 @@ export default function SignupForm() {
         }
       })
       .catch((err) => {
-        if (err.message == "Network Error") {
+        if (err.message === "Network Error") {
           toast.error("Please try again later")
         }
-        else if (err.response.status == 400) {
+        else if (err.response.status === 400) {
           toast.error(err.response.data)
         }
       })
@@ -157,7 +157,7 @@ export default function SignupForm() {
             <FormItem>
               <FormLabel>Password</FormLabel>
               <FormControl>
-                <Input type="password" placeholder="Enter a password with minimum 10 characters." {...field} autoComplete="off" />
+                <Input type="password" placeholder="Enter a password with minimum 10 characters" {...field} autoComplete="off" />
               </FormControl>
               <FormMessage />
             </FormItem>
