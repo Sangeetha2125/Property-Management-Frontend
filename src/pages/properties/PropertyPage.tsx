@@ -8,7 +8,7 @@ import {
 } from "@radix-ui/react-dropdown-menu";
 import { Button } from "../../components/ui/button";
 import { AddProperty } from "../../components/properties/AddPropertyDialog";
-import PropertyCard from "../../components/properties/PropertCard";
+import PropertyCard from "../../components/properties/PropertyCard";
 import SideNavbar from "../../components/shared/SideNavbar";
 
 const PropertyPage = () => {

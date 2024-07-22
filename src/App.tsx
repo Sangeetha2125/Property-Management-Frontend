@@ -8,7 +8,7 @@ import UnitPage from './pages/units/UnitPage';
 import SignupPage from "./pages/auth/SignupPage";
 import LoginPage from "./pages/auth/LoginPage";
 import PropertyPage from "./pages/properties/PropertyPage";
-import UnitType from "./components/units/UnitType";
+import UnitType from "./pages/units/UnitType";
 import { Toaster } from "sonner";
 export default function App() {
 

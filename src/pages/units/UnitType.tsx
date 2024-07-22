@@ -14,8 +14,7 @@ import { TooltipProvider } from "@radix-ui/react-tooltip"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu"
 import { Button } from "../../components/ui/button"
 
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "../../components/ui/card"
-import { RequestAlertDialog } from "../../components/units/RequestAlertDialog"
+import UnitTypeCard from '../../components/units/UnitTypeCard'
 
 
 export default function UnitType() {
@@ -93,8 +92,9 @@ export default function UnitType() {
           </div>
         </header>
         </div>
+        
 
-    <div className=" flex justify-center items-center flex-col" >
+    <div className=" flex justify-center items-center flex-col p-4 sm:ml-14" >
         <br/>
         <div className='w-10/12'>
             <h4 className='text-xl'>Description</h4>
@@ -112,60 +112,9 @@ export default function UnitType() {
         </div>
         <br/>
         <br/>
-    <div className='w-10/12 '>
-    <Card className=' grid grid-cols-8 gap-5'>
-        <div className='col-span-7'>
-        <CardHeader>
-        <CardTitle >Availability Type</CardTitle>
-      </CardHeader>
-      <CardContent className='grid grid-cols-3 gap-5'>
-        <CardDescription>Unit Price: </CardDescription>
-        <CardDescription>Security Deposit: </CardDescription>
-        <CardDescription>Availability type: </CardDescription>
-      </CardContent>
-        </div>
-        <div className='col-start-8 flex justify-center items-center'>
-        <br/>
-        <RequestAlertDialog />
-        </div>
-    </Card>
-    </div>
-    <br/>    <div className='w-10/12 '>
-    <Card className=' grid grid-cols-8 gap-5'>
-        <div className='col-span-7'>
-        <CardHeader>
-        <CardTitle >Availability Type</CardTitle>
-      </CardHeader>
-      <CardContent className='grid grid-cols-3 gap-5'>
-        <CardDescription>Unit Price: </CardDescription>
-        <CardDescription>Security Deposit: </CardDescription>
-        <CardDescription>Availability type: </CardDescription>
-      </CardContent>
-        </div>
-        <div className='col-start-8 flex justify-center items-center'>
-        <br/>
-        <RequestAlertDialog />
-        </div>
-    </Card>
-    </div>
-    <br/>    <div className='w-10/12 '>
-    <Card className=' grid grid-cols-8 gap-5'>
-        <div className='col-span-7'>
-        <CardHeader>
-        <CardTitle >Availability Type</CardTitle>
-      </CardHeader>
-      <CardContent className='grid grid-cols-3 gap-5'>
-        <CardDescription>Unit Price: </CardDescription>
-        <CardDescription>Security Deposit: </CardDescription>
-        <CardDescription>Availability type: </CardDescription>
-      </CardContent>
-        </div>
-        <div className='col-start-8 flex justify-center items-center'>
-        <br/>
-        <RequestAlertDialog />
-        </div>
-    </Card>
-    </div>
+    <UnitTypeCard/>
+    <UnitTypeCard/>
+    <UnitTypeCard/>
     
     </div>
     
