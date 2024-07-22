@@ -10,6 +10,7 @@ import LoginPage from "./pages/auth/LoginPage";
 import PropertyPage from "./pages/properties/PropertyPage";
 import UnitType from "./pages/units/UnitType";
 import { Toaster } from "sonner";
+import RequestPage from "./pages/requests/RequestPage";
 export default function App() {
 
   axios.defaults.headers.common['Authorization'] = "Bearer " + localStorage.getItem('token')
@@ -24,9 +25,9 @@ export default function App() {
           <Route path="/properties" element={<PropertyPage />} />
           <Route path="/properties/:id/units" element={<UnitPage />} />
           <Route path="/properties/:propertyId/units/:unitId" element={<UnitType/>} />
-          <Route path="/requests" element={<></>} />
+          <Route path="/requests/:unitId" element={<RequestPage/>} />
         </Routes>
-      </BrowserRouter> 
+      </BrowserRouter>  
       
     </div>
   )
