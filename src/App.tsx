@@ -26,7 +26,7 @@ export default function App() {
           <Route path="/properties/:propertyId/units/:unitId" element={<UnitType/>} />
           <Route path="/requests" element={<></>} />
         </Routes>
-      </BrowserRouter>
+      </BrowserRouter> 
       
     </div>
   )
