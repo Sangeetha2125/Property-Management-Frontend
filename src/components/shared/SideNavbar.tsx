@@ -41,7 +41,7 @@ const SideNavbar = () => {
           <Tooltip>
             <TooltipTrigger asChild>
               <Link
-                to={"/"}
+                to={"/requests"}
                 className="flex h-9 w-9 items-center bg-white justify-center rounded-lg transition-colors hover:text-foreground md:h-8 md:w-8"
               >
                 <MessageSquareDot className="h-5 w-5" />

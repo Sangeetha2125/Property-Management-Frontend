@@ -58,8 +58,8 @@ export default function LoginForm() {
       .then((res) => {
         console.log(res)
         if (res.status == 200) {
-          localStorage.setItem("token",res.data.token)
-          localStorage.setItem("role",res.data.role)
+          localStorage.setItem("token", res.data.token)
+          localStorage.setItem("role", res.data.role)
           toast.success("Logged in successfully")
           setTimeout(() => {
             navigate("/properties")
@@ -67,7 +67,10 @@ export default function LoginForm() {
         }
       })
       .catch((err) => {
-        if (err.response.status == 403) {
+        if (err.message == "Network Error") {
+          toast.error("Please try again later")
+        }
+        else if (err.response.status == 403) {
           toast.error("Invalid credentials")
         }
       })

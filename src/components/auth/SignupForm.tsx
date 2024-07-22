@@ -82,7 +82,10 @@ export default function SignupForm() {
         }
       })
       .catch((err) => {
-        if (err.response.status == 400) {
+        if (err.message == "Network Error") {
+          toast.error("Please try again later")
+        }
+        else if (err.response.status == 400) {
           toast.error(err.response.data)
         }
       })

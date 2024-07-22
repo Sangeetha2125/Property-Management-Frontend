@@ -7,23 +7,14 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "../ui/card"; 
+} from "../ui/card";
+import { PropertySchema } from "../../types/schema";
 
-interface PropertyCardProps{
-  property: {
-    id: number,
-    name: String,
-    address: String,
-    city: String,
-    state: String,
-    pincode: String,
-    numUnits: number,
-    type: String,
-    owner: Object,
-  }
+interface PropertyCardProps {
+  property: PropertySchema
 }
 
-const PropertyCard = ({property}:PropertyCardProps) => {
+const PropertyCard = ({ property }: PropertyCardProps) => {
   return (
     <div className="flex items-center justify-center h-50 rounded bg-gray-50 dark:bg-gray-800">
       <Card className="w-[450px]">

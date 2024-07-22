@@ -26,23 +26,23 @@ const typeSchema = z.enum(['APARTMENT', 'HOUSE', 'GATED_COMMUNITY']);
 
 const formSchema = z.object({
   name: z.string()
-  .min(1, {message: "Please enter property name.",})
-  .max(50, {message: "Character limit exceeded."}),
+    .min(1, { message: "Please enter property name.", })
+    .max(50, { message: "Character limit exceeded." }),
 
   address: z.string()
-  .min(1, { message: "Please enter valid address." }),
+    .min(1, { message: "Please enter valid address." }),
 
   city: z.string()
-  .min(1, { message: "Please enter valid city." }),
+    .min(1, { message: "Please enter valid city." }),
 
   state: z.string()
-  .min(1, { message: "Please enter valid state." }),
+    .min(1, { message: "Please enter valid state." }),
 
   pincode: z.string()
-  .length(6),
+    .length(6),
 
-  numUnits: z.string(),
-  
+  numUnits: z.number().min(1),
+
   type: typeSchema
 })
 
@@ -50,26 +50,26 @@ interface AddPropertyFormProps {
   addProperty: Function;
 }
 
-export default function Property_Form({addProperty}:AddPropertyFormProps) {
-    const token = localStorage.getItem("token")
-    const form = useForm<z.infer<typeof formSchema>>({
-      resolver: zodResolver(formSchema),
-      defaultValues: {
-        name: "",
-        address: "",
-        city: "",
-        state:"",
-        numUnits:"0",
-      },
-    })
-   
-    function onSubmit(values: z.infer<typeof formSchema>) {
-        addProperty(values,token)
-    }
+export default function Property_Form({ addProperty }: AddPropertyFormProps) {
+  const token = localStorage.getItem("token")
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      name: "",
+      address: "",
+      city: "",
+      state: "",
+      numUnits: 0,
+    },
+  })
+
+  function onSubmit(values: z.infer<typeof formSchema>) {
+    addProperty(values, token)
+  }
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2">
-        
+
         <FormField
           control={form.control}
           name="name"
@@ -79,9 +79,9 @@ export default function Property_Form({addProperty}:AddPropertyFormProps) {
               <FormControl>
                 <Input placeholder="Name " {...field} />
               </FormControl>
-              <FormMessage/>
+              <FormMessage />
             </FormItem>
-            
+
           )}
         />
 
@@ -148,7 +148,9 @@ export default function Property_Form({addProperty}:AddPropertyFormProps) {
             <FormItem>
               <FormLabel>Number of Units</FormLabel>
               <FormControl>
-                <Input placeholder="0" {...field} />
+                <Input type="number" onChange={(e) =>
+                  field.onChange(parseInt(e.target.value))
+                } placeholder="0" />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -160,7 +162,7 @@ export default function Property_Form({addProperty}:AddPropertyFormProps) {
           name="type"
           render={({ field }) => (
             <FormItem>
-              <FormLabel style={{display:"none"}}>Role</FormLabel>
+              <FormLabel style={{ display: "none" }}>Role</FormLabel>
               <FormControl>
                 <DropdownMenu>
                   <DropdownMenuTrigger>
@@ -173,14 +175,14 @@ export default function Property_Form({addProperty}:AddPropertyFormProps) {
                   </DropdownMenuContent>
                 </DropdownMenu>
               </FormControl>
-              <FormMessage/>
+              <FormMessage />
             </FormItem>
           )}
         />
         <div className="flex justify-center">
-        <Button type='submit' className="w-full"> Submit</Button>
+          <Button type='submit' className="w-full"> Submit</Button>
         </div>
-        </form>
+      </form>
     </Form>
   )
 }

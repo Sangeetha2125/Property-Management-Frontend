@@ -8,22 +8,28 @@ import {
   CardHeader,
   CardTitle,
 } from "../ui/card";
+import { UnitSchema } from "../../types/schema";
 
-const UnitCard = () => {
+interface UnitCardProps {
+  unit: UnitSchema
+}
+
+const UnitCard = ({ unit }: UnitCardProps) => {
   return (
     <div className="flex items-center justify-center h-50 rounded bg-gray-50 dark:bg-gray-800">
       <Card className="w-[450px]">
         <CardHeader>
-          <CardTitle>Unit Id</CardTitle>
+          <CardTitle>{unit.name}</CardTitle>
         </CardHeader>
         <CardContent>
-          <CardDescription>Unit description</CardDescription>
-          <CardDescription>No.of bedrooms</CardDescription>
-          <CardDescription>No. of bathrooms</CardDescription>
+          <CardDescription>{unit.description}</CardDescription>
+          <CardDescription>Square Footage: {unit.squareFootage}</CardDescription>
+          <CardDescription>No. of Bedrooms: {unit.bedrooms}</CardDescription>
+          <CardDescription>No. of Bathrooms: {unit.bathrooms}</CardDescription>
         </CardContent>
         <CardFooter className="flex justify-between">
           <Link to={"/properties/1/units/1"}>
-          <Button>View Details</Button>
+            <Button>View Details</Button>
           </Link>
         </CardFooter>
       </Card>
