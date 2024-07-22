@@ -28,6 +28,7 @@ export default function Listing_card() {
         </form>
       </CardContent>
       <CardFooter className="flex justify-between">
+      <Button variant="default">Request</Button>
        
       </CardFooter>
     </Card>
