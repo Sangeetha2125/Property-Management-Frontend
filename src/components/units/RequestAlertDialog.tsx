@@ -10,12 +10,14 @@ import {
     AlertDialogTrigger,
   } from "../ui/alert-dialog"
   import { Button } from "../ui/button"
+  import { toast } from "sonner"
   
-  export function AlertDialogDemo() {
+  export function RequestAlertDialog() {
+    
     return (
       <AlertDialog>
         <AlertDialogTrigger asChild>
-          <Button variant="outline">Request</Button>
+          <Button>Request</Button>
         </AlertDialogTrigger>
         <AlertDialogContent>
           <AlertDialogHeader>
@@ -26,7 +28,11 @@ import {
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction>Continue</AlertDialogAction>
+            <AlertDialogAction onClick={() =>
+        toast.success("Success!", {
+          description: "Your request has been sent.",
+        })
+      }>Continue</AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
