@@ -20,33 +20,59 @@ import {
 
 import { Input } from "../ui/input"
 import { Button } from "../ui/button"
+import axios from "axios"
+import { toast } from "sonner"
+import { useNavigate } from "react-router-dom"
 
 const roleSchema = z.enum(['Owner', 'Tenant', 'Buyer']);
 
 const formSchema = z.object({
   email: z.string()
-  .min(1, { message: "Please enter your email id." })
-  .email("This is not a valid email."),
+    .min(1, { message: "Please enter your email id." })
+    .email("This is not a valid email."),
 
   password: z.string()
-  .min(1, { message: "Please enter your password." }),
+    .min(1, { message: "Please enter your password." }),
 
-  role: roleSchema
 })
 
 export default function LoginForm() {
-    const form = useForm<z.infer<typeof formSchema>>({
-      resolver: zodResolver(formSchema),
-      defaultValues: {
-        email: "",
-        password:""
-      },
+  const navigate = useNavigate()
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      email: "",
+      password: ""
+    },
+  })
+
+  function onSubmit(values: z.infer<typeof formSchema>) {
+    axios({
+      method: 'post',
+      url: "http://localhost:8080/api/auth/login",
+      data: JSON.stringify(values),
+      headers: {
+        "Content-Type": "application/json"
+      }
     })
-   
-    function onSubmit(values: z.infer<typeof formSchema>) {
-        
-        console.log(values)
-    }
+      .then((res) => {
+        console.log(res)
+        if (res.status == 200) {
+          localStorage.setItem("token",res.data.token)
+          localStorage.setItem("role",res.data.role)
+          toast.success("Logged in successfully")
+          setTimeout(() => {
+            navigate("/properties")
+          }, 1500)
+        }
+      })
+      .catch((err) => {
+        if (err.response.status == 403) {
+          toast.error("Invalid credentials")
+        }
+      })
+    console.log(values)
+  }
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
@@ -78,33 +104,10 @@ export default function LoginForm() {
           )}
         />
 
-        <FormField
-          control={form.control}
-          name="role"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel style={{display:"none"}}>Role</FormLabel>
-              <FormControl>
-                <DropdownMenu>
-                  <DropdownMenuTrigger>
-                    <Button variant="outline">{field.value || 'Click to select role'}</Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent>
-                    <DropdownMenuItem onSelect={() => field.onChange('Owner')}>Owner</DropdownMenuItem>
-                    <DropdownMenuItem onSelect={() => field.onChange('Tenant')}>Tenant</DropdownMenuItem>
-                    <DropdownMenuItem onSelect={() => field.onChange('Buyer')}>Buyer</DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              </FormControl>
-              <FormMessage/>
-            </FormItem>
-          )}
-        />
-
         <div className="flex justify-center">
-        <Button type='submit' className="w-full"> Submit</Button>
+          <Button type='submit' className="w-full"> Submit</Button>
         </div>
-        </form>
+      </form>
     </Form>
   )
 }
