@@ -2,12 +2,10 @@
 
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
-import { number, z } from "zod"
-import { Label } from "../ui/label"
+import { z } from "zod"
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -23,7 +21,6 @@ import {
 
 import { Input } from "../ui/input"
 import { Button } from "../ui/button"
-import axios from "axios"
 
 const typeSchema = z.enum(['APARTMENT', 'HOUSE', 'GATED_COMMUNITY']);
 
@@ -49,7 +46,12 @@ const formSchema = z.object({
   type: typeSchema
 })
 
-export default function Property_Form() {
+interface AddPropertyFormProps {
+  addProperty: Function;
+}
+
+export default function Property_Form({addProperty}:AddPropertyFormProps) {
+    const token = localStorage.getItem("token")
     const form = useForm<z.infer<typeof formSchema>>({
       resolver: zodResolver(formSchema),
       defaultValues: {
@@ -62,21 +64,7 @@ export default function Property_Form() {
     })
    
     function onSubmit(values: z.infer<typeof formSchema>) {
-        axios({
-          method:'post',
-          url: "http://localhost:8080/api/properties/",
-          data:values,
-          headers:{
-              "Content-Type":"application/json",
-              "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzYW5nZWV0aGFAZ21haWwuY29tIiwiaWF0IjoxNzIxMjE0NTI3LCJleHAiOjE3MjEyMjg5Mjd9.K8hSU5eGTOd06XwMUC4oXgDn1K8VHLiyl0mlWg3I484"
-          }
-        })
-        .then((res)=>{
-          console.log(res)
-        })
-        .catch((err)=>{
-          console.log(err)
-        })
+        addProperty(values,token)
     }
   return (
     <Form {...form}>

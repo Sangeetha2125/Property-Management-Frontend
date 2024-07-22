@@ -71,7 +71,6 @@ export default function LoginForm() {
           toast.error("Invalid credentials")
         }
       })
-    console.log(values)
   }
   return (
     <Form {...form}>
