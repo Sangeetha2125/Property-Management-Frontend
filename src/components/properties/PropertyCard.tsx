@@ -27,7 +27,7 @@ const PropertyCard = () => {
             <Button>Manage Units</Button>
           </Link>
           {/*   <Button className="text right " variant="default">Request</Button> */}
-        </CardFooter>
+        </CardFooter> 
       </Card>
     </div>
   );
