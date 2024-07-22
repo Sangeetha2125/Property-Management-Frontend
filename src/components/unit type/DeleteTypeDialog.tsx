@@ -10,32 +10,25 @@ import {
     AlertDialogTrigger,
   } from "../ui/alert-dialog"
   import { Button } from "../ui/button"
-  import { toast } from "sonner"
   
-  export function RequestAlertDialog() {
-    
+  export function DeleteTypeDialog() {
     return (
       <AlertDialog>
         <AlertDialogTrigger asChild>
-          <Button>Request</Button>
+          <Button className=" text-red-500 border-red-500 hover:text-white hover:bg-red-500" variant="outline">Delete</Button>
         </AlertDialogTrigger>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+            <AlertDialogTitle>Are you sure?</AlertDialogTitle>
             <AlertDialogDescription>
-              This action cannot be undone.This will send a request to the owner for this unit.
+              This action cannot be undone. This will delete this type.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction onClick={() =>
-        toast.success("Success!", {
-          description: "Your request has been sent.",
-        })
-      }>Continue</AlertDialogAction>
+            <AlertDialogCancel>Yes, Delete</AlertDialogCancel>
+            <AlertDialogAction>No, Do not delete.</AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
     )
   }
-  

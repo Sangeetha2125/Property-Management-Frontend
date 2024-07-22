@@ -1,3 +1,4 @@
+import { Button } from "../ui/button";
 import {
   Card,
   CardContent,
@@ -5,6 +6,7 @@ import {
   CardHeader,
   CardTitle,
 } from "../ui/card";
+import { DeleteTypeDialog } from "./DeleteTypeDialog";
 import { RequestAlertDialog } from "./RequestAlertDialog";
 
 const UnitTypeCard = () => {
@@ -18,12 +20,13 @@ const UnitTypeCard = () => {
       <CardContent className='grid grid-cols-3 gap-5'>
         <CardDescription>Unit Price: </CardDescription>
         <CardDescription>Security Deposit: </CardDescription>
-        <CardDescription>Availability type: </CardDescription>
+        <CardDescription>Monthly Due Date: </CardDescription>
       </CardContent>
         </div>
         <div className='flex justify-center items-center'>
         <br/>
-        <RequestAlertDialog />
+        <DeleteTypeDialog/>
+        {/* <RequestAlertDialog /> */}
         </div>
     </Card>
     <br/>
