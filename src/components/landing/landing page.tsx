@@ -29,7 +29,7 @@ export const Hero= () =>{
 
             <div className="p-8">
                 <img className="backdrop-opacity-50 backdrop-invert bg-white/30 ...bg-fill height-100% "src={image}/>
-            </div>
+            </div> 
         </div> 
     )
 }
