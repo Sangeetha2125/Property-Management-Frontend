@@ -15,7 +15,8 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { Button } from "../../components/ui/button"
 
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "../../components/ui/card"
-import { AlertDialogDemo } from "../../components/units/RequestAlertDialog"
+import { RequestAlertDialog } from "../../components/units/RequestAlertDialog"
+
 
 const UnitPage = () => {
     return(
@@ -65,7 +66,7 @@ const UnitPage = () => {
         <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14">
         <header className="sticky top-0 z-30 flex h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
           <h1 className="text-3xl">
-            View Units
+            Units of Property: name
           </h1>
           <div className="ml-auto flex items-center gap-2">
           
@@ -99,17 +100,17 @@ const UnitPage = () => {
          <div className="flex items-center justify-center h-50 rounded bg-gray-50 dark:bg-gray-800">
          <Card className="w-[450px]">
       <CardHeader>
-        <CardTitle className="pb-7">Unit Id</CardTitle>
+        <CardTitle >Unit Id</CardTitle>
       </CardHeader>
       <CardContent>
         <CardDescription>Unit description</CardDescription>
         <CardDescription>No.of bedrooms</CardDescription>
         <CardDescription>No. of bathrooms</CardDescription>
-        <CardDescription>Unit Price</CardDescription>
+        
       </CardContent>
       <CardFooter className="flex justify-between">
       
-      <AlertDialogDemo/>
+      <RequestAlertDialog/>
       </CardFooter>
     </Card>
          </div>
@@ -122,11 +123,11 @@ const UnitPage = () => {
       <CardDescription>Unit description</CardDescription>
         <CardDescription>No.of bedrooms</CardDescription>
         <CardDescription>No. of bathrooms</CardDescription>
-        <CardDescription>Unit Price</CardDescription>
+
       </CardContent>
       <CardFooter className="flex justify-between">
      
-      <AlertDialogDemo/>
+      <RequestAlertDialog/>
       </CardFooter>
     </Card>    
          </div>
@@ -139,11 +140,11 @@ const UnitPage = () => {
       <CardDescription>Unit description</CardDescription>
         <CardDescription>No.of bedrooms</CardDescription>
         <CardDescription>No. of bathrooms</CardDescription>
-        <CardDescription>Unit Price</CardDescription>
+
       </CardContent>
       <CardFooter className="flex justify-between">
       
-      <AlertDialogDemo/>
+      <RequestAlertDialog/>
       </CardFooter>
     </Card>
          </div>
