@@ -1,9 +1,9 @@
 import * as React from "react"
-import { Button } from "../ui/button"
-import image from '../../assets/image.png'
+import { Button } from "../components/ui/button"
+import image from '../assets/image.png'
 import { Link } from 'react-router-dom'
 
-export const Hero= () =>{
+export const Hero = () =>{
     return(
         <div className="grid grid-cols-2 gap-4 ">
             <div className="text-center px-8 ">

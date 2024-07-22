@@ -1,17 +1,12 @@
-import SignUp_Form from "../components/auth/signup_form";
-import * as React from "react"
-import { Link } from 'react-router-dom'
-
-import {
-  Card,
-  CardContent,
+import SignUp_Form from '../../components/auth/SignupForm'
+import { Card,CardContent,
   CardDescription,
   CardHeader,
-  CardTitle,
-} from "../components/ui/card"
+  CardTitle, } from '../../components/ui/card'
+import { Link } from 'react-router-dom'
 
 
-export default function Signup() {
+export default function SignupPage() {
   return (
     <div className=" flex justify-center items-center h-screen">
       <Card className="w-[500px]">

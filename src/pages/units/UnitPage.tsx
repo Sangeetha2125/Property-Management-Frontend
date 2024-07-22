@@ -9,17 +9,15 @@ import {
     Tooltip,
     TooltipContent,
     TooltipTrigger,
-  } from "../components/ui/tooltip"
+  } from "../../components/ui/tooltip"
 import { TooltipProvider } from "@radix-ui/react-tooltip"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu"
-import { Button } from "../components/ui/button"
+import { Button } from "../../components/ui/button"
 
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "../components/ui/card"
-import { AlertDialogDemo } from "../components/tenant_listings/request_alert"
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "../../components/ui/card"
+import { AlertDialogDemo } from "../../components/units/RequestAlertDialog"
 
-import home from "../assets/home.jpg"
-
-export default function Units(){
+const UnitPage = () => {
     return(
       <div className="flex min-h-screen w-full flex-col bg-muted/40">
       <aside className="fixed inset-y-0 left-0 z-10 hidden w-14 flex-col border-r bg-background sm:flex">
@@ -102,7 +100,6 @@ export default function Units(){
          <Card className="w-[450px]">
       <CardHeader>
         <CardTitle className="pb-7">Unit Id</CardTitle>
-        <img src={home} className="object-scale-down h-50 w-50" />
       </CardHeader>
       <CardContent>
         <CardDescription>Unit description</CardDescription>
@@ -151,9 +148,9 @@ export default function Units(){
     </Card>
          </div>
       </div>
+  </div>
 </div>
-
-
-    </div>
     )
 }
+
+export default UnitPage

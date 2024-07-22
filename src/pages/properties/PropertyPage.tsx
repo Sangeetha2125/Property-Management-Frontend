@@ -9,7 +9,7 @@ import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from "../components/ui/tooltip";
+} from "../../components/ui/tooltip";
 import { TooltipProvider } from "@radix-ui/react-tooltip";
 import {
   DropdownMenu,
@@ -17,8 +17,8 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@radix-ui/react-dropdown-menu";
-import { Button } from "../components/ui/button";
-import { AddProperty } from "../components/owner_dashboard/AddProperty";
+import { Button } from "../../components/ui/button";
+import { AddProperty } from "../../components/properties/AddPropertyDialog";
 import {
   Card,
   CardContent,
@@ -26,12 +26,10 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "../components/ui/card";
-import { AddUnit } from "../components/owner_dashboard/AddUnit";
+} from "../../components/ui/card";
+import { AddUnit } from "../../components/units/AddUnitDialog";
 
-import home from "../assets/home.jpg";
-
-export default function Owner() {
+const PropertyPage = () => {
   return (
     <div className="flex min-h-screen w-full flex-col bg-muted/40">
       <aside className="fixed inset-y-0 left-0 z-10 hidden w-14 flex-col border-r bg-background sm:flex">
@@ -112,7 +110,6 @@ export default function Owner() {
                 <CardTitle className="pb-7 text-zinc-600">
                   Property Name
                 </CardTitle>
-                <img src={home} className="object-scale-down h-50 w-50" />
               </CardHeader>
               <CardContent>
                 <CardDescription>Property description</CardDescription>
@@ -138,6 +135,7 @@ export default function Owner() {
               </CardContent>
               <CardFooter className="flex justify-between">
                 <AddUnit />
+                {/*   <Button className="text right " variant="default">Request</Button> */}
               </CardFooter>
             </Card>
           </div>
@@ -162,3 +160,5 @@ export default function Owner() {
     </div>
   );
 }
+
+export default PropertyPage;
