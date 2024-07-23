@@ -50,11 +50,8 @@ export default function UnitType() {
         </header>
       </div>
 
-      <div className=" flex justify-center items-center flex-col p-4 sm:ml-14">
-        <br />
+      <div className=" flex justify-center items-center flex-col p-4 sm:ml-8">
         <div className="w-11/12">
-          <h1 className="text-3xl">Unit name</h1>
-          <br />
           <h4 className="text-xl">Description</h4>
           <br />
           <p>
