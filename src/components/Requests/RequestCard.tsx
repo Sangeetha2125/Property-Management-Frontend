@@ -20,7 +20,10 @@ export default function RequestsCard() {
         <CardHeader>
           <div className="justify-left grid grid-cols-8 gap-4 mb-4 ">
             <CardTitle className="col-span-7">Unit Name</CardTitle>
-            <Badge className="col-start-8">Approved</Badge>
+            <Badge className="px-4 col-start-8 text-white bg-orange-500" variant="outline">Declined</Badge> 
+            {/* <Badge className="col-start-8 text-white bg-green-500" variant="outline">Approved</Badge> 
+            <Badge className="px-4 col-start-8 text-white bg-red-500 self-autor" variant="outline">Rejected</Badge>  
+            <Badge className="px-4 col-start-8 text-white bg-gray-500 self-autor" variant="outline">Pending</Badge>   */}
           </div>
         </CardHeader>
         <CardContent>
@@ -31,16 +34,14 @@ export default function RequestsCard() {
           <p className="pt-5">Address</p>
           <p>Owner Name</p>
           <p>Owner Contact Number</p>
-          <CardDescription className=" font-bold text-8l tracking-loose">
-            Status :{" "}
-          </CardDescription>
+          
         </CardContent>
         <CardFooter>
           <div className="grid grid-cols-8 gap-4 mb-4 w-full ">
             <Button className=" px-5 col-span-4 text-red-500 border-red-500 hover:text-white hover:bg-red-500" variant="outline">Reject</Button>
-            <Button className="px-5 col-span-4" >Accept</Button>
+            <Button className="px-5 col-span-4 text-green-500 border-green-500 hover:text-white hover:bg-green-500" variant="outline">Accept</Button>
           </div>
-          {/* <CancelAlert /> */}
+          {/* /* <CancelAlert /> */ }
         </CardFooter>
       </Card>
     </div>
