@@ -20,6 +20,7 @@ import {
 } from "../../components/ui/card";
 import { Badge } from "../../components/ui/badge";
 import SideNavbar from "../../components/shared/SideNavbar";
+import RequestsCard from "../../components/Requests/RequestCard";
 
 const RequestPage = () => {
   return (
@@ -58,122 +59,9 @@ const RequestPage = () => {
 
       <div className="p-4 sm:ml-14">
         <div className="grid grid-cols-1 gap-4 mb-4">
-          <div className="flex items-center justify-center h-50 rounded bg-gray-50 dark:bg-gray-800">
-            <Card className="w-[800px]">
-              <div className="grid grid-cols-3 gap-4 mb-4"></div>
-
-              <CardHeader>
-              <div className="justify-left grid grid-cols-8 gap-4 mb-4 ">
-                <CardTitle className="col-span-7">Unit Name</CardTitle>
-                <Badge className="col-start-8">Approved</Badge>
-                </div>
-              </CardHeader>
-              <CardContent>
-                <CardDescription className="font-bold text-xl text-zinc-700 tracking-loose">
-                  Property Name
-                </CardDescription>
-
-                <p className="pt-5">Address</p>
-                <p>Owner Name</p>
-                <p>Owner Contact Number</p>
-                <CardDescription className=" font-bold text-8l tracking-loose">
-                  Status :{" "}
-                </CardDescription>
-              </CardContent>
-              <CardFooter >
-                <div className="grid grid-cols-8 gap-4 mb-4 w-full ">
-                  <Button className=" px-5 col-span-4">
-                    Reject
-                  </Button>
-                  <Button className="px-5 col-span-4">
-                    Accept
-                  </Button>
-                </div>
-
-                {/* <CancelAlert/> */}
-              </CardFooter>
-            </Card>
-          </div>
-          <div className="flex items-center justify-center h-50 rounded bg-gray-50 dark:bg-gray-800">
-            <Card className="w-[800px]">
-              <div className="grid grid-cols-3 gap-4 mb-4">
-                
-              </div>
-
-              <CardHeader>
-                <div className="justify-left grid grid-cols-8 gap-4 mb-4 ">
-                  <Badge className="col-start-8">Approved</Badge>
-                </div>
-
-                <CardTitle>Unit Name</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <CardDescription className="font-bold text-xl text-zinc-700 tracking-loose">
-                  Property Name
-                </CardDescription>
-
-                <p className="pt-5">Address</p>
-                <p>Owner Name</p>
-                <p>Owner Contact Number</p>
-                <CardDescription className=" font-bold text-8l tracking-loose">
-                  Status :{" "}
-                </CardDescription>
-              </CardContent>
-              <CardFooter className=" flex justify-end items-center content-center">
-                <div className="grid grid-cols-4 gap-4 mb-4 ">
-                  {" "}
-                  <Button className=" px-5 col-start-3 col-end-3">
-                    {" "}
-                    Reject{" "}
-                  </Button>
-                  <Button className="px-5 col-start-4 col-end-4">
-                    {" "}
-                    Accept{" "}
-                  </Button>
-                </div>
-                {/* <CancelAlert/>
-                 */}
-              </CardFooter>
-            </Card>
-          </div>
-          <div className="flex items-center justify-center h-50 rounded bg-gray-50 dark:bg-gray-800">
-            <Card className="w-[800px]">
-              <div className="grid grid-cols-3 gap-4 mb-4"></div>
-
-              <CardHeader>
-              <div className="justify-left grid grid-cols-8 gap-4 mb-4 ">
-                  <Badge className="col-start-8">Approved</Badge>
-                </div>
-                <CardTitle>Unit Name</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <CardDescription className="font-bold text-xl text-zinc-700 tracking-loose">
-                  Property Name
-                </CardDescription>
-
-                <p className="pt-5">Address</p>
-                <p>Owner Name</p>
-                <p>Owner Contact Number</p>
-                <CardDescription className=" font-bold text-8l tracking-loose">
-                  Status :{" "}
-                </CardDescription>
-              </CardContent>
-              <CardFooter className=" flex justify-end items-center content-center">
-                <div className="grid grid-cols-4 gap-4 mb-4 ">
-                  {" "}
-                  <Button className=" px-5 col-start-3 col-end-3">
-                    {" "}
-                    Reject{" "}
-                  </Button>
-                  <Button className="px-5 col-start-4 col-end-4">
-                    {" "}
-                    Accept{" "}
-                  </Button>
-                </div>
-                {/* <CancelAlert/> */}
-              </CardFooter>
-            </Card>
-          </div>
+          <RequestsCard/>
+          <RequestsCard/>
+          <RequestsCard/>
         </div>
       </div>
     </div>
