@@ -96,7 +96,9 @@ const RequestPage = () => {
           </div>
           <div className="flex items-center justify-center h-50 rounded bg-gray-50 dark:bg-gray-800">
             <Card className="w-[800px]">
-              <div className="grid grid-cols-3 gap-4 mb-4"></div>
+              <div className="grid grid-cols-3 gap-4 mb-4">
+                
+              </div>
 
               <CardHeader>
                 <div className="justify-left grid grid-cols-8 gap-4 mb-4 ">
