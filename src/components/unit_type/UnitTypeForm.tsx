@@ -18,11 +18,11 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "../ui/dropdown-menu";
+} from "../ui/dropdown-menu"; 
 
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
-import { useState } from "react";
+import { useState } from "react"; 
 
 const availTypeSchema = z.enum(["RENT", "LEASE", "BUY"]);
 

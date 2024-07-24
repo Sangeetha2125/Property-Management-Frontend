@@ -5,7 +5,8 @@ import {
   CardContent,
   CardDescription,
   CardFooter,
-  CardHeader,
+  CardHeader,   
+  
   CardTitle,
 } from "../ui/card";
 import { PropertySchema } from "../../types/schema";
