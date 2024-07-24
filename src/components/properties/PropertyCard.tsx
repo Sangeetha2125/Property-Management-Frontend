@@ -26,9 +26,9 @@ const PropertyCard = ({ property }: PropertyCardProps) => {
         </CardHeader>
         <CardContent>
 
-          <div className="grid grid-cols-6">
+          <div className="grid grid-cols-12">
             <MapPin />
-            <div className="col-span-5">
+            <div className="col-span-11">
               <CardDescription className="col-span-5">
                 {property.address}, {property.state}, {property.city} <br/>{property.pincode}
               </CardDescription>
