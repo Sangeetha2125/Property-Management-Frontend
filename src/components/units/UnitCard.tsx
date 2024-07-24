@@ -28,9 +28,9 @@ const UnitCard = ({ unit }: UnitCardProps) => {
           <CardDescription>{unit.description}</CardDescription>
           <br/>
           <div className="grid grid-cols-8">
-          <CardDescription className="grid grid-cols-2 col-span-2"><Building2/>{unit.squareFootage}sqft</CardDescription>
-          <CardDescription className="grid grid-cols-2 col-start-4 col-span-2"><BedDouble/>{unit.bedrooms}</CardDescription>
-          <CardDescription className="grid grid-cols-2 col-start-7 col-span-2"><Bath/>{unit.bathrooms}</CardDescription>
+          <CardDescription className="grid grid-cols-3 col-span-2 gap-1"><Building2/>{unit.squareFootage}sqft</CardDescription>
+          <CardDescription className="grid grid-cols-3 col-start-4 col-span-2 gap-1"><BedDouble/>{unit.bedrooms}</CardDescription>
+          <CardDescription className="grid grid-cols-3 col-start-7 col-span-2 gap-1"><Bath/>{unit.bathrooms}</CardDescription>
           </div>
         </CardContent>
         <CardFooter className="flex justify-between">

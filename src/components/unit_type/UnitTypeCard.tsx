@@ -17,9 +17,9 @@ const UnitTypeCard = () => {
         <CardTitle >Availability Type</CardTitle>
       </CardHeader>
       <CardContent className='grid grid-cols-8'>
-        <CardDescription className="grid grid-cols-2 col-span-2"><IndianRupee/>Amount</CardDescription>
-        <CardDescription className="grid grid-cols-2 col-start-4 col-span-2"><KeyRound/>Deposit</CardDescription>
-        <CardDescription className="grid grid-cols-2 col-start-7 col-span-2"><CalendarFold/>Monthly Due</CardDescription>
+        <CardDescription className="grid grid-cols-4 col-span-2"><IndianRupee/>Amount</CardDescription>
+        <CardDescription className="grid grid-cols-4 col-start-4 col-span-2"><KeyRound/>Deposit</CardDescription>
+        <CardDescription className="grid grid-cols-4 col-start-7 col-span-2"><CalendarFold/>Monthly Due</CardDescription>
       </CardContent>
         </div>
         <div className='flex justify-center items-center col-span-2'>

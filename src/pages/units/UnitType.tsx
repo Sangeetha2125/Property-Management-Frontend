@@ -58,9 +58,9 @@ export default function UnitType() {
           
           <h4 className="text-xl">Description</h4>
           <div className=" grid grid-cols-12 text-gray-500 w-1/2 text-sm" >
-          <div className="grid grid-cols-2 col-span-2"><Building2 color="#a3a3a3"/>sqft</div>
-          <div className="grid grid-cols-2 col-start-4 col-span-2"><BedDouble color="#a3a3a3"/>bed</div>
-          <div className="grid grid-cols-2 col-start-7 col-span-2"><Bath color="#a3a3a3"/>bath</div>
+          <div className="grid grid-cols-3 gap-1 col-span-2"><Building2 color="#a3a3a3"/>sqft</div>
+          <div className="grid grid-cols-3 gap-1 col-start-4 col-span-2"><BedDouble color="#a3a3a3"/>bed</div>
+          <div className="grid grid-cols-3 gap-1 col-start-7 col-span-2"><Bath color="#a3a3a3"/>bath</div>
           </div>
           <br/>
           <p>
