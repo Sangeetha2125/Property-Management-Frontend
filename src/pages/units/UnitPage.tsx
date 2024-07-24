@@ -77,7 +77,7 @@ const UnitPage = () => {
           </h1> */}
         <div className="grid grid-cols-3 gap-4 mb-4">
           {units.map((unit: UnitSchema) => (
-            <UnitCard key={unit.id} unit={unit} />
+            <UnitCard key={unit.id} unit={unit} role={role}/>
           ))}
         </div>
       </div>

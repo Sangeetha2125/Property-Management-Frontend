@@ -15,7 +15,7 @@ import {
     return (
       <AlertDialog>
         <AlertDialogTrigger asChild>
-          <Button className=" text-red-500 border-red-500 hover:text-white hover:bg-red-500" variant="outline">Delete</Button>
+          <Button className=" text-red-500 border-red-500 hover:text-white hover:bg-red-500 px-8" variant="outline">Delete</Button>
         </AlertDialogTrigger>
         <AlertDialogContent>
           <AlertDialogHeader>

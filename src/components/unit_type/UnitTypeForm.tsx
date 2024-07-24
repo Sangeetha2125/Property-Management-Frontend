@@ -36,14 +36,20 @@ const formSchema = z.object({
   noOfMonths: z.number().min(1, "Number of months should be greater than 0"),
 });
 
-export default function UnitTypeForm() {
+interface UnitTypeFormProps{
+  addUnitAvailaibility:Function
+}
+
+export default function UnitTypeForm({addUnitAvailaibility}:UnitTypeFormProps) {
+  const token = localStorage.getItem("token")
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       amount: 0,
       securityDeposit: 0,
       monthlyDue: 0,
-      noOfMonths: 0
+      noOfMonths: 0,
     },
   });
 
@@ -52,6 +58,7 @@ export default function UnitTypeForm() {
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
+    addUnitAvailaibility(values,token);
   }
 
   return (
@@ -110,7 +117,9 @@ export default function UnitTypeForm() {
             <FormItem>
               <FormLabel>Security Deposit (Optional)</FormLabel>
               <FormControl>
-                <Input placeholder="Optional" {...field} />
+                <Input placeholder="Optional" type="number" onChange={(e) =>
+                  field.onChange(parseInt(e.target.value))
+                } />
               </FormControl>
               <FormMessage />
             </FormItem>
