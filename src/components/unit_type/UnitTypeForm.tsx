@@ -6,6 +6,7 @@ import { z } from "zod";
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -31,7 +32,8 @@ const formSchema = z.object({
   securityDeposit: z
     .number()
     .min(0, "Security deposit must be a positive number"),
-  monthlyDue: z.number().min(1, "Monthly due date is required"),
+  monthlyDue: z.number().min(1, "Monthly due date is required (1 to 31)"),
+  noOfMonths: z.number().min(1, "Number of months should be greater than 0"),
 });
 
 export default function UnitTypeForm() {
@@ -41,10 +43,12 @@ export default function UnitTypeForm() {
       amount: 0,
       securityDeposit: 0,
       monthlyDue: 0,
+      noOfMonths: 0
     },
   });
 
-  const [type, setType] = useState(false);
+  const [isRentType, setIsRentType] = useState(false);
+  const [isLeaseType, setIsLeaseType] = useState(false)
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
@@ -64,13 +68,13 @@ export default function UnitTypeForm() {
                     <Button variant="outline">{field.value || "Unit Availability Type "}</Button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent>
-                    <DropdownMenuItem onSelect={() => {field.onChange("RENT"); setType(true);}}>
+                    <DropdownMenuItem onSelect={() => {field.onChange("RENT"); setIsRentType(true); setIsLeaseType(false)}}>
                       Rent
                     </DropdownMenuItem>
-                    <DropdownMenuItem onSelect={() => {field.onChange("LEASE"); setType(false);}}>
+                    <DropdownMenuItem onSelect={() => {field.onChange("LEASE"); setIsRentType(false); setIsLeaseType(true)}}>
                       Lease
                     </DropdownMenuItem>
-                    <DropdownMenuItem onSelect={() => {field.onChange("BUY"); setType(false);}}>
+                    <DropdownMenuItem onSelect={() => {field.onChange("BUY"); setIsRentType(false); setIsLeaseType(false)}}>
                       Buy
                     </DropdownMenuItem>
                   </DropdownMenuContent>
@@ -97,7 +101,7 @@ export default function UnitTypeForm() {
           )}
         />
 
-        {type && (
+        {isRentType && (
           <>
         <FormField
           control={form.control}
@@ -118,9 +122,9 @@ export default function UnitTypeForm() {
           name="monthlyDue"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Monthly Due Date</FormLabel>
+              <FormLabel>Monthly Due</FormLabel>
               <FormControl>
-                <Input placeholder="1" type="number" onChange={(e) =>
+                <Input placeholder="(1 to 31)" type="number" onChange={(e) =>
                   field.onChange(parseInt(e.target.value))
                 }/>
               </FormControl>
@@ -131,7 +135,24 @@ export default function UnitTypeForm() {
         </>
         )}
 
-        <div className="flex justify-center">
+        {(isLeaseType || isRentType) && <FormField
+          control={form.control}
+          name="noOfMonths"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>No of Months</FormLabel>
+              <FormControl>
+                <Input placeholder="0" type="number" onChange={(e) =>
+                  field.onChange(parseInt(e.target.value))
+                }/>
+              </FormControl>
+              <FormDescription>Minimum number of months to rent or lease unit</FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />}
+
+        <div className="flex justify-center pt-4">
           <Button type="submit" className="w-full">
             Add Unit Availability
           </Button>
