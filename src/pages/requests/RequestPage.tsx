@@ -10,15 +10,6 @@ import {
 } from "@radix-ui/react-dropdown-menu";
 import { Button } from "../../components/ui/button";
 
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "../../components/ui/card";
-import { Badge } from "../../components/ui/badge";
 import SideNavbar from "../../components/shared/SideNavbar";
 import RequestsCard from "../../components/Requests/RequestCard";
 

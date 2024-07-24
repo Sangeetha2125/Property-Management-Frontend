@@ -22,7 +22,7 @@ const PropertyCard = ({ property }: PropertyCardProps) => {
       <Card className="w-[450px]">
         <CardHeader className="grid grid-cols-8">
           <CardTitle className="col-span-6">{property.name}</CardTitle>
-          <Badge variant={"outline"} className="col-span-2 text">{property.type}</Badge>
+          <Badge variant={"outline"} className="col-span-2 ">{property.type}</Badge>
         </CardHeader>
         <CardContent>
 

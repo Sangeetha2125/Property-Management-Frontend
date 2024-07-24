@@ -1,3 +1,4 @@
+import { CalendarFold, IndianRupee, KeyRound } from "lucide-react";
 import {
   Card,
   CardContent,
@@ -15,10 +16,10 @@ const UnitTypeCard = () => {
         <CardHeader>
         <CardTitle >Availability Type</CardTitle>
       </CardHeader>
-      <CardContent className='grid grid-cols-3 gap-5'>
-        <CardDescription>Unit Price: </CardDescription>
-        <CardDescription>Security Deposit: </CardDescription>
-        <CardDescription>Monthly Due Date: </CardDescription>
+      <CardContent className='grid grid-cols-8'>
+        <CardDescription className="grid grid-cols-2 col-span-2"><IndianRupee/>Amount</CardDescription>
+        <CardDescription className="grid grid-cols-2 col-start-4 col-span-2"><KeyRound/>Deposit</CardDescription>
+        <CardDescription className="grid grid-cols-2 col-start-7 col-span-2"><CalendarFold/>Monthly Due</CardDescription>
       </CardContent>
         </div>
         <div className='flex justify-center items-center col-span-2'>

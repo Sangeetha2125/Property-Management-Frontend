@@ -10,6 +10,7 @@ import {
 } from "../ui/card";
 import { UnitSchema } from "../../types/schema";
 import { Bath, BedDouble, Building2 } from "lucide-react";
+import { Badge } from "../ui/badge";
 
 interface UnitCardProps {
   unit: UnitSchema
@@ -19,8 +20,9 @@ const UnitCard = ({ unit }: UnitCardProps) => {
   return (
     <div className="flex items-center justify-center h-50 rounded bg-gray-50 dark:bg-gray-800">
       <Card className="w-[450px]">
-        <CardHeader>
-          <CardTitle>{unit.name}</CardTitle>
+        <CardHeader className="grid grid-cols-8">
+          <CardTitle  className="col-span-6">{unit.name}</CardTitle>
+          <Badge variant={"outline"} className="col-span-2 ">Availability</Badge>
         </CardHeader>
         <CardContent>
           <CardDescription>{unit.description}</CardDescription>
