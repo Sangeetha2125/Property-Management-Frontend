@@ -1,5 +1,8 @@
 import { Link } from "react-router-dom";
 import {
+  Bath,
+  BedDouble,
+  Building2,
   CircleUserRound,
 } from "lucide-react";
 
@@ -52,8 +55,14 @@ export default function UnitType() {
 
       <div className=" flex justify-center items-center flex-col p-4 sm:ml-8">
         <div className="w-11/12">
+          
           <h4 className="text-xl">Description</h4>
-          <br />
+          <div className=" grid grid-cols-12 text-gray-500 w-1/2 text-sm" >
+          <div className="grid grid-cols-2 col-span-2"><Building2 color="#a3a3a3"/>sqft</div>
+          <div className="grid grid-cols-2 col-start-4 col-span-2"><BedDouble color="#a3a3a3"/>bed</div>
+          <div className="grid grid-cols-2 col-start-7 col-span-2"><Bath color="#a3a3a3"/>bath</div>
+          </div>
+          <br/>
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
@@ -63,14 +72,6 @@ export default function UnitType() {
             pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
             culpa qui officia deserunt mollit anim id est laborum.{" "}
           </p>
-          <br />
-          <div className=" text-zinc-800">
-            No. of bedrooms:
-            <br />
-            No. of bathrooms:
-            <br />
-            Square Footage:
-          </div>
         </div>
         <br />
         <br />

@@ -9,6 +9,7 @@ import {
   CardTitle,
 } from "../ui/card";
 import { UnitSchema } from "../../types/schema";
+import { Bath, BedDouble, Building2 } from "lucide-react";
 
 interface UnitCardProps {
   unit: UnitSchema
@@ -23,9 +24,12 @@ const UnitCard = ({ unit }: UnitCardProps) => {
         </CardHeader>
         <CardContent>
           <CardDescription>{unit.description}</CardDescription>
-          <CardDescription>Square Footage: {unit.squareFootage}</CardDescription>
-          <CardDescription>No. of Bedrooms: {unit.bedrooms}</CardDescription>
-          <CardDescription>No. of Bathrooms: {unit.bathrooms}</CardDescription>
+          <br/>
+          <div className="grid grid-cols-8">
+          <CardDescription className="grid grid-cols-2 col-span-2"><Building2/>{unit.squareFootage}sqft</CardDescription>
+          <CardDescription className="grid grid-cols-2 col-start-4 col-span-2"><BedDouble/>{unit.bedrooms}</CardDescription>
+          <CardDescription className="grid grid-cols-2 col-start-7 col-span-2"><Bath/>{unit.bathrooms}</CardDescription>
+          </div>
         </CardContent>
         <CardFooter className="flex justify-between">
           <Link to={"/properties/1/units/1"}>
