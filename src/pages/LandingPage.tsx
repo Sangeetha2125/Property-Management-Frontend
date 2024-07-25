@@ -1,6 +1,7 @@
 import { Button } from "../components/ui/button"
 import image from '../assets/image.png'
 import { Link } from 'react-router-dom'
+import { RequestAlertDialog } from "../components/unit_type/RequestAlertDialog"
 
 export const Hero = () => {
     return (

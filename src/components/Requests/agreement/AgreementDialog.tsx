@@ -8,7 +8,6 @@ import {
   } from "../../ui/dialog";
   import { Button } from "../../ui/button";
 import AgreementForm from "./AgreementForm";
-
   
   export default function AgreementDialog() {
     return (

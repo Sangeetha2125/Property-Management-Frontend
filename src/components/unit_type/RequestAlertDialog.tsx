@@ -1,3 +1,16 @@
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "../ui/form";
+
 import {
   Dialog,
   DialogContent,
@@ -10,58 +23,81 @@ import {
 } from "../ui/dialog";
 import { Button } from "../ui/button";
 import { toast } from "sonner";
-import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import axios from "axios";
 import { SetStateAction, useState } from "react";
 
 interface RequestAlertDialogProps {
-  refresh: boolean,
-  setRefresh: Function,
-  availabilityId: number
+  refresh: boolean;
+  setRefresh: Function;
+  availabilityId: number;
 }
+const formSchema = z.object({
+  message: z
+    .string()
+    .min(1, "Enter request message.")
+    .max(100, "Character limit exceeded"),
+});
 
-export function RequestAlertDialog({ refresh, setRefresh, availabilityId }: RequestAlertDialogProps) {
-  const token = localStorage.getItem("token")
-  const [message, setMessage] = useState('');
-  const [isOpen, setIsOpen] = useState<boolean>(false)
-  const requestUnit = () => {
-    axios({
-      method: 'post',
-      url: `http://localhost:8080/api/requests/create/${availabilityId}`,
-      data: message,
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`
-      }
-    })
-      .then((res) => {
-        if (res.status === 201) {
-          toast.success(res.data)
-          setRefresh(!refresh)
-        }
-      })
-      .catch((err) => {
-        if (err.message === "Network Error") {
-          toast.error("Please try again later")
-        }
-        else if (err.response.status === 400) {
-          toast.error(err.response.data)
-        }
-      })
-      .finally(() => {
-        setIsOpen(false)
-      })
+export function RequestAlertDialog({refresh,setRefresh,availabilityId}:RequestAlertDialogProps) {
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      message: "",
+    },
+  });
+  function onSubmit(values: z.infer<typeof formSchema>) {
+    console.log(values);
   }
-  const handleChange = (event: { target: { value: SetStateAction<string>; }; }) => {
+  const token = localStorage.getItem("token");
+  const [message, setMessage] = useState("");
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+   const requestUnit = () => {
+     axios({
+       method: 'post',
+       url: `http://localhost:8080/api/requests/create/${availabilityId}`,
+       data: message,
+       headers: {
+         "Content-Type": "application/json",
+         "Authorization": `Bearer ${token}`
+       }
+     })
+       .then((res) => {
+         if (res.status === 201) {
+           toast.success(res.data)
+           setRefresh(!refresh)
+         }
+       })
+       .catch((err) => {
+         if (err.message === "Network Error") {
+           toast.error("Please try again later")
+         }
+         else if (err.response.status === 400) {
+           toast.error(err.response.data)
+         }
+       })
+       .finally(() => {
+         setIsOpen(false)
+       })
+   }
+  const handleChange = (event: {
+    target: { value: SetStateAction<string> };
+  }) => {
     setMessage(event.target.value);
-    console.log(message)
+    console.log(message);
   };
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline" size="sm" className="w-full px-5 col-span-4 text-blue-500 border-blue-500 hover:text-white hover:bg-blue-500" onClick={() => setIsOpen(true)}>Request</Button>
+        <Button
+          variant="outline"
+          size="sm"
+          className="w-full px-5 col-span-4 text-blue-500 border-blue-500 hover:text-white hover:bg-blue-500"
+          onClick={() => setIsOpen(true)}
+        >
+          Request
+        </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
@@ -72,30 +108,34 @@ export function RequestAlertDialog({ refresh, setRefresh, availabilityId }: Requ
         </DialogHeader>
         <div className="flex items-center space-x-2">
           <div className="grid flex-1 gap-2">
-            <Label htmlFor="message" className="sr-only">
-              Message
-            </Label>
-            <Input
-              required
-              id="message"
-              defaultValue=""
-              placeholder="Type your request message for the owner."
-              onChange={handleChange}
-              value={message}
-            />
+            <Form {...form}>
+              <form
+                onSubmit={form.handleSubmit(onSubmit)}
+                className="space-y-2"
+              >
+                <FormField
+                  control={form.control}
+                  name="message"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Message</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Enter request message." {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <div className="flex justify-center pt-4">
+                  <Button type="submit" className="w-full">
+                    Submit Request
+                  </Button>
+                </div>
+              </form>
+            </Form>
           </div>
         </div>
-        <DialogFooter className="sm:justify-start">
-          <DialogClose asChild>
-            <Button
-              className="w-full"
-              size="sm"
-              onSubmit={requestUnit}
-            >
-              Submit
-            </Button>
-          </DialogClose>
-        </DialogFooter>
       </DialogContent>
     </Dialog>
   );
