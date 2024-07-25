@@ -31,7 +31,9 @@ export default function AgreementDialog({ request }: AgreementDialogProps) {
       }
     })
       .then((res) => {
-        console.log(res)
+        if(res.status===200){
+          toast.success(res.data)
+        }
       })
       .catch((err) => {
         if (err.message === "Network Error") {

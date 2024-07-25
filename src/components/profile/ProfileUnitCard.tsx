@@ -30,7 +30,6 @@ const ProfileUnitCard = () => {
       }
     })
       .then((res) => {
-        console.log(res.data)
         setCurrentAgreement(res.data)
       })
       .catch((err) => {
