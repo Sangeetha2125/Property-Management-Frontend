@@ -145,7 +145,7 @@ export default function RequestsCard({ request, role, refresh, setRefresh }: Req
           <Button className="w-full px-5 col-span-4 text-red-500 border-red-500 hover:text-white hover:bg-red-500" variant="outline" onClick={() => respondRequest("REJECTED")}>Reject</Button>
         </CardFooter>}
         <CardFooter className="flex gap-4">
-        </CardFooter>
+        </CardFooter> 
       </Card>
     </div>
   );
