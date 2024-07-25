@@ -11,6 +11,8 @@ import PropertyPage from "./pages/properties/PropertyPage";
 import UnitType from "./pages/units/UnitType";
 import { Toaster } from "sonner";
 import RequestPage from "./pages/requests/RequestPage";
+import ProfilePage from "./pages/properties/Profile";
+import OwnerDashboard from "./pages/owner dashboard/OwnerDashboard";
 import AgreementPage from "./pages/agreements/AgreementPage";
 export default function App() {
 
@@ -28,6 +30,8 @@ export default function App() {
           <Route path="/properties/:propertyId/units/:unitId" element={<UnitType />} />
           <Route path="/requests" element={<RequestPage />} />
           <Route path='/agreements' element={<AgreementPage/>}/>
+          <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/dashboard" element={<OwnerDashboard/>} />
         </Routes>
       </BrowserRouter>
     </div>

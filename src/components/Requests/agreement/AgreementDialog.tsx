@@ -8,7 +8,6 @@ import {
   } from "../../ui/dialog";
   import { Button } from "../../ui/button";
 
-import AgreementForm from "./AgreementForm";
   
   export default function AgreementDialog() {
     return (
@@ -23,7 +22,7 @@ import AgreementForm from "./AgreementForm";
                 The owner has accepted your request. Enter details below to create agreement.
             </DialogDescription>
           </DialogHeader>
-          <AgreementForm/>
+          {/* <AgreementForm/> */}
         </DialogContent>
       </Dialog>
     );

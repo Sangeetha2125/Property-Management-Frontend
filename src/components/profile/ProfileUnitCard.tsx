@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+import { Button } from "../ui/button";
 import {
   Card,
   CardContent,
@@ -6,19 +8,16 @@ import {
   CardHeader,
   CardTitle,
 } from "../ui/card";
+import { UnitSchema } from "../../types/schema";
+import { Bath, BedDouble, Building2, CalendarFold, IndianRupee, KeyRound, User } from "lucide-react";
 import { Badge } from "../ui/badge";
-import {
-  CalendarFold,
-  IndianRupee,
-  KeyRound,
-  MapPin,
-  Phone,
-  User,
-} from "lucide-react";
+import { MapPin, Phone } from "lucide-react";
+import { TerminateAlert } from "./TerminateAgreement";
 
-export default function AgreementCard() {
+
+const ProfileUnitCard = () => {
   return (
-    <div className=" h-50 rounded bg-gray-50 dark:bg-gray-800 w-full">
+    <div className=" items-center justify-center h-50 rounded bg-gray-50 dark:bg-gray-800">
       <Card>
         <div className="grid grid-cols-3 gap-4 mb-4"></div>
 
@@ -39,14 +38,14 @@ export default function AgreementCard() {
               <div className="ml-4">
                 <CardDescription className="leading-6 text-black-[500]">
                   Address, State, City, <br />
-                  Picode
+                  Pincode
                 </CardDescription>
               </div>
             </div>
             <div className="flex items-center bg-blue-50 p-4 rounded-lg">
               <User size="28" color="darkblue" />
               <div className="ml-4">
-                <p>Occupied by: </p>
+                <p>Owner: </p>
                 <p className="flex">
                   <Phone size={"16px"} />
                   <span>:</span>
@@ -72,8 +71,13 @@ export default function AgreementCard() {
             <CardDescription>Last paid on: </CardDescription>
           </div>
         </CardContent>
-        <CardFooter></CardFooter>
+        <CardFooter className="grid grid-cols-2">
+          Make payment- enable on 1st of month
+          <TerminateAlert/>
+        </CardFooter>
       </Card>
     </div>
   );
-}
+};
+
+export default ProfileUnitCard;

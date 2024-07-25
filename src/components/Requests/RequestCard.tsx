@@ -6,8 +6,6 @@ import {
   CardHeader,
   CardTitle,
 } from "../ui/card";
-import { Button } from "../ui/button";
-import { CancelAlert } from "./CancelAlertDialog";
 import { Badge } from "../ui/badge";
 import AgreementDialog from "./agreement/AgreementDialog";
 import { MapPin, Phone, User } from "lucide-react";
@@ -66,7 +64,7 @@ export default function RequestsCard() {
             <Button className="px-5 col-span-4 text-green-500 border-green-500 hover:text-white hover:bg-green-500" variant="outline">Accept</Button>
           </div> */}
           {/* <CancelAlert /> */}
-          <AgreementDialog />
+         <AgreementDialog/>
         </CardFooter>
       </Card>
     </div>
