@@ -18,18 +18,25 @@ import { Popover, PopoverContent, PopoverTrigger } from "@radix-ui/react-popover
 import { CalendarIcon } from "lucide-react"
 import { format } from "date-fns"
 import { Calendar } from "../../ui/calendar"
+import { UnitRequestSchema } from "@/types/schema"
 
 const formSchema = z.object({
   startDate: z.date().min(new Date()),
-  numberOfYears: z.number().min(1)
+  numberOfYears: z.number().optional()
 })
+
+interface AgreementFormProps{
+  createAgreement: Function,
+  request: UnitRequestSchema
+}
   
-export default function AgreementForm(){
+export default function AgreementForm({createAgreement, request}:AgreementFormProps){
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
   })
 
   function onSubmit(values: z.infer<typeof formSchema>) {
+    createAgreement(values, request.id)
     console.log(values);
   }
   
@@ -68,14 +75,14 @@ export default function AgreementForm(){
                 </PopoverContent>
               </Popover>
               <FormDescription>
-                Enter your move in date.
+                Enter your move in date
               </FormDescription>
               <FormMessage />
             </FormItem>
           )}
         />
 
-        <FormField
+        {request.type==="LEASE" && <FormField
           control={form.control}
           name="numberOfYears"
           render={({ field }) => (
@@ -89,7 +96,7 @@ export default function AgreementForm(){
               <FormMessage />
             </FormItem>
           )}
-        />
+        />}
 
         <div className="flex justify-center">
           <Button type='submit' className="w-full"> Submit</Button>

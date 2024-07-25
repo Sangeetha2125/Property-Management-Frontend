@@ -1,12 +1,8 @@
-import { Link } from "react-router-dom";
-import { Button } from "../ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
-  CardTitle,
 } from "../ui/card";
 import { Mail, Phone } from "lucide-react";
 
@@ -35,9 +31,6 @@ const ProfileCard = () => {
             </p>
           </div>
         </CardContent>
-        <CardFooter>
-          <p>Card Footer</p>
-        </CardFooter>
       </Card>
   );
 };

@@ -81,9 +81,9 @@ export default function RequestsCard({ request, role, refresh, setRefresh }: Req
         <div className="grid grid-cols-3 gap-4 mb-4"></div>
         <CardHeader className="pb-2">
           <div className="justify-left grid grid-cols-8 gap-4 mb-0 ">
-            <CardTitle className="col-span-7 pb-0 flex items-end">{request.unit.name} - {request.type} <Link to={`/properties/${request.unit.property.id}/units/${request.unit.id}`} className="inline">
+            <CardTitle className="col-span-7 pb-0 flex items-end">{request.unit.name} - {request.type} {request.unit.availability==="AVAILABLE" && role!=="OWNER" && <Link to={`/properties/${request.unit.property.id}/units/${request.unit.id}`} className="inline">
               <SquareArrowOutUpRight size="20" className="inline ml-3" color="darkblue" />
-            </Link></CardTitle>
+            </Link>}</CardTitle>
             {request.status === "DENIED_BY_USER" && <Badge
               className="px-4 col-start-9 text-white bg-orange-500"
               variant="outline"
@@ -136,9 +136,9 @@ export default function RequestsCard({ request, role, refresh, setRefresh }: Req
             </div>
           </CardDescription>
         </CardContent>
-        {role !== "OWNER" && request.status==="PENDING" && <CardFooter className="flex gap-4">
-          <AgreementDialog />
-          <CancelAlert cancelRequest={respondRequest} />
+        {role !== "OWNER" && <CardFooter className="flex gap-4">
+          {request.status==="ACCEPTED" && <AgreementDialog request={request}/>}
+          {request.status==="PENDING" && <CancelAlert cancelRequest={respondRequest} />}
         </CardFooter>}
         {role === "OWNER" && request.status==="PENDING" && <CardFooter className="flex gap-4">
           <Button className="w-full px-5 col-span-4 text-green-500 border-green-500 hover:text-white hover:bg-green-500" variant="outline" onClick={() => respondRequest("ACCEPTED")}>Accept</Button>

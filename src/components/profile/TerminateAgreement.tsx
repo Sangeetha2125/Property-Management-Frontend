@@ -15,7 +15,7 @@ import {
     return (
       <AlertDialog>
         <AlertDialogTrigger asChild>
-          <Button className=" text-red-500 border-red-500  hover:text-white hover:bg-red-500" variant="outline">Terminate Agreement</Button>
+          <Button className="w-full text-red-500 border-red-500  hover:text-white hover:bg-red-500" variant="outline">Terminate Agreement</Button>
         </AlertDialogTrigger>
         <AlertDialogContent>
           <AlertDialogHeader>

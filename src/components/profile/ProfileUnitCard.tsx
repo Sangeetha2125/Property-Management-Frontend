@@ -1,5 +1,3 @@
-import { Link } from "react-router-dom";
-import { Button } from "../ui/button";
 import {
   Card,
   CardContent,
@@ -8,27 +6,55 @@ import {
   CardHeader,
   CardTitle,
 } from "../ui/card";
-import { UnitSchema } from "../../types/schema";
-import { Bath, BedDouble, Building2, CalendarFold, IndianRupee, KeyRound, User } from "lucide-react";
-import { Badge } from "../ui/badge";
+import { CalendarFold, IndianRupee, KeyRound, User, Clock9 } from "lucide-react";
 import { MapPin, Phone } from "lucide-react";
 import { TerminateAlert } from "./TerminateAgreement";
+import { useEffect, useState } from "react";
+import { toast } from "sonner";
+import axios from "axios";
+import { AgreementSchema } from "@/types/schema";
 
 
 const ProfileUnitCard = () => {
+  const role = localStorage.getItem("role")
+  const token = localStorage.getItem("token")
+  const [currentAgreement, setCurrentAgreement] = useState<AgreementSchema|null>()
+
+  useEffect(() => {
+    axios({
+      method: 'get',
+      url: "http://localhost:8080/api/agreements/current",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      }
+    })
+      .then((res) => {
+        console.log(res.data)
+        setCurrentAgreement(res.data)
+      })
+      .catch((err) => {
+        if (err.message === "Network Error") {
+          toast.error("Please try again later")
+        }
+        else {
+          console.log(err)
+        }
+      }) // eslint-disable-next-line
+  }, [])
+
   return (
     <div className=" items-center justify-center h-50 rounded bg-gray-50 dark:bg-gray-800">
-      <Card>
+     {currentAgreement && role==="TENANT" && <Card>
         <div className="grid grid-cols-3 gap-4 mb-4"></div>
-
         <CardHeader className="pb-2">
           <div className="justify-left grid grid-cols-8 gap-4 mb-0 ">
-            <CardTitle className="col-span-7 pb-0">Unit Name</CardTitle>
+            <CardTitle className="col-span-7 pb-0">{currentAgreement.request.unit.name} - {currentAgreement.request.type[0]+ currentAgreement.request.type.slice(1).toLowerCase()} Agreement</CardTitle>
           </div>
-        </CardHeader> 
+        </CardHeader>
         <CardContent>
           <CardDescription className=" text-zinc-700">
-            Property Name
+            {currentAgreement.request.unit.property.name}
           </CardDescription>
           <br />
 
@@ -37,45 +63,54 @@ const ProfileUnitCard = () => {
               <MapPin size="28" color="darkblue" />
               <div className="ml-4">
                 <CardDescription className="leading-6 text-black-[500]">
-                  Address, State, City, <br />
-                  Pincode
+                  {currentAgreement.request.unit.property.address}, {currentAgreement.request.unit.property.state}, {currentAgreement.request.unit.property.city} - {currentAgreement.request.unit.property.pincode}
                 </CardDescription>
               </div>
             </div>
             <div className="flex items-center bg-blue-50 p-4 rounded-lg">
               <User size="28" color="darkblue" />
               <div className="ml-4">
-                <p>Owner: </p>
-                <p className="flex">
-                  <Phone size={"16px"} />
-                  <span>:</span>
+                <p className="pb-1">Owner: {currentAgreement.request.unit.property.owner.firstName + " " + currentAgreement.request.unit.property.owner.lastName}</p>
+                <p className="">
+                  Contact: {currentAgreement.request.unit.property.owner.phoneNumber}
                 </p>
               </div>
             </div>
           </CardDescription>
           <br />
-          <div className="grid grid-cols-6 gap-4">
-            <CardDescription className=" col-span-2 bg-gray-100 rounded-full px-4 py-1 text-gray-600 flex items-center space-x-2">
-              <IndianRupee size="24" />
-              <p className="col-span-2">Amount: 12000</p>
-              
+          <div className="flex items-center gap-4">
+            <CardDescription className="bg-gray-100 rounded-full px-2 py-1 text-gray-600">
+              <IndianRupee size="20" className="inline" />
+              <p className="inline ml-2">Amount: {currentAgreement.request.amount}</p>
+
             </CardDescription>
-            <CardDescription className="col-span-2  bg-gray-100 rounded-full px-4 py-1 text-gray-600 flex items-center space-x-2">
-              <KeyRound size="24"/>
-              <p className="col-span-2">Deposit: 12000</p>
-            </CardDescription>
-            <CardDescription className="col-span-2 bg-gray-100 rounded-full px-4 py-1 text-gray-600 flex items-center space-x-2">
-              <CalendarFold size="24" />
-              <p className="col-span-2">Due Date: 3</p>
-            </CardDescription>
-            <CardDescription>Last paid on: </CardDescription>
+            {currentAgreement.request.securityDeposit && <CardDescription className="bg-gray-100 rounded-full px-4 py-1 text-gray-600">
+              <KeyRound size="20" className="inline" />
+              <p className="inline ml-2">Deposit: {currentAgreement.request.securityDeposit}</p>
+            </CardDescription>}
+            {currentAgreement.request.monthlyDue && <CardDescription className="bg-gray-100 rounded-full px-4 py-1 text-gray-600">
+              <CalendarFold size="20" className="inline" />
+              <p className="inline ml-2">Due Date: {currentAgreement.request.monthlyDue}</p>
+            </CardDescription>}
+            {currentAgreement.request.noOfMonths && currentAgreement.request.type==="RENT" && <CardDescription className="bg-gray-100 rounded-full px-4 py-1 text-gray-600">
+              <CalendarFold size="20" className="inline" />
+              <p className="inline ml-2">Min No of months: {currentAgreement.request.noOfMonths}</p>
+            </CardDescription>}
+            {currentAgreement.numberOfYears && <CardDescription className="bg-gray-100 rounded-full px-4 py-1 text-gray-600">
+              <CalendarFold size="20" className="inline" />
+              <p className="inline ml-2">No of years: {currentAgreement.numberOfYears}</p>
+            </CardDescription>}
+            {currentAgreement.request.type==="RENT" && <CardDescription className="bg-gray-100 rounded-full px-4 py-1 text-gray-600">
+              <Clock9 size="20" className="inline" />
+              <p className="inline ml-2">Last paid on:</p>
+            </CardDescription>}
           </div>
         </CardContent>
-        <CardFooter className="grid grid-cols-2">
-          Make payment- enable on 1st of month
-          <TerminateAlert/>
+        <CardFooter className="flex">
+          {/* Make payment- enable on 1st of month */}
+          <TerminateAlert />
         </CardFooter>
-      </Card>
+      </Card>}
     </div>
   );
 };
