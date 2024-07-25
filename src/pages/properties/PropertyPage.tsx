@@ -79,7 +79,7 @@ const PropertyPage = () => {
       <div className="p-4 sm:ml-14">
         <div className="grid grid-cols-3 gap-4 mb-4">
           {properties.map((property: PropertySchema) => (
-            <PropertyCard key={property.id} property={property} />
+            <PropertyCard key={property.id} property={property} role={role}/>
           ))}
         </div>
       </div>
