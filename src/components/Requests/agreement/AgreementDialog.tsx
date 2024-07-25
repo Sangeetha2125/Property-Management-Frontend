@@ -17,7 +17,7 @@ import {
         </DialogTrigger>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
-            <DialogTitle>Create Agreement</DialogTitle>
+            <DialogTitle>Create Agreement</DialogTitle> 
             <DialogDescription>
                 The owner has accepted your request. Enter details below to create agreement.
             </DialogDescription>
