@@ -19,7 +19,7 @@ export default function AgreementCard() {
           <div className="justify-left grid grid-cols-8 gap-4 mb-0 ">
             <CardTitle className="col-span-7 pb-0">Unit Name</CardTitle>
           </div>
-        </CardHeader> 
+        </CardHeader>  
         <CardContent>
           <CardDescription className=" text-zinc-700">
             Property Name
