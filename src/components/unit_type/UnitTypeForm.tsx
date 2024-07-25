@@ -29,11 +29,9 @@ const availTypeSchema = z.enum(["RENT", "LEASE", "BUY"]);
 const formSchema = z.object({
   availabilityType: availTypeSchema,
   amount: z.number().min(1, "Amount is required"),
-  securityDeposit: z
-    .number()
-    .min(0, "Security deposit must be a positive number"),
-  monthlyDue: z.number().min(1, "Monthly due date is required (1 to 31)"),
-  noOfMonths: z.number().min(1, "Number of months should be greater than 0"),
+  securityDeposit: z.number().optional(),
+  monthlyDue: z.number().optional(),
+  noOfMonths: z.number().optional(),
 });
 
 interface UnitTypeFormProps{
@@ -46,10 +44,7 @@ export default function UnitTypeForm({addUnitAvailaibility}:UnitTypeFormProps) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      amount: 0,
-      securityDeposit: 0,
-      monthlyDue: 0,
-      noOfMonths: 0,
+      amount: 0
     },
   });
 
@@ -57,7 +52,6 @@ export default function UnitTypeForm({addUnitAvailaibility}:UnitTypeFormProps) {
   const [isLeaseType, setIsLeaseType] = useState(false)
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
     addUnitAvailaibility(values,token);
   }
 

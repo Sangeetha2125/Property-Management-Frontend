@@ -10,13 +10,17 @@ import {
 } from "../ui/dialog"
 import UnitTypeForm from "./UnitTypeForm"
 import { toast } from "sonner"
+import { useState } from "react"
 
 interface AddUnitDialogProps{
   unitId:string|undefined,
-  propertyId:string|undefined
+  propertyId:string|undefined,
+  refresh: boolean,
+  setRefresh: Function;
 }
 
-export function AddUnitTypeDialog({propertyId,unitId}:AddUnitDialogProps) {
+export function AddUnitTypeDialog({propertyId,unitId, refresh, setRefresh}:AddUnitDialogProps) {
+  const [isOpen, setIsOpen] = useState<boolean>(false)
   const addUnitAvailaibility = (values: any, token: string) => {
     axios({
       method: 'post',
@@ -28,10 +32,9 @@ export function AddUnitTypeDialog({propertyId,unitId}:AddUnitDialogProps) {
       }
     })
       .then((res) => {
-        console.log(res)
         if (res.status === 201) {
           toast.success(res.data)
-          // setRefresh(!refresh)
+          setRefresh(!refresh)
         }
       })
       .catch((err) => {
@@ -43,13 +46,14 @@ export function AddUnitTypeDialog({propertyId,unitId}:AddUnitDialogProps) {
         }
       })
       .finally(() => {
-        // setIsOpen(false)
+        setIsOpen(false)
       })
   }
+
   return (
-    <Dialog>
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <Button variant="default" size="sm" className="px-6">Add Unit Availability</Button>
+        <Button variant="default" size="sm" className="px-6" onClick={() => setIsOpen(true)}>Add Unit Availability</Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>

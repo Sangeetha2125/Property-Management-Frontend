@@ -25,6 +25,7 @@ import { UnitAvailabilitySchema, UnitSchema } from "@/types/schema";
 
 export default function UnitType() {
   const { propertyId, unitId } = useParams()
+  const [refresh, setRefresh] = useState(false)
   const token = localStorage.getItem("token")
   const role = localStorage.getItem("role")
   const [unit, setUnit] = useState<UnitSchema>()
@@ -50,7 +51,7 @@ export default function UnitType() {
           console.log(err)
         }
       }) // eslint-disable-next-line
-  }, [])
+  }, [refresh])
 
   useEffect(() => {
     axios({
@@ -72,7 +73,7 @@ export default function UnitType() {
           console.log(err)
         }
       }) // eslint-disable-next-line
-  }, [])
+  }, [refresh])
 
   return (
     <div>
@@ -81,7 +82,7 @@ export default function UnitType() {
       <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14">
         <header className="sticky top-0 z-30 flex h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
           <div className="ml-auto flex items-center gap-2">
-            {role==="OWNER" && <AddUnitTypeDialog propertyId={propertyId} unitId={unitId}/>}
+            {role==="OWNER" && <AddUnitTypeDialog propertyId={propertyId} unitId={unitId} refresh={refresh} setRefresh={setRefresh}/>}
             <DropdownMenu>
               <DropdownMenuTrigger>
                 <Button
@@ -116,9 +117,11 @@ export default function UnitType() {
             <p className="col bg-gray-100 rounded-full px-4 py-1 text-gray-600 text-md"><Bath size="15" className="inline mr-2" />{unit.bathrooms + " " + "Bathrooms"}</p>
           </div>
         </div>
-        {unitAvailabilities.map((unitAvailability:UnitAvailabilitySchema) => (
-          <UnitTypeCard key={unitAvailability.id} unitAvailability={unitAvailability}/>
-        ))}
+        <div className="w-11/12 grid grid-cols-3 gap-4 mb-4">
+          {unitAvailabilities.map((unitAvailability:UnitAvailabilitySchema) => (
+            <UnitTypeCard key={unitAvailability.id} unitAvailability={unitAvailability} propertyId={propertyId} unitId={unitId}  refresh={refresh} setRefresh={setRefresh}/>
+          ))}
+        </div>
       </div>}
     </div>
   );
