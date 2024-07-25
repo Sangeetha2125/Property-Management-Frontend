@@ -14,7 +14,7 @@ import AgreementForm from "./AgreementForm";
     return (
       <Dialog>
         <DialogTrigger asChild>
-          <Button className="w-full">Create Agreement</Button>
+          <Button variant="outline" className="w-full px-5 col-span-4 text-blue-500 border-blue-500 hover:text-white hover:bg-blue-500">Create Agreement</Button>
         </DialogTrigger>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>

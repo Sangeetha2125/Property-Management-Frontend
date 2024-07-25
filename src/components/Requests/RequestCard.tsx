@@ -10,7 +10,7 @@ import { Button } from "../ui/button";
 import { CancelAlert } from "./CancelAlertDialog";
 import { Badge } from "../ui/badge";
 import AgreementDialog from "./agreement/AgreementDialog";
-import { MapPin, Phone } from "lucide-react";
+import { MapPin, Phone, User } from "lucide-react";
 
 export default function RequestsCard() {
   return (
@@ -37,26 +37,29 @@ export default function RequestsCard() {
             Property Name
           </CardDescription>
           <br />
-
-          <CardDescription className="grid grid-cols-2">
-            <div className="grid grid-cols-12">
-              <MapPin />
-              <div className="col-span-11">
-                <CardDescription className="col-span-5">
+          <CardDescription className="grid grid-cols-2 gap-4">
+            <div className="flex items-center bg-blue-50 p-4 rounded-lg">
+              <MapPin size="28" color="darkblue" />
+              <div className="ml-4">
+                <CardDescription className="leading-6 text-black-[500]">
                   Address, State, City, <br />
                   Pincode
                 </CardDescription>
               </div>
             </div>
-            <div>
-            <p>Owner Name: </p>
-            <p className="flex"><Phone size={"16px"}/><span>:</span></p>
-{/*           
-            <p>Requested By: </p>
-            <p><Phone/>: </p> */}
+            <div className="flex items-center bg-blue-50 p-4 rounded-lg">
+              <User size="28" color="darkblue" />
+              <div className="ml-4">
+                <p>Owner: </p>
+                {/* <p>Requested by:</p> */}
+                <p className="flex">
+                  <Phone size={"16px"} />
+                  <span>:</span>
+                </p>
+              </div>
             </div>
-            </CardDescription>
-        </CardContent>
+          </CardDescription>
+          </CardContent>
         <CardFooter>
           {/* <div className="grid grid-cols-8 gap-4 mb-4 w-full ">
             <Button className=" px-5 col-span-4 text-red-500 border-red-500 hover:text-white hover:bg-red-500" variant="outline">Reject</Button>

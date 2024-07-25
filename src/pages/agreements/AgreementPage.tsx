@@ -49,7 +49,8 @@ import AgreementCard from "../../components/agreement page/AgreementCard";
         </div>
   
         <div className="p-4 sm:ml-14">
-          <div className="grid grid-cols-1 gap-4 mb-4">
+          <div className="grid grid-cols-2 gap-4 mb-4">
+            <AgreementCard/>
             <AgreementCard/>
           </div>
         </div>
