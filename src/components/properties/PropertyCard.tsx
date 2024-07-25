@@ -5,7 +5,8 @@ import {
   CardContent,
   CardDescription,
   CardFooter,
-  CardHeader,
+  CardHeader,   
+  
   CardTitle,
 } from "../ui/card";
 import { PropertySchema } from "../../types/schema";
@@ -14,34 +15,35 @@ import { Badge } from "../ui/badge";
 
 interface PropertyCardProps {
   property: PropertySchema;
+  role: string|null
 }
 
-const PropertyCard = ({ property }: PropertyCardProps) => {
+const PropertyCard = ({ property, role }: PropertyCardProps) => {
   return (
     <div className="flex items-center justify-center h-50 rounded bg-gray-50 dark:bg-gray-800">
       <Card className="w-[450px]">
-        <CardHeader className="grid grid-cols-8">
-          <CardTitle className="col-span-6">{property.name}</CardTitle>
-          <Badge variant={"outline"} className="col-span-2 ">{property.type}</Badge>
+        <CardHeader className="grid grid-cols-12 items-center">
+          <CardTitle className={`${property.type=="GATED_COMMUNITY" ? "col-span-8": `${property.type=="APARTMENT" ? "col-span-9":  "col-span-10" }` }`}>{property.name}</CardTitle>
+          <div><Badge variant={"outline"}>{property.type}</Badge></div>
         </CardHeader>
         <CardContent>
 
-          <div className="grid grid-cols-12">
-            <MapPin />
-            <div className="col-span-11">
-              <CardDescription className="col-span-5">
-                {property.address}, {property.state}, {property.city} <br/>{property.pincode}
+          <div className="flex items-center bg-blue-50 p-4 rounded-lg">
+            <MapPin size="28" color="darkblue"/>
+            <div className="ml-4">
+              <CardDescription className="leading-6 text-black-[500]">
+                {property.address}, {property.state}, {property.city} - {property.pincode}
               </CardDescription>
             </div>
           </div>
-          <br/>
-          <CardDescription>Number of units: {property.numUnits}</CardDescription>
+
         </CardContent>
-        <CardFooter className="flex justify-between">
-          <Link to={`/properties/${property.id}/units`}>
-            <Button>Manage Units</Button>
-          </Link>
-          {/*   <Button className="text right " variant="default">View Units</Button> */}
+        <CardFooter className="w-full">
+          {role==="OWNER"?<Link to={`/properties/${property.id}/units`} className="block w-full">
+            <Button variant="outline" size="sm" className="w-full px-5 col-span-4 text-blue-500 border-blue-500 hover:text-white hover:bg-blue-500">Manage Units</Button>
+          </Link>:<Link to={`/properties/${property.id}/units`} className="block w-full">
+            <Button variant="outline" size="sm" className="w-full px-5 col-span-4 text-blue-500 border-blue-500 hover:text-white hover:bg-blue-500">view Units</Button>
+          </Link>}
         </CardFooter>
       </Card>
     </div>

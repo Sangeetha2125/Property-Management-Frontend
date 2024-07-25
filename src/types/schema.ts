@@ -5,8 +5,11 @@ export type UnitSchema = {
     squareFootage: number,
     bedrooms: number,
     bathrooms: number,
-    description: string
+    description: string,
+    availability:string,
+    property: PropertySchema
 }
+
 export type PropertySchema = {
     id: number,
     name: string,
@@ -17,4 +20,14 @@ export type PropertySchema = {
     numUnits: number,
     type: string,
     owner: Object,
+}
+
+export type UnitAvailabilitySchema = {
+    id: number,
+    unit: UnitSchema,
+    availabilityType: string,
+    amount: number,
+    securityDeposit: number|null,
+    monthlyDue: number|null,
+    noOfMonths: number|null,
 }
