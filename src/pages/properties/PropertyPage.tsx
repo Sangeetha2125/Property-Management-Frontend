@@ -68,6 +68,7 @@ const PropertyPage = () => {
               <DropdownMenuContent>
                 <DropdownMenuItem>
                   <Link to={"/"}>Logout</Link>
+               
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
