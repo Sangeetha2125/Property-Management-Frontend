@@ -1,3 +1,12 @@
+export type UserSchema = {
+    id: number,
+    firstName: string,
+    lastName: string,
+    email: string,
+    phoneNumber: string,
+    role: string
+}
+
 export type UnitSchema = {
     id: number,
     name: string,
@@ -19,7 +28,7 @@ export type PropertySchema = {
     pincode: string,
     numUnits: number,
     type: string,
-    owner: Object,
+    owner: UserSchema,
 }
 
 export type UnitAvailabilitySchema = {
@@ -30,4 +39,18 @@ export type UnitAvailabilitySchema = {
     securityDeposit: number|null,
     monthlyDue: number|null,
     noOfMonths: number|null,
+}
+
+export type UnitRequestSchema = {
+    id: number,
+    unit: UnitSchema,
+    user: UserSchema,
+    type: string,
+    message: string,
+    monthlyDue: number|null,
+    amount: number,
+    securityDeposit: number|null,
+    status: string,
+    noOfMonths: number|null,
+    requestDate: string,
 }
