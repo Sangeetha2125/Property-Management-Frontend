@@ -40,9 +40,9 @@ const UnitTypeCard = ({ unitAvailability, unitId, propertyId, refresh, setRefres
             <br />
             {role == "OWNER" ? <DeleteTypeDialog unitId={unitId} propertyId={propertyId} availabilityId={unitAvailability.id} refresh={refresh} setRefresh={setRefresh} /> :<RequestAlertDialog refresh={refresh} setRefresh={setRefresh} availabilityId={unitAvailability.id}/>}
           </div>
-        </CardContent>
+        </CardContent> 
       </Card>
-    </div>
+    </div> 
   );
 };
 
