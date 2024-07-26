@@ -23,8 +23,10 @@ import {
     CardHeader,
     CardTitle,
   } from "../../components/ui/card";
+  
 import { DropdownMenuSeparator } from "../../components/ui/dropdown-menu";
 import { Separator } from "../../components/ui/separator";
+import ExpenseForm from "../../components/owner dashboard/ExpenseForm";
   
   const OwnerDashboard = () => {
     return (
@@ -33,7 +35,7 @@ import { Separator } from "../../components/ui/separator";
   
         <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14">
           <header className="sticky top-0 z-30 flex h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
-            <h1 className="text-3xl">View Requests</h1>
+            <h1 className="text-3xl">Your Dashboard</h1>
             <div className="ml-auto flex items-center gap-2">
               <DropdownMenu>
                 <DropdownMenuTrigger>
@@ -63,50 +65,47 @@ import { Separator } from "../../components/ui/separator";
           <div className="grid auto-rows-max items-start gap-4 md:gap-8 lg:col-span-2">
             <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-2 xl:grid-cols-4">
               <Card
-                className="sm:col-span-2" x-chunk="dashboard-05-chunk-0"
+                className="sm:col-span-4" x-chunk="dashboard-05-chunk-0"
               >
                 <CardHeader className="pb-3">
-                  <CardTitle>Your Orders</CardTitle>
+                  <CardTitle className="text-3xl">Your Income</CardTitle>
                   <CardDescription className="max-w-lg text-balance leading-relaxed">
-                    Introducing Our Dynamic Orders Dashboard for Seamless
+                    Your Income Dashboard for Seamless
                     Management and Insightful Analysis.
                   </CardDescription>
                 </CardHeader>
+                <CardContent>
+                  <CardDescription>Total Income:</CardDescription>
+                  <CardDescription>Total Expense:</CardDescription>
+                </CardContent>
                 <CardFooter>
-                  <Button>Create New Order</Button>
                 </CardFooter>
               </Card>
               <Card x-chunk="dashboard-05-chunk-1">
                 <CardHeader className="pb-2">
-                  <CardDescription>This Week</CardDescription>
-                  <CardTitle className="text-4xl">$1,329</CardTitle>
+                  <CardTitle className="text-2xl">Unit Name</CardTitle>
+                  <CardDescription className="text-lg">Income:</CardDescription>
                 </CardHeader>
-                <CardContent>
-                  <div className="text-xs text-muted-foreground">
-                    +25% from last week
-                  </div>
-                </CardContent>
                 <CardFooter>
                 </CardFooter>
               </Card>
+              
               <Card x-chunk="dashboard-05-chunk-2">
                 <CardHeader className="pb-2">
-                  <CardDescription>This Month</CardDescription>
-                  <CardTitle className="text-4xl">$5,329</CardTitle>
+                  <CardTitle className="text-2xl">Unit Name</CardTitle>
+                  <CardDescription className="text-lg">Income:</CardDescription>
                 </CardHeader>
-                <CardContent>
-                  <div className="text-xs text-muted-foreground">
-                    +10% from last month
-                  </div>
-                </CardContent>
                 <CardFooter>
                 </CardFooter>
               </Card>
             </div>
           </div>
-          <div>
-            expense form
-          </div>
+          <Card className="p-8">
+            <CardTitle>Enter Your Expenses Here.</CardTitle>
+            <br/>
+            <ExpenseForm/>
+          </Card>
+            
         </main>
         </div>
   
