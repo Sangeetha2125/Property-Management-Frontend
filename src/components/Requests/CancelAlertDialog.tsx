@@ -10,12 +10,16 @@ import {
     AlertDialogTrigger,
   } from "../ui/alert-dialog"
   import { Button } from "../ui/button"
+
+  interface CancelAlertProps{
+    cancelRequest:Function
+  }
   
-  export function CancelAlert() {
+  export function CancelAlert({cancelRequest}:CancelAlertProps) {
     return (
       <AlertDialog>
         <AlertDialogTrigger asChild>
-          <Button className=" text-red-500 border-red-500  hover:text-white hover:bg-red-500" variant="outline">Cancel Request</Button>
+          <Button className=" text-red-500 border-red-500 w-full hover:text-white hover:bg-red-500" variant="outline">Cancel Request</Button>
         </AlertDialogTrigger>
         <AlertDialogContent>
           <AlertDialogHeader>
@@ -25,7 +29,7 @@ import {
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel>Yes, Cancel</AlertDialogCancel>
+            <AlertDialogCancel onClick={()=>cancelRequest("CANCEL")}>Yes, Cancel</AlertDialogCancel>
             <AlertDialogAction>No, Don't Cancel</AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>

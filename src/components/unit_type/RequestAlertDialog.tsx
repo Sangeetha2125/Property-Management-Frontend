@@ -4,7 +4,6 @@ import { z } from "zod";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -17,15 +16,13 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogFooter,
-  DialogClose,
   DialogTrigger,
 } from "../ui/dialog";
 import { Button } from "../ui/button";
 import { toast } from "sonner";
 import { Input } from "../ui/input";
 import axios from "axios";
-import { SetStateAction, useState } from "react";
+import { useState } from "react";
 
 interface RequestAlertDialogProps {
   refresh: boolean;
@@ -35,57 +32,52 @@ interface RequestAlertDialogProps {
 const formSchema = z.object({
   message: z
     .string()
-    .min(1, "Enter request message.")
-    .max(100, "Character limit exceeded"),
+    .min(1, "Message is required")
 });
 
-export function RequestAlertDialog({refresh,setRefresh,availabilityId}:RequestAlertDialogProps) {
+export function RequestAlertDialog({ refresh, setRefresh, availabilityId }: RequestAlertDialogProps) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       message: "",
     },
   });
+
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+    requestUnit(values)
+    form.reset()
   }
+
   const token = localStorage.getItem("token");
-  const [message, setMessage] = useState("");
   const [isOpen, setIsOpen] = useState<boolean>(false);
-   const requestUnit = () => {
-     axios({
-       method: 'post',
-       url: `http://localhost:8080/api/requests/create/${availabilityId}`,
-       data: message,
-       headers: {
-         "Content-Type": "application/json",
-         "Authorization": `Bearer ${token}`
-       }
-     })
-       .then((res) => {
-         if (res.status === 201) {
-           toast.success(res.data)
-           setRefresh(!refresh)
-         }
-       })
-       .catch((err) => {
-         if (err.message === "Network Error") {
-           toast.error("Please try again later")
-         }
-         else if (err.response.status === 400) {
-           toast.error(err.response.data)
-         }
-       })
-       .finally(() => {
-         setIsOpen(false)
-       })
-   }
-  const handleChange = (event: {
-    target: { value: SetStateAction<string> };
-  }) => {
-    setMessage(event.target.value);
-    console.log(message);
-  };
+  const requestUnit = (values: any) => {
+    axios({
+      method: 'post',
+      url: `http://localhost:8080/api/requests/create/${availabilityId}`,
+      data: values,
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      }
+    })
+      .then((res) => {
+        if (res.status === 201) {
+          toast.success(res.data)
+          setRefresh(!refresh)
+        }
+      })
+      .catch((err) => {
+        if (err.message === "Network Error") {
+          toast.error("Please try again later")
+        }
+        else if (err.response.status === 400) {
+          toast.error(err.response.data)
+        }
+      })
+      .finally(() => {
+        setIsOpen(false)
+      })
+  }
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
@@ -94,7 +86,9 @@ export function RequestAlertDialog({refresh,setRefresh,availabilityId}:RequestAl
           variant="outline"
           size="sm"
           className="w-full px-5 col-span-4 text-blue-500 border-blue-500 hover:text-white hover:bg-blue-500"
-          onClick={() => setIsOpen(true)}
+          onClick={() => {
+            setIsOpen(true); form.reset()
+          }}
         >
           Request
         </Button>
@@ -118,7 +112,7 @@ export function RequestAlertDialog({refresh,setRefresh,availabilityId}:RequestAl
                   name="message"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Message</FormLabel>
+                      <FormLabel>Message</FormLabel> <br />
                       <FormControl>
                         <Input placeholder="Enter request message." {...field} />
                       </FormControl>

@@ -42,7 +42,7 @@ const PropertyCard = ({ property, role }: PropertyCardProps) => {
           {role==="OWNER"?<Link to={`/properties/${property.id}/units`} className="block w-full">
             <Button variant="outline" size="sm" className="w-full px-5 col-span-4 text-blue-500 border-blue-500 hover:text-white hover:bg-blue-500">Manage Units</Button>
           </Link>:<Link to={`/properties/${property.id}/units`} className="block w-full">
-            <Button variant="outline" size="sm" className="w-full px-5 col-span-4 text-blue-500 border-blue-500 hover:text-white hover:bg-blue-500">view Units</Button>
+            <Button variant="outline" size="sm" className="w-full px-5 col-span-4 text-blue-500 border-blue-500 hover:text-white hover:bg-blue-500">View Units</Button>
           </Link>}
         </CardFooter>
       </Card>
