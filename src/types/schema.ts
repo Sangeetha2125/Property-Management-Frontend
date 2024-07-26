@@ -16,7 +16,8 @@ export type UnitSchema = {
     bathrooms: number,
     description: string,
     availability:string,
-    property: PropertySchema
+    property: PropertySchema,
+    soldTo: UserSchema|null
 }
 
 export type PropertySchema = {
@@ -53,4 +54,12 @@ export type UnitRequestSchema = {
     status: string,
     noOfMonths: number|null,
     requestDate: string,
+}
+
+export type AgreementSchema = {
+    id: number,
+    request: UnitRequestSchema,
+    startDate: string,
+    endDate: string|null,
+    numberOfYears: number|null
 }

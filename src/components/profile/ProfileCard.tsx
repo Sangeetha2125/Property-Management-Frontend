@@ -1,12 +1,8 @@
-import { Link } from "react-router-dom";
-import { Button } from "../ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
-  CardTitle,
 } from "../ui/card";
 import { Mail, Phone } from "lucide-react";
 
@@ -24,7 +20,7 @@ const ProfileCard = () => {
             </CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="rounded-lg bg-blue-50 h-40 w-full p-4">
+          <div className="rounded-lg bg-blue-50 w-full p-4">
             <p className="flex text-zinc-500 items-center">
               <Phone size={"16px"} />
               <span className="ml-2">: 6785431267</span>
@@ -35,9 +31,6 @@ const ProfileCard = () => {
             </p>
           </div>
         </CardContent>
-        <CardFooter>
-          <p>Card Footer</p>
-        </CardFooter>
       </Card>
   );
 };
