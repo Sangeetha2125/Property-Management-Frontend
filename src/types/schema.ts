@@ -53,7 +53,7 @@ export type UnitRequestSchema = {
     securityDeposit: number|null,
     status: string,
     noOfMonths: number|null,
-    requestDate: string,
+    requestDate: string
 }
 
 export type AgreementSchema = {

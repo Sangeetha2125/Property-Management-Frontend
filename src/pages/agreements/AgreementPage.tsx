@@ -16,6 +16,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "sonner";
 import { AgreementSchema } from "@/types/schema";
+import logo from "../../assets/logo.png";
+
   
   const AgreementPage = () => {
     const [currentAgreements, setCurrentAgreements] = useState([])
@@ -49,6 +51,8 @@ import { AgreementSchema } from "@/types/schema";
   
         <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14">
           <header className="sticky top-0 z-30 flex h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
+          <img width={90} height={50}src={logo} alt="logo"/>   
+
             <div className="ml-auto flex items-center gap-2">
               <DropdownMenu>
                 <DropdownMenuTrigger>

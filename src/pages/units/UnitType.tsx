@@ -22,6 +22,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "sonner";
 import { UnitAvailabilitySchema, UnitSchema } from "@/types/schema";
+import logo from "../../assets/logo.png";
 
 export default function UnitType() {
   const { propertyId, unitId } = useParams()
@@ -81,6 +82,8 @@ export default function UnitType() {
 
       <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14">
         <header className="sticky top-0 z-30 flex h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
+        <img width={90} height={50}src={logo} alt="logo"/>   
+
           <div className="ml-auto flex items-center gap-2">
             {role==="OWNER" && <AddUnitTypeDialog propertyId={propertyId} unitId={unitId} refresh={refresh} setRefresh={setRefresh}/>}
             <DropdownMenu>
@@ -113,8 +116,8 @@ export default function UnitType() {
           <h4 className="text-lg pb-4">{unit.description}</h4>
           <div className="flex gap-6 items-center">
             <p className="col bg-gray-100 rounded-full px-4 py-1 text-gray-600 text-md"><Building2 size="15" className="inline mr-2" />{unit.squareFootage + " "} sqft.</p>
-            <p className="col bg-gray-100 rounded-full px-4 py-1 text-gray-600 text-md"><BedDouble size="15" className="inline mr-2" />{unit.bedrooms + " " + "Bedrooms"}</p>
-            <p className="col bg-gray-100 rounded-full px-4 py-1 text-gray-600 text-md"><Bath size="15" className="inline mr-2" />{unit.bathrooms + " " + "Bathrooms"}</p>
+            <p className="col bg-gray-100 rounded-full px-4 py-1 text-gray-600 text-md"><BedDouble size="15" className="inline mr-2" />{unit.bedrooms + " Bedrooms"}</p>
+            <p className="col bg-gray-100 rounded-full px-4 py-1 text-gray-600 text-md"><Bath size="15" className="inline mr-2" />{unit.bathrooms + " Bathrooms"}</p>
           </div>
         </div>
         <div className="w-11/12 grid grid-cols-3 gap-4 mb-4">

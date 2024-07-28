@@ -2,8 +2,7 @@
 
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import './index.css'
-import axios from 'axios';
-import { Hero } from './pages/LandingPage';
+import { Hero } from './pages/shared/LandingPage';
 import UnitPage from './pages/units/UnitPage';
 import SignupPage from "./pages/auth/SignupPage";
 import LoginPage from "./pages/auth/LoginPage";
@@ -11,7 +10,7 @@ import PropertyPage from "./pages/properties/PropertyPage";
 import UnitType from "./pages/units/UnitType";
 import { Toaster } from "sonner";
 import RequestPage from "./pages/requests/RequestPage";
-import ProfilePage from "./pages/properties/Profile";
+import ProfilePage from "./pages/shared/Profile";
 import OwnerDashboard from "./pages/owner dashboard/OwnerDashboard";
 import AgreementPage from "./pages/agreements/AgreementPage";
 export default function App() {

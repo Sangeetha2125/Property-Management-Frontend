@@ -1,7 +1,6 @@
-import { Button } from "../components/ui/button"
-import image from '../assets/image.png'
+import { Button } from "../../components/ui/button"
+import image from '../../assets/image.png'
 import { Link } from 'react-router-dom'
-import { RequestAlertDialog } from "../components/unit_type/RequestAlertDialog"
 
 export const Hero = () => {
     return (
@@ -26,7 +25,7 @@ export const Hero = () => {
                 </div>
             </div>
             <div className="p-8">
-                <img className="backdrop-opacity-50 backdrop-invert bg-white/10 ...bg-fill height-100% rounded-lg" src={image} />
+                <img className="backdrop-opacity-50 backdrop-invert bg-white/10 ...bg-fill height-100% rounded-lg" src={image} alt="house"/>
             </div>
         </div>
     )

@@ -1,9 +1,5 @@
 import {
     CircleUserRound,
-    Copy,
-    CreditCard,
-    MoreVertical,
-    Truck,
   } from "lucide-react";
   import { Link } from "react-router-dom";
   import {
@@ -24,8 +20,7 @@ import {
     CardTitle,
   } from "../../components/ui/card";
   
-import { DropdownMenuSeparator } from "../../components/ui/dropdown-menu";
-import { Separator } from "../../components/ui/separator";
+import logo from "../../assets/logo.png";
 import ExpenseForm from "../../components/owner dashboard/ExpenseForm";
   
   const OwnerDashboard = () => {
@@ -35,6 +30,8 @@ import ExpenseForm from "../../components/owner dashboard/ExpenseForm";
   
         <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14">
           <header className="sticky top-0 z-30 flex h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
+          <img width={90} height={50}src={logo} alt="logo"/>   
+
             <h1 className="text-3xl">Your Dashboard</h1>
             <div className="ml-auto flex items-center gap-2">
               <DropdownMenu>

@@ -10,8 +10,12 @@ import {
     AlertDialogTrigger,
   } from "../ui/alert-dialog"
   import { Button } from "../ui/button"
+
+  interface TerminateAlertProps{
+    terminateAgreement: Function,
+  }
   
-  export function TerminateAlert() {
+  export function TerminateAlert({terminateAgreement}:TerminateAlertProps) {
     return (
       <AlertDialog>
         <AlertDialogTrigger asChild>
@@ -26,7 +30,7 @@ import {
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>No, Don't Terminate</AlertDialogCancel>
-            <AlertDialogAction className="text-red-500 bg-white border-2 border-destructive hover:text-white hover:bg-red-500">Yes, Terminate</AlertDialogAction>
+            <AlertDialogAction className="text-red-500 bg-white border-2 border-destructive hover:text-white hover:bg-red-500" onClick={()=>terminateAgreement()}>Yes, Terminate</AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>

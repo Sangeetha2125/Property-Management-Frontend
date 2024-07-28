@@ -14,10 +14,12 @@ import axios from "axios";
 import { toast } from "sonner";
 
 interface AgreementDialogProps {
-  request: UnitRequestSchema
+  request: UnitRequestSchema,
+  refresh: boolean,
+  setRefresh: Function
 }
 
-export default function AgreementDialog({ request }: AgreementDialogProps) {
+export default function AgreementDialog({ request, refresh, setRefresh }: AgreementDialogProps) {
   const token = localStorage.getItem("token")
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const createAgreement = (values: any, requestId: number) => {
@@ -46,6 +48,7 @@ export default function AgreementDialog({ request }: AgreementDialogProps) {
       })
       .finally(() => {
         setIsOpen(false)
+        setRefresh(!refresh)
       })
   }
 

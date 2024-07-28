@@ -48,18 +48,22 @@ export default function AgreementCard({agreement}:AgreementCardProps) {
               <User size="28" color="darkblue" />
               <div className="ml-4">
                 <p className="pb-1">User: {agreement.request.user.firstName + " " + agreement.request.user.lastName}</p>
-                <p>
+                <p className="pb-1">
                   Contact: {agreement.request.user.phoneNumber}
                 </p>
+                <p>Email: {agreement.request.user.email}</p>
               </div>
             </div>
           </CardDescription>
           <br />
           <div className="flex items-center gap-4 flex-wrap">
+            {agreement.request.type!=="BUY" && <CardDescription className="bg-gray-100 rounded-full px-4 py-1 text-gray-600">
+              <Clock9 size="20" className="inline" />
+              <p className="inline ml-2">Start Date: {new Date(agreement.startDate.split(" ")[0]).toLocaleDateString()}</p>
+            </CardDescription>}
             <CardDescription className="bg-gray-100 rounded-full px-2 py-1 text-gray-600">
               <IndianRupee size="20" className="inline" />
               <p className="inline ml-2">Amount: {agreement.request.amount}</p>
-
             </CardDescription>
             {agreement.request.securityDeposit && <CardDescription className="bg-gray-100 rounded-full px-4 py-1 text-gray-600">
               <KeyRound size="20" className="inline" />

@@ -10,8 +10,7 @@ import { Button } from "../../components/ui/button";
 import ProfileUnitCard from "../../components/profile/ProfileUnitCard";
 import SideNavbar from "../../components/shared/SideNavbar";
 import ProfileCard from "../../components/profile/ProfileCard";
-import logo1 from "../../assets/logo1.png";
-import { Separator } from "../../components/ui/separator"
+import logo from "../../assets/logo.png";
 
 const ProfilePage = () => {
   return (
@@ -19,8 +18,7 @@ const ProfilePage = () => {
       <SideNavbar />
       <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14">
         <header className="sticky top-0 z-30 flex h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
-        <img width={80} height={30}src={logo1} alt="logo"/> 
-        
+          <img width={90} height={50}src={logo} alt="logo"/>   
           <div className="ml-auto flex items-center gap-2">
         
             <DropdownMenu>
@@ -48,10 +46,8 @@ const ProfilePage = () => {
             </DropdownMenu>
           </div>
         </header>
-        <Separator />
 
       </div>
-      <h1 className="ml-20 text-3xl font-semibold text-zinc-600">Welcome to your profile</h1>
       <br/>
       <div className="p-4 sm:ml-14">
         <div className="grid grid-cols-3 gap-4 mb-4">
