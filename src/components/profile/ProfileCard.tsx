@@ -5,7 +5,7 @@ import {
   CardHeader,
 } from "../ui/card";
 import { Mail, Phone } from "lucide-react";
-
+import { Circle } from "lucide-react";
 import { CircleUserRound } from "lucide-react";
 
 const ProfileCard = () => {
@@ -17,7 +17,7 @@ const ProfileCard = () => {
           </div>
             <CardDescription className="text-lg text-zinc-600 flex justify-center">
               First Name, Last Name
-            </CardDescription>
+            </CardDescription> 
         </CardHeader>
         <CardContent>
           <div className="rounded-lg bg-blue-50 w-full p-4">
@@ -28,7 +28,11 @@ const ProfileCard = () => {
             <p className="flex text-zinc-500 items-center">
               <Mail size={"16px"} />
               <span className="ml-2">: xyz@email.com</span>
+
             </p>
+            <p className="flex text-zinc-500 items-center">
+              <Circle size={"16px"} />
+              <span className="ml-2">: Tenant</span></p>
           </div>
         </CardContent>
       </Card>
