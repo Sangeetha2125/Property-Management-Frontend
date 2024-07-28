@@ -32,6 +32,6 @@ export default function App() {
           <Route path="/dashboard" element={<OwnerDashboard/>} />
         </Routes>
       </BrowserRouter>
-    </div>
+    </div> 
   )
 }
