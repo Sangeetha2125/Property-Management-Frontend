@@ -15,8 +15,6 @@ import ProfilePage from "./pages/properties/Profile";
 import OwnerDashboard from "./pages/owner dashboard/OwnerDashboard";
 import AgreementPage from "./pages/agreements/AgreementPage";
 export default function App() {
-
-  axios.defaults.headers.common['Authorization'] = "Bearer " + localStorage.getItem('token')
   return (
     <div className="App">
       <BrowserRouter>

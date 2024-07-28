@@ -72,9 +72,6 @@ const UnitPage = () => {
         </header>
       </div>
       <div className="p-4 sm:ml-14">
-        {/* <h1 className="text-3xl text-center mb-8">
-            Units of Property: name
-          </h1> */}
         <div className="grid grid-cols-3 gap-4 mb-4">
           {units.map((unit: UnitSchema) => (
             <UnitCard key={unit.id} unit={unit} role={role}/>

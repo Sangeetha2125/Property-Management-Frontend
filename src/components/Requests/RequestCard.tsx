@@ -81,7 +81,7 @@ export default function RequestsCard({ request, role, refresh, setRefresh }: Req
         <div className="grid grid-cols-3 gap-4 mb-4"></div>
         <CardHeader className="pb-2">
           <div className="justify-left grid grid-cols-8 gap-4 mb-0 ">
-            <CardTitle className="col-span-7 pb-0 flex items-end">{request.unit.name} - {request.type} {request.unit.availability==="AVAILABLE" && role!=="OWNER" && <Link to={`/properties/${request.unit.property.id}/units/${request.unit.id}`} className="inline">
+            <CardTitle className="col-span-7 pb-0 flex items-end">{request.unit.name} - {request.type} {((request.unit.availability==="AVAILABLE" && role!=="OWNER") || role==="OWNER") && <Link to={`/properties/${request.unit.property.id}/units/${request.unit.id}`} className="inline">
               <SquareArrowOutUpRight size="20" className="inline ml-3" color="darkblue" />
             </Link>}</CardTitle>
             {request.status === "DENIED_BY_USER" && <Badge

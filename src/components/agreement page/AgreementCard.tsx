@@ -1,3 +1,4 @@
+import { AgreementSchema } from "@/types/schema";
 import {
   Card,
   CardContent,
@@ -6,30 +7,31 @@ import {
   CardHeader,
   CardTitle,
 } from "../ui/card";
-import { Badge } from "../ui/badge";
 import {
   CalendarFold,
   IndianRupee,
   KeyRound,
   MapPin,
-  Phone,
   User,
+  Clock9
 } from "lucide-react";
 
-export default function AgreementCard() {
-  return (
-    <div className=" h-50 rounded bg-gray-50 dark:bg-gray-800 w-full">
-      <Card>
-        <div className="grid grid-cols-3 gap-4 mb-4"></div>
+interface AgreementCardProps{
+  agreement: AgreementSchema
+}
 
+export default function AgreementCard({agreement}:AgreementCardProps) {
+  return (
+    <div className="rounded bg-gray-50 dark:bg-gray-800 w-full">
+      {agreement && <Card className="min-h-700">
         <CardHeader className="pb-2">
-          <div className="justify-left grid grid-cols-8 gap-4 mb-0 ">
-            <CardTitle className="col-span-7 pb-0">Unit Name</CardTitle>
+          <div>
+            <CardTitle>{agreement.request.unit.name} - {agreement.request.type[0]+ agreement.request.type.slice(1).toLowerCase()} Agreement</CardTitle>
           </div>
-        </CardHeader> 
+        </CardHeader>
         <CardContent>
-          <CardDescription className=" text-zinc-700">
-            Property Name
+          <CardDescription className="text-zinc-700">
+            {agreement.request.unit.property.name}
           </CardDescription>
           <br />
 
@@ -38,42 +40,53 @@ export default function AgreementCard() {
               <MapPin size="28" color="darkblue" />
               <div className="ml-4">
                 <CardDescription className="leading-6 text-black-[500]">
-                  Address, State, City, <br />
-                  Picode
+                  {agreement.request.unit.property.address}, {agreement.request.unit.property.state}, {agreement.request.unit.property.city} - {agreement.request.unit.property.pincode}
                 </CardDescription>
               </div>
             </div>
             <div className="flex items-center bg-blue-50 p-4 rounded-lg">
               <User size="28" color="darkblue" />
               <div className="ml-4">
-                <p>Occupied by: </p>
-                <p className="flex">
-                  <Phone size={"16px"} />
-                  <span>:</span>
+                <p className="pb-1">User: {agreement.request.user.firstName + " " + agreement.request.user.lastName}</p>
+                <p>
+                  Contact: {agreement.request.user.phoneNumber}
                 </p>
               </div>
             </div>
           </CardDescription>
           <br />
-          <div className="grid grid-cols-6 gap-4">
-            <CardDescription className=" col-span-2 bg-gray-100 rounded-full px-4 py-1 text-gray-600 flex items-center space-x-2">
-              <IndianRupee size="24" />
-              <p className="col-span-2">Amount: 12000</p>
-              
+          <div className="flex items-center gap-4 flex-wrap">
+            <CardDescription className="bg-gray-100 rounded-full px-2 py-1 text-gray-600">
+              <IndianRupee size="20" className="inline" />
+              <p className="inline ml-2">Amount: {agreement.request.amount}</p>
+
             </CardDescription>
-            <CardDescription className="col-span-2  bg-gray-100 rounded-full px-4 py-1 text-gray-600 flex items-center space-x-2">
-              <KeyRound size="24"/>
-              <p className="col-span-2">Deposit: 12000</p>
-            </CardDescription>
-            <CardDescription className="col-span-2 bg-gray-100 rounded-full px-4 py-1 text-gray-600 flex items-center space-x-2">
-              <CalendarFold size="24" />
-              <p className="col-span-2">Due Date: 3</p>
-            </CardDescription>
-            <CardDescription>Last paid on: </CardDescription>
+            {agreement.request.securityDeposit && <CardDescription className="bg-gray-100 rounded-full px-4 py-1 text-gray-600">
+              <KeyRound size="20" className="inline" />
+              <p className="inline ml-2">Deposit: {agreement.request.securityDeposit}</p>
+            </CardDescription>}
+            {agreement.request.monthlyDue && <CardDescription className="bg-gray-100 rounded-full px-4 py-1 text-gray-600">
+              <CalendarFold size="20" className="inline" />
+              <p className="inline ml-2">Due Date: {agreement.request.monthlyDue}</p>
+            </CardDescription>}
+            {agreement.request.noOfMonths && agreement.request.type==="RENT" && <CardDescription className="bg-gray-100 rounded-full px-4 py-1 text-gray-600">
+              <CalendarFold size="20" className="inline" />
+              <p className="inline ml-2">Min No of months: {agreement.request.noOfMonths}</p>
+            </CardDescription>}
+            {agreement.numberOfYears && <CardDescription className="bg-gray-100 rounded-full px-4 py-1 text-gray-600">
+              <CalendarFold size="20" className="inline" />
+              <p className="inline ml-2">No of years: {agreement.numberOfYears}</p>
+            </CardDescription>}
+            {agreement.request.type==="RENT" && <CardDescription className="bg-gray-100 rounded-full px-4 py-1 text-gray-600">
+              <Clock9 size="20" className="inline" />
+              <p className="inline ml-2">Last paid on:</p>
+            </CardDescription>}
           </div>
         </CardContent>
-        <CardFooter></CardFooter>
-      </Card>
+        <CardFooter className="flex">
+          {/* Send notification enable */}
+        </CardFooter>
+      </Card>}
     </div>
   );
 }
