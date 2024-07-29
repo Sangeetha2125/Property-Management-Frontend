@@ -114,11 +114,6 @@ const PropertyPage = () => {
               </DropdownMenuTrigger>
 
               <DropdownMenuContent className="w-40 pl-4 pr-4 bg-white border-2 border-zinc-200 rounded-sm">
-                <DropdownMenuLabel className="font-semibold pt-2 pb-2">
-                  My Account
-                </DropdownMenuLabel>
-
-                <Separator />
                 <DropdownMenuGroup>
                   <Link to={"/profile"}>
                   <DropdownMenuItem className="flex items-center pt-2">
