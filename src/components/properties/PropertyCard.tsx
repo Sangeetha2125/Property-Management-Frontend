@@ -32,7 +32,7 @@ const PropertyCard = ({ property, role }: PropertyCardProps) => {
             <MapPin size="28" color="darkblue"/>
             <div className="ml-4">
               <CardDescription className="leading-6 text-black-[500]">
-                {property.address}, {property.state}, {property.city} - {property.pincode}
+                {property.address}, {property.city}, {property.state} - {property.pincode}
               </CardDescription>
             </div>
           </div>
