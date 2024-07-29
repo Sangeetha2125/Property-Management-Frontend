@@ -52,13 +52,12 @@ const PropertyPage = () => {
       }); // eslint-disable-next-line
   }, [refresh]);
 
-  const [filterType, setFilterType] = useState<"city" | "state">("city");
+  const [filterType, setFilterType] = useState<"city" | "state" | "pincode" | "address" | "name">("city");
   const [search, setSearch] = useState<string>("");
   const filteredProperties = properties.filter((property: PropertySchema) =>
-    filterType === "city"
-      ? property.city.toLowerCase().includes(search.toLowerCase())
-      : property.state.toLowerCase().includes(search.toLowerCase())
+    property[filterType].toLowerCase().includes(search.toLowerCase())
   );
+
   return (
     <div className="flex min-h-screen w-full flex-col bg-muted/40">
       <SideNavbar />
@@ -77,8 +76,11 @@ const PropertyPage = () => {
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
+                  <SelectItem value="name">Name</SelectItem>
                   <SelectItem value="city">City</SelectItem>
                   <SelectItem value="state">State</SelectItem>
+                  <SelectItem value="address">Address</SelectItem>
+                  <SelectItem value="pincode">Pincode</SelectItem>
                 </SelectContent>
               </Select>
               
@@ -86,7 +88,7 @@ const PropertyPage = () => {
               
               <Input type='text' value={search} className="w-60 col-span-2"
                 onChange={(e) => setSearch(e.target.value)}
-                placeholder={`Search by ${filterType}`}></Input>
+                placeholder={`Search by ${filterType[0].toUpperCase()+filterType.substring(1)}`}></Input>
               
             </div>
             {role === "OWNER" && (

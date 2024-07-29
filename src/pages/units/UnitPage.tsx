@@ -4,6 +4,13 @@ import {
 import { Link, useParams } from 'react-router-dom'
 
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../../components/ui/select";
 import { Button } from "../../components/ui/button"
 import SideNavbar from "../../components/shared/SideNavbar"
 import UnitCard from "../../components/units/UnitCard"
@@ -13,6 +20,7 @@ import axios from "axios"
 import { AddUnit } from "../../components/units/AddUnitDialog"
 import { UnitSchema } from "../../types/schema"
 import logo from "../../assets/logo.png";
+import { Input } from "../../components/ui/input";
 
 const UnitPage = () => {
   const { id } = useParams()
@@ -43,13 +51,43 @@ const UnitPage = () => {
       }) // eslint-disable-next-line
   }, [refresh])
 
+  const [filterType, setFilterType] = useState<"bedrooms" | "bathrooms" | "squareFootage" | "name">("name");
+  const [search, setSearch] = useState<string>("");
+  const filteredUnits = units.filter((unit: UnitSchema) =>
+    String(unit[filterType]).toLowerCase().includes(search.toLowerCase())
+  );
   return (
     <div className="flex min-h-screen w-full flex-col bg-muted/40">
       <SideNavbar />
       <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14">
         <header className="sticky top-0 z-30 flex h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
         <img width={90} height={50}src={logo} alt="logo"/>  
+        
           <div className="ml-auto flex items-center gap-2">
+          <div className="search-bar-container grid grid-cols-3 gap-3">
+              <div className="">
+              <Select
+                value={filterType}
+                onValueChange={setFilterType as (value: string) => void}
+                >
+                <SelectTrigger className="btn">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="name">Name</SelectItem>
+                  <SelectItem value="bedrooms">Bedrooms</SelectItem>
+                  <SelectItem value="bathrooms">Bathrooms</SelectItem>
+                  <SelectItem value="squareFootage">Area (sqft)</SelectItem>
+                </SelectContent>
+              </Select>
+              
+              </div>
+              
+              <Input type='text' value={search} className="w-60 col-span-2"
+                onChange={(e) => setSearch(e.target.value)}
+                placeholder={`Search by ${filterType[0].toUpperCase()+filterType.substring(1)}`}></Input>
+              
+            </div>
             {role === "OWNER" && <AddUnit refresh={refresh} setRefresh={setRefresh} propertyId={id} />}
             <DropdownMenu>
               <DropdownMenuTrigger>
@@ -72,9 +110,9 @@ const UnitPage = () => {
           </div>
         </header>
       </div>
-      <div className="p-4 sm:ml-14">
-        <div className="grid grid-cols-3 gap-4 mb-4">
-          {units.map((unit: UnitSchema) => (
+      <div className="px-3 sm:ml-14 py-4">
+        <div className="grid grid-cols-3 gap-4">
+          {filteredUnits.map((unit: UnitSchema) => (
             <UnitCard key={unit.id} unit={unit} role={role}/>
           ))}
         </div>

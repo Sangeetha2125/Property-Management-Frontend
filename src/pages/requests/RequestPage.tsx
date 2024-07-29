@@ -7,7 +7,13 @@ import {
   DropdownMenuTrigger,
 } from "@radix-ui/react-dropdown-menu";
 import { Button } from "../../components/ui/button";
-
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../../components/ui/select";
 import SideNavbar from "../../components/shared/SideNavbar";
 import RequestsCard from "../../components/Requests/RequestCard";
 import { useEffect, useState } from "react";
@@ -15,6 +21,7 @@ import axios from "axios";
 import { toast } from "sonner";
 import { UnitRequestSchema } from "@/types/schema";
 import logo from "../../assets/logo.png";
+import { Input } from "../../components/ui/input";
 
 const RequestPage = () => {
   const token = localStorage.getItem("token");
@@ -44,6 +51,12 @@ const RequestPage = () => {
       }); // eslint-disable-next-line
   }, [refresh]);
 
+  const [filterType, setFilterType] = useState<"status" | "type">("status");
+  const [search, setSearch] = useState<string>("");
+  const filteredRequests = requests.filter((request: UnitRequestSchema) =>
+    String(request[filterType]).toLowerCase().includes(search.toLowerCase())
+  );
+
   return (
     <div className="flex min-h-screen w-full flex-col bg-muted/40">
       <SideNavbar />
@@ -52,6 +65,50 @@ const RequestPage = () => {
           <img width={90} height={30} src={logo} alt="logo" />
           <h1 className="text-3xl">View Requests</h1>
           <div className="ml-auto flex items-center gap-2">
+            <div className="search-bar-container grid grid-cols-2 gap-3">
+              <div className="">
+                <Select
+                  value={filterType}
+                  onValueChange={setFilterType as (value: string) => void}
+                >
+                  <SelectTrigger className="btn">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="status">Status</SelectItem>
+                    <SelectItem value="type">Type</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <Select
+                value={search}
+                onValueChange={setSearch as (value: string) => void}
+              >
+                <SelectTrigger className="btn">
+                  <SelectValue placeholder="Select from drop down" />
+                </SelectTrigger>
+                {filterType === "status" && (
+                  <SelectContent>
+                    <SelectItem value="ACCEPTED">Accepted</SelectItem>
+                    <SelectItem value="REJECTED">Rejected</SelectItem>
+                    <SelectItem value="PENDING">Pending</SelectItem>
+                    <SelectItem value="EXPIRED">Expired</SelectItem>
+                    <SelectItem value="DENIED_BY_USER">
+                      Denied By User
+                    </SelectItem>
+                  </SelectContent>
+                )}
+
+                {filterType === "type" && (
+                  <SelectContent>
+                    <SelectItem value="RENT">Rent</SelectItem>
+                    <SelectItem value="LEASE">Lease</SelectItem>
+                    <SelectItem value="BUY">Buy</SelectItem>
+                  </SelectContent>
+                )}
+              </Select>
+            </div>
             <DropdownMenu>
               <DropdownMenuTrigger>
                 <div>
@@ -80,7 +137,7 @@ const RequestPage = () => {
 
       <div className="p-4 sm:ml-14">
         <div className="grid grid-cols-1 gap-4 mb-4">
-          {requests.map((request: UnitRequestSchema) => (
+          {filteredRequests.map((request: UnitRequestSchema) => (
             <RequestsCard
               key={request.id}
               request={request}
