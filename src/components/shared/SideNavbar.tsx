@@ -6,12 +6,14 @@ import {
 import { TooltipProvider } from "@radix-ui/react-tooltip";
 import {
   Building,
+  Handshake,
   Home,
   MessageSquareDot,
 } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 
 const SideNavbar = () => {
+  const role = localStorage.getItem("role")
   const location = useLocation()
   return (
     <aside className="fixed inset-y-0 left-0 z-10 hidden w-14 flex-col border-r bg-background sm:flex">
@@ -53,7 +55,20 @@ const SideNavbar = () => {
             </TooltipTrigger>
             <TooltipContent side="right">Requests</TooltipContent>
           </Tooltip>
-         
+          
+          {role==="OWNER"?
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Link
+                to={"/agreements"}
+                className={`${location.pathname==="/agreements"?"group flex h-9 w-9 shrink-0 items-center justify-center gap-2 rounded-full bg-primary text-lg font-semibold text-primary-foreground md:h-8 md:w-8 md:text-base":"flex h-9 w-9 items-center bg-white justify-center rounded-lg transition-colors hover:text-foreground md:h-8 md:w-8"}`}
+              >
+                <Handshake className="h-5 w-5" />
+                <span className="sr-only">Agreements</span>
+              </Link>
+            </TooltipTrigger>
+            <TooltipContent side="right">Agreements</TooltipContent>
+          </Tooltip>:<></>}
         </TooltipProvider>
       </nav>
     </aside>
