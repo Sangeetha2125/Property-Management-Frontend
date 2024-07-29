@@ -14,6 +14,7 @@ import { toast } from "sonner";
 import axios from "axios";
 import { AgreementSchema } from "@/types/schema";
 import { Button } from "../ui/button";
+import { MakePaymentDialog } from "./MakePaymentDialog";
 
 
 const ProfileUnitCard = () => {
@@ -137,7 +138,7 @@ const ProfileUnitCard = () => {
           </div>
         </CardContent>
         <CardFooter className="flex gap-4">
-          {currentAgreement.request.type==="RENT" && <Button className="w-full text-blue-500 border-blue-500  hover:text-white hover:bg-blue-500" variant="outline">Make Payment</Button>}
+          {currentAgreement.request.type==="RENT" && <MakePaymentDialog/>}
 
           <TerminateAlert terminateAgreement={terminateAgreement}/>
         </CardFooter>

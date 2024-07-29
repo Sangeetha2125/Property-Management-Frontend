@@ -4,14 +4,12 @@ import {
   BedDouble,
   Building2,
   CircleUserRound,
+  LogOut,
+  User,
 } from "lucide-react";
 
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@radix-ui/react-dropdown-menu";
+
+import { DropdownMenu,DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../../components/ui/dropdown-menu";
 import { Button } from "../../components/ui/button";
 
 import UnitTypeCard from "../../components/unit_type/UnitTypeCard";
@@ -23,6 +21,7 @@ import axios from "axios";
 import { toast } from "sonner";
 import { UnitAvailabilitySchema, UnitSchema } from "@/types/schema";
 import logo from "../../assets/logo.png";
+import { Separator } from "../../components/ui/separator";
 
 export default function UnitType() {
   const { propertyId, unitId } = useParams()
@@ -87,27 +86,42 @@ export default function UnitType() {
           <div className="ml-auto flex items-center gap-2">
             {role==="OWNER" && <AddUnitTypeDialog propertyId={propertyId} unitId={unitId} refresh={refresh} setRefresh={setRefresh}/>}
             <DropdownMenu>
-              <DropdownMenuTrigger>
+              <DropdownMenuTrigger asChild>
                 <Button
-                  variant="outline"
+                  variant={"secondary"}
                   size="icon"
                   className="overflow-hidden rounded-full"
                 >
                   <CircleUserRound
                     width={36}
                     height={36}
-                    className="overflow-hidden rounded-full"
+                    className=" overflow-hidden rounded-full"
                   />
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent>
-                <DropdownMenuItem>
-                  <Link to={"/"}>Logout</Link>
+
+              <DropdownMenuContent className="w-40 pl-4 pr-4 bg-white border-2 border-zinc-200 rounded-sm">
+                <DropdownMenuGroup>
+                  <Link to={"/profile"}>
+                  <DropdownMenuItem className="flex items-center pt-2">
+                    <User className="mr-2 h-4 w-4" />
+                    <span className="">Profile</span>
+                  </DropdownMenuItem>
+                  </Link>
+                </DropdownMenuGroup>
+
+                <DropdownMenuSeparator />
+                <Link to={"/"}>
+                <DropdownMenuItem className="flex items-center pt-2 pb-2">
+                  <LogOut className="mr-2 h-4 w-4" />
+                  <span>Log out</span>
                 </DropdownMenuItem>
+                </Link>
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
         </header>
+        <Separator />
       </div>
 
       {unit && <div className=" flex justify-center items-center flex-col p-4 pt-0 sm:ml-8">
