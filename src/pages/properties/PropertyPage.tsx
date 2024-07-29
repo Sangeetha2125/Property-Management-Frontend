@@ -1,11 +1,6 @@
-import { CircleUserRound, Search } from "lucide-react";
+import { CircleUserRound, LogOut, Search, User } from "lucide-react";
 import { Link } from "react-router-dom";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@radix-ui/react-dropdown-menu";
+
 import {
   Select,
   SelectContent,
@@ -25,6 +20,8 @@ import logo from "../../assets/logo.png";
 
 import { Separator } from "../../components/ui/separator";
 import { Input } from "../../components/ui/input";
+import { DropdownMenu,DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../../components/ui/dropdown-menu";
+import {  } from "@radix-ui/react-dropdown-menu";
 const PropertyPage = () => {
   const token = localStorage.getItem("token");
   const role = localStorage.getItem("role");
@@ -52,7 +49,9 @@ const PropertyPage = () => {
       }); // eslint-disable-next-line
   }, [refresh]);
 
-  const [filterType, setFilterType] = useState<"city" | "state" | "pincode" | "address" | "name">("city");
+  const [filterType, setFilterType] = useState<
+    "city" | "state" | "pincode" | "address" | "name"
+  >("city");
   const [search, setSearch] = useState<string>("");
   const filteredProperties = properties.filter((property: PropertySchema) =>
     property[filterType].toLowerCase().includes(search.toLowerCase())
@@ -68,35 +67,39 @@ const PropertyPage = () => {
           <div className="ml-auto flex items-center gap-4">
             <div className="search-bar-container grid grid-cols-3 gap-3">
               <div className="">
-              <Select
-                value={filterType}
-                onValueChange={setFilterType as (value: string) => void}
+                <Select
+                  value={filterType}
+                  onValueChange={setFilterType as (value: string) => void}
                 >
-                <SelectTrigger className="btn">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="name">Name</SelectItem>
-                  <SelectItem value="city">City</SelectItem>
-                  <SelectItem value="state">State</SelectItem>
-                  <SelectItem value="address">Address</SelectItem>
-                  <SelectItem value="pincode">Pincode</SelectItem>
-                </SelectContent>
-              </Select>
-              
+                  <SelectTrigger className="btn">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="name">Name</SelectItem>
+                    <SelectItem value="city">City</SelectItem>
+                    <SelectItem value="state">State</SelectItem>
+                    <SelectItem value="address">Address</SelectItem>
+                    <SelectItem value="pincode">Pincode</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
-              
-              <Input type='text' value={search} className="w-60 col-span-2"
+
+              <Input
+                type="text"
+                value={search}
+                className="w-60 col-span-2"
                 onChange={(e) => setSearch(e.target.value)}
-                placeholder={`Search by ${filterType[0].toUpperCase()+filterType.substring(1)}`}></Input>
-              
+                placeholder={`Search by ${
+                  filterType[0].toUpperCase() + filterType.substring(1)
+                }`}
+              ></Input>
             </div>
             {role === "OWNER" && (
               <AddProperty refresh={refresh} setRefresh={setRefresh} />
             )}
 
             <DropdownMenu>
-              <DropdownMenuTrigger>
+              <DropdownMenuTrigger asChild>
                 <Button
                   variant={"secondary"}
                   size="icon"
@@ -109,18 +112,29 @@ const PropertyPage = () => {
                   />
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent className="rounded-lg mr-7  bg-white border border-zinc-500">
-                <DropdownMenuItem className="rounded-lg p-3 text-black justify-right ">
-                  <Link className="font-semibold" to="/profile">
-                    Profile
+
+              <DropdownMenuContent className="w-40 pl-4 pr-4 bg-white border-2 border-zinc-200 rounded-sm">
+                <DropdownMenuLabel className="font-semibold pt-2 pb-2">
+                  My Account
+                </DropdownMenuLabel>
+
+                <Separator />
+                <DropdownMenuGroup>
+                  <Link to={"/profile"}>
+                  <DropdownMenuItem className="flex items-center pt-2">
+                    <User className="mr-2 h-4 w-4" />
+                    <span className="">Profile</span>
+                  </DropdownMenuItem>
                   </Link>
+                </DropdownMenuGroup>
+
+                <DropdownMenuSeparator />
+                <Link to={"/"}>
+                <DropdownMenuItem className="flex items-center pt-2 pb-2">
+                  <LogOut className="mr-2 h-4 w-4" />
+                  <span>Log out</span>
                 </DropdownMenuItem>
-                <Separator className="bg-zinc-500" />
-                <DropdownMenuItem className="rounded-lg  p-3 text-black flex justify-right">
-                  <Link className="font-semibold" to={"/"}>
-                    Logout
-                  </Link>
-                </DropdownMenuItem>
+                </Link>
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
