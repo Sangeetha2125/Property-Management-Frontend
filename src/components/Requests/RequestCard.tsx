@@ -32,26 +32,26 @@ export default function RequestsCard({ request, role, refresh, setRefresh }: Req
       axios({
         method: 'post',
         url: `http://localhost:8080/api/requests/respond/${request.id}`,
-        data: {unitRequestStatus:status},
+        data: { unitRequestStatus: status },
         headers: {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${token}`
         }
       })
-      .then((res) => {
-        setRefresh(!refresh)
-      })
-      .catch((err) => {
-        if (err.message === "Network Error") {
-          toast.error("Please try again later")
-        }
-        else {
-          toast.error(err.message)
-          console.log(err)
-        }
-      })
+        .then((res) => {
+          setRefresh(!refresh)
+        })
+        .catch((err) => {
+          if (err.message === "Network Error") {
+            toast.error("Please try again later")
+          }
+          else {
+            toast.error(err.message)
+            console.log(err)
+          }
+        })
     }
-    else{
+    else {
       axios({
         method: 'post',
         url: `http://localhost:8080/api/requests/cancel/${request.id}`,
@@ -60,18 +60,18 @@ export default function RequestsCard({ request, role, refresh, setRefresh }: Req
           "Authorization": `Bearer ${token}`
         }
       })
-      .then((res) => {
-        setRefresh(!refresh)
-      })
-      .catch((err) => {
-        if (err.message === "Network Error") {
-          toast.error("Please try again later")
-        }
-        else {
-          toast.error(err.message)
-          console.log(err)
-        }
-      })
+        .then((res) => {
+          setRefresh(!refresh)
+        })
+        .catch((err) => {
+          if (err.message === "Network Error") {
+            toast.error("Please try again later")
+          }
+          else {
+            toast.error(err.message)
+            console.log(err)
+          }
+        })
     }
   }
 
@@ -81,7 +81,7 @@ export default function RequestsCard({ request, role, refresh, setRefresh }: Req
         <div className="grid grid-cols-3 gap-4 mb-4"></div>
         <CardHeader className="pb-2">
           <div className="justify-left grid grid-cols-8 gap-4 mb-0 ">
-            <CardTitle className="col-span-7 pb-0 flex items-end">{request.unit.name} - {request.type} {request.unit.availability==="AVAILABLE" && role!=="OWNER" && <Link to={`/properties/${request.unit.property.id}/units/${request.unit.id}`} className="inline">
+            <CardTitle className="col-span-7 pb-0 flex items-end">{request.unit.name} - {request.type} {((request.unit.availability === "AVAILABLE" && role !== "OWNER") || role === "OWNER") && <Link to={`/properties/${request.unit.property.id}/units/${request.unit.id}`} className="inline">
               <SquareArrowOutUpRight size="20" className="inline ml-3" color="darkblue" />
             </Link>}</CardTitle>
             {request.status === "DENIED_BY_USER" && <Badge
@@ -93,6 +93,7 @@ export default function RequestsCard({ request, role, refresh, setRefresh }: Req
             {request.status === "ACCEPTED" && <Badge className="col-start-9 text-white bg-green-500" variant="outline">Accepted</Badge>}
             {request.status === "REJECTED" && <Badge className="px-4 col-start-9 text-white bg-red-500" variant="outline">Rejected</Badge>}
             {request.status === "PENDING" && <Badge className="px-4 col-start-9 text-white bg-gray-500" variant="outline">Pending</Badge>}
+            {request.status === "EXPIRED" && <Badge className="px-4 col-start-9 text-white bg-orange-500" variant="outline">Expired</Badge>}
           </div>
         </CardHeader>
         <CardContent>
@@ -136,16 +137,14 @@ export default function RequestsCard({ request, role, refresh, setRefresh }: Req
             </div>
           </CardDescription>
         </CardContent>
-        {role !== "OWNER" && <CardFooter className="flex gap-4">
-          {request.status==="ACCEPTED" && <AgreementDialog request={request}/>}
-          {request.status==="PENDING" && <CancelAlert cancelRequest={respondRequest} />}
+        {request.status !== "EXPIRED" && <>{role !== "OWNER" && <CardFooter className="flex gap-4">
+          {request.status === "ACCEPTED" && <AgreementDialog request={request} refresh={refresh} setRefresh={setRefresh} />}
+          {request.status === "PENDING" && <CancelAlert cancelRequest={respondRequest} />}
         </CardFooter>}
-        {role === "OWNER" && request.status==="PENDING" && <CardFooter className="flex gap-4">
-          <Button className="w-full px-5 col-span-4 text-green-500 border-green-500 hover:text-white hover:bg-green-500" variant="outline" onClick={() => respondRequest("ACCEPTED")}>Accept</Button>
-          <Button className="w-full px-5 col-span-4 text-red-500 border-red-500 hover:text-white hover:bg-red-500" variant="outline" onClick={() => respondRequest("REJECTED")}>Reject</Button>
-        </CardFooter>}
-        <CardFooter className="flex gap-4">
-        </CardFooter> 
+          {role === "OWNER" && request.status === "PENDING" && <CardFooter className="flex gap-4">
+            <Button className="w-full px-5 col-span-4 text-green-500 border-green-500 hover:text-white hover:bg-green-500" variant="outline" onClick={() => respondRequest("ACCEPTED")}>Accept</Button>
+            <Button className="w-full px-5 col-span-4 text-red-500 border-red-500 hover:text-white hover:bg-red-500" variant="outline" onClick={() => respondRequest("REJECTED")}>Reject</Button>
+          </CardFooter>}</>}
       </Card>
     </div>
   );

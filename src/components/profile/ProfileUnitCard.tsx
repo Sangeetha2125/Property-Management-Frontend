@@ -7,13 +7,13 @@ import {
   CardTitle,
 } from "../ui/card";
 import { CalendarFold, IndianRupee, KeyRound, User, Clock9 } from "lucide-react";
-import { MapPin, Phone } from "lucide-react";
+import { MapPin } from "lucide-react";
 import { TerminateAlert } from "./TerminateAgreement";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import axios from "axios";
 import { AgreementSchema } from "@/types/schema";
-import { MakePayment } from "./MakePayment";
+import { Button } from "../ui/button";
 
 
 const ProfileUnitCard = () => {
@@ -43,6 +43,32 @@ const ProfileUnitCard = () => {
       }) // eslint-disable-next-line
   }, [])
 
+  const terminateAgreement = () => {
+    axios({
+      method: 'post',
+      url: `http://localhost:8080/api/agreements/terminate/${currentAgreement?.id}`,
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      }
+    })
+      .then((res) => {
+        if (res.status === 200) {
+          toast.success(res.data);
+          setCurrentAgreement(null)
+        }
+      })
+      .catch((err) => {
+        if (err.message === "Network Error") {
+          toast.error("Please try again later")
+        }
+        else {
+          console.log(err)
+          toast.error(err.response.data)
+        }
+      })
+  }
+
   return (
     <div className=" items-center justify-center h-50 rounded bg-gray-50 dark:bg-gray-800">
      {currentAgreement && role==="TENANT" && <Card>
@@ -71,18 +97,22 @@ const ProfileUnitCard = () => {
               <User size="28" color="darkblue" />
               <div className="ml-4">
                 <p className="pb-1">Owner: {currentAgreement.request.unit.property.owner.firstName + " " + currentAgreement.request.unit.property.owner.lastName}</p>
-                <p className="">
+                <p className="pb-1">
                   Contact: {currentAgreement.request.unit.property.owner.phoneNumber}
                 </p>
+                <p>Email: {currentAgreement.request.unit.property.owner.email}</p>
               </div>
             </div>
           </CardDescription>
           <br />
-          <div className="flex items-center gap-4">
+          <div className="flex flex-wrap items-center gap-4">
+            {currentAgreement.request.type!=="BUY" && <CardDescription className="bg-gray-100 rounded-full px-4 py-1 text-gray-600">
+              <Clock9 size="20" className="inline" />
+              <p className="inline ml-2">Start Date:  {new Date(currentAgreement.startDate.split(" ")[0]).toLocaleDateString()}</p>
+            </CardDescription>}
             <CardDescription className="bg-gray-100 rounded-full px-2 py-1 text-gray-600">
               <IndianRupee size="20" className="inline" />
               <p className="inline ml-2">Amount: {currentAgreement.request.amount}</p>
-
             </CardDescription>
             {currentAgreement.request.securityDeposit && <CardDescription className="bg-gray-100 rounded-full px-4 py-1 text-gray-600">
               <KeyRound size="20" className="inline" />
@@ -106,10 +136,10 @@ const ProfileUnitCard = () => {
             </CardDescription>}
           </div>
         </CardContent>
-        <CardFooter className="flex">
-          {/* Make payment- enable on 1st of month */}
-          <TerminateAlert />
-          <MakePayment/>
+        <CardFooter className="flex gap-4">
+          {currentAgreement.request.type==="RENT" && <Button className="w-full text-blue-500 border-blue-500  hover:text-white hover:bg-blue-500" variant="outline">Make Payment</Button>}
+
+          <TerminateAlert terminateAgreement={terminateAgreement}/>
         </CardFooter>
       </Card>}
     </div>

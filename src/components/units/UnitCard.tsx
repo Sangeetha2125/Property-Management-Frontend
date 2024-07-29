@@ -19,14 +19,16 @@ interface UnitCardProps {
 
 const UnitCard = ({ unit, role }: UnitCardProps) => {
   return (
-    <div className="flex items-center justify-center h-50 rounded bg-gray-50 dark:bg-gray-800">
-      <Card className="w-[480px]">
-        <CardHeader className="grid grid-cols-8">
-          <CardTitle className="col-span-6">{unit.name}</CardTitle>
-          <Badge variant={"outline"} className="col-span-2 ">{unit.availability}</Badge>
+    <div className="rounded bg-gray-50 dark:bg-gray-800">
+      <Card>
+        <CardHeader>
+          <div className="flex justify-between">
+            <CardTitle>{unit.name}</CardTitle>
+            <Badge variant={"outline"}>{unit.availability}</Badge>
+          </div>
         </CardHeader>
         <CardContent>
-          <CardDescription>{unit.description}</CardDescription>
+          <CardDescription className="h-[40px] overflow-clip">{unit.description}</CardDescription>
           <br />
           <div className="flex justify-between items-center">
             <p className="col bg-gray-100 rounded-full px-4 py-1 text-gray-600 text-md"><Building2 size="15" className="inline mr-2" />{unit.squareFootage + " "} sqft.</p>

@@ -12,6 +12,7 @@ import { useEffect, useState } from "react"
 import axios from "axios"
 import { AddUnit } from "../../components/units/AddUnitDialog"
 import { UnitSchema } from "../../types/schema"
+import logo from "../../assets/logo.png";
 
 const UnitPage = () => {
   const { id } = useParams()
@@ -47,7 +48,7 @@ const UnitPage = () => {
       <SideNavbar />
       <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14">
         <header className="sticky top-0 z-30 flex h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
-          {/* <img src={logo} alt="logo"/> */}
+        <img width={90} height={50}src={logo} alt="logo"/>  
           <div className="ml-auto flex items-center gap-2">
             {role === "OWNER" && <AddUnit refresh={refresh} setRefresh={setRefresh} propertyId={id} />}
             <DropdownMenu>
@@ -72,9 +73,6 @@ const UnitPage = () => {
         </header>
       </div>
       <div className="p-4 sm:ml-14">
-        {/* <h1 className="text-3xl text-center mb-8">
-            Units of Property: name
-          </h1> */}
         <div className="grid grid-cols-3 gap-4 mb-4">
           {units.map((unit: UnitSchema) => (
             <UnitCard key={unit.id} unit={unit} role={role}/>
