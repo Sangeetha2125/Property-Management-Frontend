@@ -13,6 +13,7 @@ import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import axios from "axios";
 import { AgreementSchema } from "@/types/schema";
+import { MakePayment } from "./MakePayment";
 
 
 const ProfileUnitCard = () => {
@@ -108,6 +109,7 @@ const ProfileUnitCard = () => {
         <CardFooter className="flex">
           {/* Make payment- enable on 1st of month */}
           <TerminateAlert />
+          <MakePayment/>
         </CardFooter>
       </Card>}
     </div>

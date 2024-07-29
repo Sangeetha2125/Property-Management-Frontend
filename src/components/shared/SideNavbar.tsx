@@ -10,6 +10,7 @@ import {
   MessageSquareDot,
 } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
+
 const SideNavbar = () => {
   const location = useLocation()
   return (
@@ -22,7 +23,7 @@ const SideNavbar = () => {
                 to={"/"}
                 className={`${location.pathname==="/"?"group flex h-9 w-9 shrink-0 items-center justify-center gap-2 rounded-full bg-primary text-lg font-semibold text-primary-foreground md:h-8 md:w-8 md:text-base":"flex h-9 w-9 items-center bg-white justify-center rounded-lg transition-colors hover:text-foreground md:h-8 md:w-8"}`}
               >
-                   <Home className="h-5 w-5" />
+                   <Home className="h-6 w-6" />
                    <span className="sr-only">Home</span>
               </Link>
             </TooltipTrigger>
@@ -34,7 +35,7 @@ const SideNavbar = () => {
                 to={"/properties"}
                 className={`${location.pathname.startsWith("/properties")?"group flex h-9 w-9 shrink-0 items-center justify-center gap-2 rounded-full bg-primary text-lg font-semibold text-primary-foreground md:h-8 md:w-8 md:text-base":"flex h-9 w-9 items-center bg-white justify-center rounded-lg transition-colors hover:text-foreground md:h-8 md:w-8"}`}
               >
-                     <Building className="h-5 w-5" />
+                     <Building className="h-6 w-6" />
                      <span className="sr-only">Properties</span>
               </Link>
             </TooltipTrigger>
@@ -46,12 +47,13 @@ const SideNavbar = () => {
                 to={"/requests"}
                 className={`${location.pathname==="/requests"?"group flex h-9 w-9 shrink-0 items-center justify-center gap-2 rounded-full bg-primary text-lg font-semibold text-primary-foreground md:h-8 md:w-8 md:text-base":"flex h-9 w-9 items-center bg-white justify-center rounded-lg transition-colors hover:text-foreground md:h-8 md:w-8"}`}
               >
-                <MessageSquareDot className="h-5 w-5" />
+                <MessageSquareDot className="h-6 w-6" />
                 <span className="sr-only">Requests</span>
               </Link>
             </TooltipTrigger>
             <TooltipContent side="right">Requests</TooltipContent>
           </Tooltip>
+         
         </TooltipProvider>
       </nav>
     </aside>

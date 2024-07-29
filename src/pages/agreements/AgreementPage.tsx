@@ -42,6 +42,7 @@ import AgreementCard from "../../components/agreement page/AgreementCard";
                   <DropdownMenuItem>
                     <Link to={"/"}>Logout</Link>
                   </DropdownMenuItem>
+                
                 </DropdownMenuContent>
               </DropdownMenu>
             </div>

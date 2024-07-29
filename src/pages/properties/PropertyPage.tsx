@@ -15,6 +15,7 @@ import axios from "axios";
 import { toast } from "sonner";
 import { PropertySchema } from "../../types/schema";
 import logo1 from "../../assets/logo1.png";
+import { Separator } from "../../components/ui/separator";
 const PropertyPage = () => {
   const token = localStorage.getItem("token")
   const role = localStorage.getItem("role")
@@ -48,32 +49,39 @@ const PropertyPage = () => {
       <SideNavbar />
       <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14">
         <header className="sticky top-0 z-30 flex h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
-           <img width={110} height={50}src={logo1} alt="logo"/> 
+           <img width={90} height={30}src={logo1} alt="logo"/> 
+           
           <div className="ml-auto flex items-center gap-4">
             {role === "OWNER" && <AddProperty refresh={refresh} setRefresh={setRefresh} />}
-            <DropdownMenu>
+         
+            <DropdownMenu >
               <DropdownMenuTrigger>
                 <Button
-                  variant="outline"
+                 variant={"secondary"}
                   size="icon"
                   className="overflow-hidden rounded-full"
                 >
                   <CircleUserRound
                     width={36}
                     height={36}
-                    className="overflow-hidden rounded-full"
+                    className=" overflow-hidden rounded-full"
                   />
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent>
-                <DropdownMenuItem>
-                  <Link to={"/"}>Logout</Link>
-               
+              <DropdownMenuContent className="rounded-lg mr-7  bg-white border border-zinc-500">
+              <DropdownMenuItem className="rounded-lg p-3 text-black justify-right ">
+               <Link className="font-semibold" to="/profile">Profile</Link>
+               </DropdownMenuItem>
+               <Separator className="bg-zinc-500"/>
+                <DropdownMenuItem className="rounded-lg  p-3 text-black flex justify-right">
+                  <Link className="font-semibold" to={"/"}>Logout</Link>
+             
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
         </header>
+        <Separator/>
       </div>
 
       <div className="p-4 sm:ml-14">
