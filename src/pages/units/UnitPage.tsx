@@ -3,7 +3,7 @@ import {
   LogOut,
   User,
 } from "lucide-react"
-import { Link, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 
 import { DropdownMenu,DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../../components/ui/dropdown-menu";
 import {
@@ -59,6 +59,14 @@ const UnitPage = () => {
   const filteredUnits = units.filter((unit: UnitSchema) =>
     String(unit[filterType]).toLowerCase().includes(search.toLowerCase())
   );
+
+  const navigate = useNavigate()
+  const logout = () => {
+    localStorage.removeItem("token")
+    localStorage.removeItem("role")
+    navigate("/")
+  }
+
   return (
     <div className="flex min-h-screen w-full flex-col bg-muted/40">
       <SideNavbar />
@@ -94,20 +102,14 @@ const UnitPage = () => {
             {role === "OWNER" && <AddUnit refresh={refresh} setRefresh={setRefresh} propertyId={id} />}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button
-                  variant={"secondary"}
-                  size="icon"
-                  className="overflow-hidden rounded-full"
-                >
-                  <CircleUserRound
-                    width={36}
-                    height={36}
-                    className=" overflow-hidden rounded-full"
-                  />
-                </Button>
+                <CircleUserRound
+                  width={40}
+                  height={40}
+                  className=" overflow-hidden rounded-full cursor-pointer"
+                />
               </DropdownMenuTrigger>
 
-              <DropdownMenuContent className="w-40 pl-4 pr-4 bg-white border-2 border-zinc-200 rounded-sm">
+              <DropdownMenuContent className="w-40 mr-1 p-2 bg-white border-2 border-zinc-200 rounded-sm">
                 <DropdownMenuGroup>
                   <Link to={"/profile"}>
                   <DropdownMenuItem className="flex items-center pt-2">
@@ -118,12 +120,12 @@ const UnitPage = () => {
                 </DropdownMenuGroup>
 
                 <DropdownMenuSeparator />
-                <Link to={"/"}>
+                <div onClick={logout}>
                 <DropdownMenuItem className="flex items-center pt-2 pb-2">
                   <LogOut className="mr-2 h-4 w-4" />
                   <span>Log out</span>
                 </DropdownMenuItem>
-                </Link>
+                </div>
               </DropdownMenuContent>
             </DropdownMenu>
           </div>

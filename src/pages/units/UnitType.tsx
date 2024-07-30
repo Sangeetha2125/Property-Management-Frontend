@@ -1,4 +1,4 @@
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import {
   Bath,
   BedDouble,
@@ -75,10 +75,16 @@ export default function UnitType() {
       }) // eslint-disable-next-line
   }, [refresh])
 
+  const navigate = useNavigate()
+  const logout = () => {
+    localStorage.removeItem("token")
+    localStorage.removeItem("role")
+    navigate("/")
+  }
+
   return (
     <div>
       <SideNavbar />
-
       <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14">
         <header className="sticky top-0 z-30 flex h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
         <img width={90} height={50}src={logo} alt="logo"/>   
@@ -87,20 +93,13 @@ export default function UnitType() {
             {role==="OWNER" && <AddUnitTypeDialog propertyId={propertyId} unitId={unitId} refresh={refresh} setRefresh={setRefresh}/>}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button
-                  variant={"secondary"}
-                  size="icon"
-                  className="overflow-hidden rounded-full"
-                >
-                  <CircleUserRound
-                    width={36}
-                    height={36}
-                    className=" overflow-hidden rounded-full"
-                  />
-                </Button>
+                <CircleUserRound
+                  width={40}
+                  height={40}
+                  className=" overflow-hidden rounded-full cursor-pointer"
+                />
               </DropdownMenuTrigger>
-
-              <DropdownMenuContent className="w-40 pl-4 pr-4 bg-white border-2 border-zinc-200 rounded-sm">
+              <DropdownMenuContent className="w-40 mr-1 p-2 bg-white border-2 border-zinc-200 rounded-sm">
                 <DropdownMenuGroup>
                   <Link to={"/profile"}>
                   <DropdownMenuItem className="flex items-center pt-2">
@@ -111,12 +110,12 @@ export default function UnitType() {
                 </DropdownMenuGroup>
 
                 <DropdownMenuSeparator />
-                <Link to={"/"}>
+                <div onClick={logout}>
                 <DropdownMenuItem className="flex items-center pt-2 pb-2">
                   <LogOut className="mr-2 h-4 w-4" />
                   <span>Log out</span>
                 </DropdownMenuItem>
-                </Link>
+                </div>
               </DropdownMenuContent>
             </DropdownMenu>
           </div>

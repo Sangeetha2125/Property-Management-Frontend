@@ -3,7 +3,7 @@ import {
     LogOut,
     User,
   } from "lucide-react";
-  import { Link } from "react-router-dom";
+  import { Link, useNavigate } from "react-router-dom";
   import { Button } from "../../components/ui/button";
   import {
     Select,
@@ -28,6 +28,12 @@ import { Separator } from "../../components/ui/separator";
   const AgreementPage = () => {
     const [currentAgreements, setCurrentAgreements] = useState([])
     const token = localStorage.getItem("token")
+    const navigate = useNavigate()
+    const logout = () => {
+      localStorage.removeItem("token")
+      localStorage.removeItem("role")
+      navigate("/")
+    }
     useEffect(() => {
       axios({
         method: 'get',
@@ -55,6 +61,7 @@ import { Separator } from "../../components/ui/separator";
     const filteredAgreements = currentAgreements.filter((agreement: AgreementSchema) =>
       agreement.request.unit.property[filterType].toLowerCase().includes(search.toLowerCase())
     );
+
     return (
       <div className="flex min-h-screen w-full flex-col bg-muted/40">
         <SideNavbar/>
@@ -64,13 +71,11 @@ import { Separator } from "../../components/ui/separator";
           <img width={90} height={50}src={logo} alt="logo"/>   
 
             <div className="ml-auto flex items-center gap-2">
-            <div className="search-bar-container grid grid-cols-3 gap-3">
-              <div className="">
               <Select
                 value={filterType}
                 onValueChange={setFilterType as (value: string) => void}
                 >
-                <SelectTrigger className="btn">
+                <SelectTrigger className="btn min-w-40">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -86,26 +91,17 @@ import { Separator } from "../../components/ui/separator";
               
               <Input type='text' value={search} className="w-60 col-span-2"
                 onChange={(e) => setSearch(e.target.value)}
-                placeholder={`Search by ${filterType[0].toUpperCase()+filterType.substring(1)}`}></Input>
-              
-            </div>
-            
+                placeholder={`Search by ${filterType[0].toUpperCase()+filterType.substring(1)}`}></Input>            
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button
-                  variant={"secondary"}
-                  size="icon"
-                  className="overflow-hidden rounded-full"
-                >
-                  <CircleUserRound
-                    width={36}
-                    height={36}
-                    className=" overflow-hidden rounded-full"
-                  />
-                </Button>
+                <CircleUserRound
+                  width={40}
+                  height={40}
+                  className=" overflow-hidden rounded-full cursor-pointer"
+                />
               </DropdownMenuTrigger>
 
-              <DropdownMenuContent className="w-40 pl-4 pr-4 bg-white border-2 border-zinc-200 rounded-sm">
+              <DropdownMenuContent className="w-40 mr-1 p-2 bg-white border-2 border-zinc-200 rounded-sm">
                 <DropdownMenuGroup>
                   <Link to={"/profile"}>
                   <DropdownMenuItem className="flex items-center pt-2">
@@ -116,22 +112,21 @@ import { Separator } from "../../components/ui/separator";
                 </DropdownMenuGroup>
 
                 <DropdownMenuSeparator />
-                <Link to={"/"}>
+                <div onClick={logout}>
                 <DropdownMenuItem className="flex items-center pt-2 pb-2">
                   <LogOut className="mr-2 h-4 w-4" />
                   <span>Log out</span>
                 </DropdownMenuItem>
-                </Link>
+                </div>
               </DropdownMenuContent>
             </DropdownMenu>
-          </div>
         </header>
         <Separator />
       </div>
   
         <div className="p-4 sm:ml-14">
           <div className="grid grid-cols-2 gap-4 mb-4">
-           {currentAgreements.map((currentAgreement:AgreementSchema)=>(
+           {filteredAgreements.map((currentAgreement:AgreementSchema)=>(
             <AgreementCard key={currentAgreement.id} agreement={currentAgreement}/>
            ))}
           </div>

@@ -1,5 +1,5 @@
 import { CircleUserRound, LogOut, Search, User } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import {
   Select,
@@ -57,6 +57,13 @@ const PropertyPage = () => {
     property[filterType].toLowerCase().includes(search.toLowerCase())
   );
 
+  const navigate = useNavigate()
+  const logout = () => {
+    localStorage.removeItem("token")
+    localStorage.removeItem("role")
+    navigate("/")
+  }
+
   return (
     <div className="flex min-h-screen w-full flex-col bg-muted/40">
       <SideNavbar />
@@ -65,13 +72,12 @@ const PropertyPage = () => {
           <img width={90} height={30} src={logo} alt="logo" />
 
           <div className="ml-auto flex items-center gap-4">
-            <div className="search-bar-container grid grid-cols-3 gap-3">
               <div className="">
                 <Select
                   value={filterType}
                   onValueChange={setFilterType as (value: string) => void}
                 >
-                  <SelectTrigger className="btn">
+                  <SelectTrigger className="btn min-w-40">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -93,27 +99,20 @@ const PropertyPage = () => {
                   filterType[0].toUpperCase() + filterType.substring(1)
                 }`}
               ></Input>
-            </div>
             {role === "OWNER" && (
               <AddProperty refresh={refresh} setRefresh={setRefresh} />
             )}
 
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button
-                  variant={"secondary"}
-                  size="icon"
-                  className="overflow-hidden rounded-full"
-                >
-                  <CircleUserRound
-                    width={36}
-                    height={36}
-                    className=" overflow-hidden rounded-full"
-                  />
-                </Button>
+                <CircleUserRound
+                  width={40}
+                  height={40}
+                  className=" overflow-hidden rounded-full cursor-pointer"
+                />
               </DropdownMenuTrigger>
 
-              <DropdownMenuContent className="w-40 pl-4 pr-4 bg-white border-2 border-zinc-200 rounded-sm">
+              <DropdownMenuContent className="w-40 mr-1 p-2 bg-white border-2 border-zinc-200 rounded-sm">
                 <DropdownMenuGroup>
                   <Link to={"/profile"}>
                   <DropdownMenuItem className="flex items-center pt-2">
@@ -124,12 +123,12 @@ const PropertyPage = () => {
                 </DropdownMenuGroup>
 
                 <DropdownMenuSeparator />
-                <Link to={"/"}>
+                <div onClick={logout}>
                 <DropdownMenuItem className="flex items-center pt-2 pb-2">
                   <LogOut className="mr-2 h-4 w-4" />
                   <span>Log out</span>
                 </DropdownMenuItem>
-                </Link>
+                </div>
               </DropdownMenuContent>
             </DropdownMenu>
           </div>

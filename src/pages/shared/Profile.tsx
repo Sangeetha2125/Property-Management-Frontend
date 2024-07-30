@@ -1,54 +1,37 @@
-import { CircleUserRound } from "lucide-react";
-import { Link } from "react-router-dom";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@radix-ui/react-dropdown-menu";
-import { Button } from "../../components/ui/button";
+import { LogOut } from "lucide-react";
 import ProfileUnitCard from "../../components/profile/ProfileUnitCard";
 import SideNavbar from "../../components/shared/SideNavbar";
 import ProfileCard from "../../components/profile/ProfileCard";
 import logo from "../../assets/logo.png";
+import { Separator } from "../../components/ui/separator";
+import { useNavigate } from "react-router-dom";
 
 const ProfilePage = () => {
+  const navigate = useNavigate()
+  const logout = () => {
+    localStorage.removeItem("token")
+    localStorage.removeItem("role")
+    navigate("/")
+  }
+
   return (
     <div className="flex min-h-screen w-full flex-col bg-muted/40">
       <SideNavbar />
       <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14">
         <header className="sticky top-0 z-30 flex h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
-          <img width={90} height={50}src={logo} alt="logo"/>   
-          <div className="ml-auto flex items-center gap-2">
-        
-            <DropdownMenu>
-            
-              <DropdownMenuTrigger>
-                <div>
-                  <Button
-                    variant="outline"
-                    size="icon"
-                    className=" overflow-hidden rounded-full"
-                  >
-                    <CircleUserRound
-                      width={40}
-                      height={40}
-                      className="overflow-hidden rounded-full"
-                    />
-                  </Button>
-                </div>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent>
-                <DropdownMenuItem>
-                  <Link to={"/"}>Logout</Link>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+          <img width={90} height={50} src={logo} alt="logo" />
+          <div className="ml-auto flex items-center gap-4">
+            <LogOut
+              width={24}
+              height={24}
+              className=" overflow-hidden rounded-full cursor-pointer"
+              onClick={logout}
+            />
           </div>
         </header>
-
+        <Separator />
       </div>
-      <br/>
+      <br />
       <div className="p-4 sm:ml-14">
         <div className="grid grid-cols-3 gap-4 mb-4">
           <ProfileCard />

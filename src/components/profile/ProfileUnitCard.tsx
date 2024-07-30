@@ -13,7 +13,6 @@ import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import axios from "axios";
 import { AgreementSchema } from "@/types/schema";
-import { Button } from "../ui/button";
 import { MakePaymentDialog } from "./MakePaymentDialog";
 
 
@@ -138,8 +137,7 @@ const ProfileUnitCard = () => {
           </div>
         </CardContent>
         <CardFooter className="flex gap-4">
-          {currentAgreement.request.type==="RENT" && <MakePaymentDialog/>}
-
+          {currentAgreement.request.type==="RENT" && <MakePaymentDialog amount={currentAgreement.request.amount} type="RENT" agreementId={currentAgreement.id}/>}
           <TerminateAlert terminateAgreement={terminateAgreement}/>
         </CardFooter>
       </Card>}
