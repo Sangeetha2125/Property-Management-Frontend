@@ -137,7 +137,7 @@ const ProfileUnitCard = () => {
           </div>
         </CardContent>
         <CardFooter className="flex gap-4">
-          {currentAgreement.request.type==="RENT" && <MakePaymentDialog amount={currentAgreement.request.amount} type="RENT" agreementId={currentAgreement.id}/>}
+          {currentAgreement.request.type==="RENT" && <MakePaymentDialog amount={currentAgreement.request.amount} agreementId={currentAgreement.id}/>}
           <TerminateAlert terminateAgreement={terminateAgreement}/>
         </CardFooter>
       </Card>}
