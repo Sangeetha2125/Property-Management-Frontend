@@ -38,7 +38,7 @@ export function MakePaymentDialog({amount, agreementId}:MakePaymentDialogProps) 
         if (err.message === "Network Error") {
           toast.error("Please try again later")
         }
-        else if (err.response.status === 400) {
+        else if (err.response.status === 400) { 
           toast.error(err.response.data)
         }
       })
