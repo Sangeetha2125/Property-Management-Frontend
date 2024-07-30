@@ -1,15 +1,44 @@
-import { CircleUserRound, LogOut, Search, User } from "lucide-react";
+import { CircleUserRound, LogOut, User } from "lucide-react";
 
 import SideNavbar from "../../components/shared/SideNavbar";
 
 import logo from "../../assets/logo.png";
 
-import { DropdownMenu,DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../../components/ui/dropdown-menu";
+import { DropdownMenu,DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "../../components/ui/dropdown-menu";
 import { Separator } from "../../components/ui/separator";
 import {  } from "@radix-ui/react-dropdown-menu";
 import { Link } from "react-router-dom";
 import BuyerPropertiesCard from "../../components/properties/BuyerPropertiesCard";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { toast } from "sonner";
+import { UnitSchema } from "@/types/schema";
+
 const BuyerProperties = () => {
+  const token = localStorage.getItem("token")
+  const [buyerUnits, setBuyerUnits] = useState([])
+
+  useEffect(() => {
+    axios({
+      method: 'get',
+      url: "http://localhost:8080/api/units/own",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      }
+    })
+      .then((res) => {
+        setBuyerUnits(res.data)
+      })
+      .catch((err) => {
+        if (err.message === "Network Error") {
+          toast.error("Please try again later")
+        }
+        else {
+          console.log(err)
+        }
+      }) // eslint-disable-next-line
+  }, [])
 
   return (
     <div className="flex min-h-screen w-full flex-col bg-muted/40">
@@ -39,7 +68,6 @@ const BuyerProperties = () => {
 
                 <DropdownMenuSeparator />
                 <div>
-                {/* <div onClick={logout}> */}
                 <DropdownMenuItem className="flex items-center pt-2 pb-2">
                   <LogOut className="mr-2 h-4 w-4" />
                   <span>Log out</span>
@@ -54,7 +82,9 @@ const BuyerProperties = () => {
 
       <div className="p-4 sm:ml-14">
         <div className="grid grid-cols-2 gap-4 mb-4">
-            <BuyerPropertiesCard/>
+            {buyerUnits.map((buyerUnit:UnitSchema)=>(
+              <BuyerPropertiesCard key={buyerUnit.id} unit={buyerUnit}/>
+            ))}
         </div>
       </div>
     </div>

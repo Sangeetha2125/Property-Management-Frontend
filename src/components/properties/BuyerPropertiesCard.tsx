@@ -1,33 +1,33 @@
-import { AgreementSchema } from "@/types/schema";
+import { UnitSchema } from "@/types/schema";
 import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "../ui/card";
 import {
-  CalendarFold,
-  IndianRupee,
-  KeyRound,
+  Bath, BedDouble, Building2,
   MapPin,
   User,
-  Clock9,
 } from "lucide-react";
 
-export default function BuyerPropertiesCard() {
+interface BuyerPropertiesCardProps{
+  unit: UnitSchema
+}
+
+export default function BuyerPropertiesCard({unit}:BuyerPropertiesCardProps) {
   return (
     <div className="rounded bg-gray-50 dark:bg-gray-800 w-full">
       <Card className="min-h-700">
         <CardHeader className="pb-2">
           <div>
-            <CardTitle>Unit Name </CardTitle>
+            <CardTitle>{unit.name}</CardTitle>
           </div>
         </CardHeader>
         <CardContent>
           <CardDescription className="text-zinc-700">
-            Property name
+            {unit.property.name}
           </CardDescription>
           <br />
 
@@ -36,52 +36,35 @@ export default function BuyerPropertiesCard() {
               <MapPin size="28" color="darkblue" />
               <div className="ml-4">
                 <CardDescription className="leading-6 text-black-[500]">
-                  Address,city,state, pincode
+                {unit.property.address}, {unit.property.state}, {unit.property.city} - {unit.property.pincode}
                 </CardDescription>
               </div>
             </div>
             <div className="flex items-center bg-blue-50 p-4 rounded-lg">
               <User size="28" color="darkblue" />
               <div className="ml-4">
-                <p className="pb-1">Bought From: Name</p>
-                <p className="pb-1">Contact:Phone</p>
-                <p>Email: email</p>
+                <p className="pb-1">Bought From: {unit.property.owner.firstName + " " + unit.property.owner.lastName}</p>
+                <p className="pb-1">Mobile Number: {unit.property.owner.phoneNumber}</p>
+                <p>Email: {unit.property.owner.email}</p>
               </div>
             </div>
           </CardDescription>
           <br />
           <div className="flex items-center gap-4 flex-wrap">
             <CardDescription className="bg-gray-100 rounded-full px-4 py-1 text-gray-600">
-              <Clock9 size="20" className="inline" />
-              <p className="inline ml-2">Start Date: </p>
+              <Building2 size="15" className="inline mr-2" />
+              <p className="inline ml-2">Square Footage: {unit.squareFootage}</p>
             </CardDescription>
             <CardDescription className="bg-gray-100 rounded-full px-2 py-1 text-gray-600">
-              <IndianRupee size="20" className="inline" />
-              <p className="inline ml-2">Amount:</p>
+              <BedDouble size="15" className="inline mr-2" />
+              <p className="inline ml-2">Bedrooms: {unit.bedrooms}</p>
             </CardDescription>
             <CardDescription className="bg-gray-100 rounded-full px-4 py-1 text-gray-600">
-              <CalendarFold size="20" className="inline" />
-              <p className="inline ml-2">Due Date: </p>
-            </CardDescription>
-            
-            <CardDescription className="bg-gray-100 rounded-full px-4 py-1 text-gray-600">
-              <CalendarFold size="20" className="inline" />
-              <p className="inline ml-2">Min No of months: </p>
-            </CardDescription>
-            
-            <CardDescription className="bg-gray-100 rounded-full px-4 py-1 text-gray-600">
-              <CalendarFold size="20" className="inline" />
-              <p className="inline ml-2">No of years: </p>
-            </CardDescription>
-            <CardDescription className="bg-gray-100 rounded-full px-4 py-1 text-gray-600">
-              <Clock9 size="20" className="inline" />
-              <p className="inline ml-2">Last paid on:</p>
+              <Bath size="15" className="inline mr-2" />
+              <p className="inline ml-2">Bathrooms: {unit.bathrooms}</p>
             </CardDescription>
           </div>
         </CardContent>
-        <CardFooter className="flex">
-          {/* Send notification enable */}
-        </CardFooter>
       </Card>
     </div>
   );
