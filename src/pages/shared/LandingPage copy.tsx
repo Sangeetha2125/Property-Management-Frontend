@@ -9,7 +9,7 @@ import {
   CardFooter,
   CardHeader,
 } from "../../components/ui/card";
-import { CircleCheckBig } from "lucide-react";
+import { CircleCheckBig, Copyright } from "lucide-react";
 import { Separator } from "../../components/ui/separator";
 import logo from "../../assets/logo.png";
 import image2 from "../../assets/image2.png";
@@ -42,14 +42,14 @@ export const Hero = () => {
       <div className="">
         <div className="h-screen rounded-3xl w-11/12 flex items-center justify-center Home">
           {/* <p className="text-4xl text-center m-4 font-semibold text-white">Trusted Place To Find A Home For Your Family</p> */}
-          <div className="w-1/2 p-4 bg-white rounded-2xl bg-opacity-70">
+          <div className="w-1/2 p-10 bg-white rounded-2xl bg-opacity-70">
             <p className="text-4xl text-center m-4 font-semibold leading-10">
             Trusted Place To Find A Home For Your Family  
             </p>
           </div>
         </div>
         <div className="h-screen">
-          <div className="rounded-3xl p-5 flex justify-center">
+          <div className="rounded-3xl p-5 pb-0 flex justify-center">
             <Card className="w-3/4 p-4 pb-0 bg-opacity-10 mb-10">
               <CardContent className="grid grid-cols-2 gap-6 ">
                 <CardDescription className="text-black text-xl p-3 pt-6 text-justify flex items-center justify-center ">
@@ -68,7 +68,7 @@ export const Hero = () => {
               </CardContent>
             </Card>
           </div>
-          <div className="rounded-3xl p-5 flex justify-center">
+          <div className="rounded-3xl p-5 pt-0 flex justify-center">
             <Card className="w-3/4 p-4 bg-opacity-10 mb-10">
               <CardContent className="grid grid-cols-2 gap-4 ">
                 <CardDescription className="text-black text-xl p-3 text-justify flex items-center justify-center ">
@@ -101,6 +101,19 @@ export const Hero = () => {
               </CardContent>
             </Card>
           </div>
+        </div>
+        {/* <br/>
+        <div className="h-screen">
+          <div className="rounded-3xl p-5 pb-0 flex ml-10">
+            <h1 className="text-3xl font-semibold">Properties</h1>
+            
+          </div>
+        </div> */}
+        <br/>
+        <div className="py-6 text-gray-400 flex space-x-2 items-center justify-center bg-muted">
+          <br/>
+          <Copyright color="#b5b5b5" size={"22px"} className="mr-1"/><span>All Copyrights reserved - Haven</span>
+
         </div>
       </div>
     </div>

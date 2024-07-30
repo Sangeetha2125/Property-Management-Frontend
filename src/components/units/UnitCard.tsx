@@ -72,12 +72,15 @@ const UnitCard = ({ unit, role }: UnitCardProps) => {
               </AlertDialogTrigger>
               <AlertDialogContent>
                 <AlertDialogHeader>
-                  <AlertDialogTitle>Buyer Details</AlertDialogTitle>
+                  <AlertDialogTitle className="text-center pb-2">Buyer Details</AlertDialogTitle>
                   <AlertDialogDescription>
-                    This property has been sold to <span className="text-black">{unit.soldTo?.firstName} {unit.soldTo?.lastName}</span>
+                    <span className="text-black text-base">Name: {unit.soldTo?.firstName} {unit.soldTo?.lastName}</span>
                   </AlertDialogDescription>
-                  <AlertDialogDescription>
-                    Contact: {unit.soldTo?.phoneNumber}
+                  <AlertDialogDescription className="text-black text-base" >
+                    Phone: {unit.soldTo?.phoneNumber}
+                  </AlertDialogDescription>
+                  <AlertDialogDescription className="text-black text-base">
+                    Email: {unit.soldTo?.email}
                   </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter >
