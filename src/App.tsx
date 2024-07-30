@@ -2,7 +2,6 @@
 
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import './index.css'
-import { Hero } from './pages/shared/LandingPage copy';
 import UnitPage from './pages/units/UnitPage';
 import SignupPage from "./pages/auth/SignupPage";
 import LoginPage from "./pages/auth/LoginPage";
@@ -10,9 +9,10 @@ import PropertyPage from "./pages/properties/PropertyPage";
 import UnitType from "./pages/units/UnitType";
 import { Toaster } from "sonner";
 import RequestPage from "./pages/requests/RequestPage";
-import ProfilePage from "./pages/shared/Profile";
 import OwnerDashboard from "./pages/owner dashboard/OwnerDashboard";
 import AgreementPage from "./pages/agreements/AgreementPage";
+import ProfilePage from "./pages/shared/Profile";
+import { Hero } from "./pages/shared/LandingPage";
 export default function App() {
   return (
     <div className="App">
