@@ -1,3 +1,4 @@
+import axios from "axios";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -10,6 +11,7 @@ import {
   AlertDialogTrigger,
 } from "../ui/alert-dialog";
 import { Button } from "../ui/button";
+import { toast } from "sonner";
 
 interface MakePaymentDialogProps{
   amount:number,
@@ -17,8 +19,29 @@ interface MakePaymentDialogProps{
 }
 
 export function MakePaymentDialog({amount, agreementId}:MakePaymentDialogProps) {
+  const token = localStorage.getItem("token")
   const proceedToPayment = () => {
-    
+    axios({
+      method: 'post',
+      url: `http://localhost:8080/api/transactions/${agreementId}`,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`
+      }
+    })
+      .then((res) => {
+        if (res.status === 200) {
+          toast.success(res.data)
+        }
+      })
+      .catch((err) => {
+        if (err.message === "Network Error") {
+          toast.error("Please try again later")
+        }
+        else if (err.response.status === 400) {
+          toast.error(err.response.data)
+        }
+      })
   }
 
   return (
