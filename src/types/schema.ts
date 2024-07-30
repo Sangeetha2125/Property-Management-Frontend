@@ -63,3 +63,11 @@ export type AgreementSchema = {
     endDate: string|null,
     numberOfYears: number|null
 }
+
+export type TransactionSchema={
+    id: number,
+    request:UnitRequestSchema,
+    transactionTime:string,
+    status:string,
+    paymentMethod:string
+}

@@ -6,7 +6,7 @@ import {
   CardContent,
   CardDescription,
 } from "../../components/ui/card";
-import { CircleCheckBig } from "lucide-react";
+import { CircleCheckBig, Copyright } from "lucide-react";
 import { Separator } from "../../components/ui/separator";
 import logo from "../../assets/logo.png";
 import image2 from "../../assets/image2.png";
@@ -47,7 +47,7 @@ export const Hero = () => {
         </div>
         <div className="h-screen">
           <div className="rounded-3xl p-5 flex justify-center">
-            <Card className="w-3/4 p-4 pb-0 bg-opacity-10 mb-10">
+            <Card className="w-3/4 p-4 pb-0 bg-opacity-10 mb-2">
               <CardContent className="grid grid-cols-2 gap-6 ">
                 <CardDescription className="text-black text-xl p-3 pt-6 text-justify flex items-center justify-center ">
                   <p>
@@ -65,7 +65,7 @@ export const Hero = () => {
               </CardContent>
             </Card>
           </div>
-          <div className="rounded-3xl p-5 flex justify-center">
+          <div className="rounded-3xl p-4 flex justify-center">
             <Card className="w-3/4 p-4 bg-opacity-10 mb-10">
               <CardContent className="grid grid-cols-2 gap-4 ">
                 <CardDescription className="text-black text-xl p-3 text-justify flex items-center justify-center ">
@@ -75,29 +75,35 @@ export const Hero = () => {
                   <ul>
                     <li className="flex items-center space-x-4">
                       <CircleCheckBig color="#25b658" />{" "}
-                      <span className="pb-1"> Smart Search Filters</span>
+                      <span className="pb-2"> Smart Search Filters</span>
                     </li>
                     <li className="flex items-center space-x-4">
                       <CircleCheckBig color="#25b658" />{" "}
-                      <span className="pb-1"> Role Based Authentication</span>
+                      <span className="pb-2"> Role Based Authentication</span>
                     </li>
                     <li className="flex items-center space-x-4 ">
                       <CircleCheckBig color="#25b658" />{" "}
-                      <span className="pb-1"> Effortless renting</span>
+                      <span className="pb-2"> Effortless renting</span>
                     </li>
                     <li className="flex items-center space-x-4">
                       <CircleCheckBig color="#25b658" />{" "}
-                      <span className="pb-1"> Seamless Living</span>
+                      <span className="pb-2"> Seamless Living</span>
                     </li>
                     <li className="flex items-center space-x-4">
                       <CircleCheckBig color="#25b658" />{" "}
-                      <span className="pb-1"> Rental History tracking</span>
+                      <span className="pb-2"> Rental History tracking</span>
                     </li>
                   </ul>
                 </CardDescription>
               </CardContent>
             </Card>
           </div>
+        </div>
+        <br/>
+        <div className="py-6 mt-5 text-gray-400 flex space-x-2 items-center justify-center bg-muted">
+          <br/>
+          <Copyright color="#b5b5b5" size={"22px"} className="mr-1"/><span>All Copyrights reserved - Haven</span>
+
         </div>
       </div>
     </div>
