@@ -88,7 +88,7 @@ export default function AgreementCard({agreement}:AgreementCardProps) {
           </div>
         </CardContent>
         <CardFooter className="flex">
-          {/* Send notification enable */}
+          {/* Send notification enable */} 
         </CardFooter>
       </Card>}
     </div>
