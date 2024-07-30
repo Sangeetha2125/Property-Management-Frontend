@@ -71,7 +71,7 @@ const ProfileUnitCard = () => {
 
   return (
     <div className=" items-center justify-center h-50 rounded bg-gray-50 dark:bg-gray-800">
-     {currentAgreement && role==="TENANT" && <Card>
+     {currentAgreement && <Card>
         <div className="grid grid-cols-3 gap-4 mb-4"></div>
         <CardHeader className="pb-2">
           <div className="justify-left grid grid-cols-8 gap-4 mb-0 ">
@@ -137,7 +137,7 @@ const ProfileUnitCard = () => {
           </div>
         </CardContent>
         <CardFooter className="flex gap-4">
-          {currentAgreement.request.type==="RENT" && <MakePaymentDialog amount={currentAgreement.request.amount} type="RENT" agreementId={currentAgreement.id}/>}
+          {currentAgreement.request.type==="RENT" && <MakePaymentDialog amount={currentAgreement.request.amount} agreementId={currentAgreement.id}/>}
           <TerminateAlert terminateAgreement={terminateAgreement}/>
         </CardFooter>
       </Card>}

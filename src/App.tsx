@@ -2,7 +2,7 @@
 
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import './index.css'
-import { Hero } from './pages/shared/LandingPage';
+import { Hero } from './pages/shared/LandingPage copy';
 import UnitPage from './pages/units/UnitPage';
 import SignupPage from "./pages/auth/SignupPage";
 import LoginPage from "./pages/auth/LoginPage";
