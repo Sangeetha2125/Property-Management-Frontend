@@ -19,6 +19,7 @@ import { CalendarIcon } from "lucide-react"
 import { format } from "date-fns"
 import { Calendar } from "../../ui/calendar"
 import { UnitRequestSchema } from "@/types/schema"
+import { MakePaymentDialog } from "../../../components/profile/MakePaymentDialog"
 
 const formSchema = z.object({
   startDate: z.date().min(new Date()),
@@ -37,12 +38,11 @@ export default function AgreementForm({createAgreement, request}:AgreementFormPr
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     createAgreement(values, request.id)
-    console.log(values);
   }
   
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2">
+      <form className="space-y-2">
       <FormField
           control={form.control}
           name="startDate"
@@ -99,7 +99,8 @@ export default function AgreementForm({createAgreement, request}:AgreementFormPr
         />}
 
         <div className="flex justify-center">
-          <Button type='submit' className="w-full"> Submit</Button>
+          {request.type==="RENT" ? <Button  className="w-full" onClick={form.handleSubmit(onSubmit)}> Submit </Button> :
+          form.formState.isValid ? <MakePaymentDialog type="LEASE" amount={request.amount} createAgreement={onSubmit}/> : <Button onClick={form.handleSubmit(onSubmit)} className="w-full"> Proceed to payment</Button> }          
         </div>
       </form>
     </Form>

@@ -12,6 +12,7 @@ import { useState } from "react";
 import { UnitRequestSchema } from "@/types/schema";
 import axios from "axios";
 import { toast } from "sonner";
+import { MakePaymentDialog } from "../../../components/profile/MakePaymentDialog";
 
 interface AgreementDialogProps {
   request: UnitRequestSchema,
@@ -61,10 +62,10 @@ export default function AgreementDialog({ request, refresh, setRefresh }: Agreem
         <DialogHeader>
           <DialogTitle>Create Agreement to {request.type}</DialogTitle>
           <DialogDescription>
-            {request.type !== "BUY" ? <>The owner has accepted your request. Enter details below to create agreement.</> : <>Proceed to payment to buy the unit</>}
+            {request.type !== "BUY" && <>The owner has accepted your request. Enter details below to create agreement.</>}
           </DialogDescription>
         </DialogHeader>
-        {request.type !== "BUY" ? <AgreementForm createAgreement={createAgreement} request={request} /> :<div className="flex gap-4"> <Button className="w-full px-5 col-span-4 text-green-500 border-green-500 hover:text-white hover:bg-green-500" variant="outline">Yes, Proceed to payment</Button> <Button className="w-full px-5 col-span-4 text-red-500 border-red-500 hover:text-white hover:bg-red-500" variant="outline">No, Cancel</Button></div>}
+        {request.type !== "BUY" ? <AgreementForm createAgreement={createAgreement} request={request} /> :<MakePaymentDialog amount={request.amount} type={request.type} createAgreement={createAgreement}/>}
       </DialogContent>
     </Dialog>
   );

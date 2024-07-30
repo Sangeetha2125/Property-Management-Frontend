@@ -70,6 +70,36 @@ const ProfileUnitCard = () => {
       })
   }
 
+  const createAgreement = (values: any, requestId: number) => {
+    axios({
+      method: 'post',
+      url: `http://localhost:8080/api/agreements/create/${requestId}`,
+      data: values,
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      }
+    })
+      .then((res) => {
+        if(res.status===200){
+          toast.success(res.data)
+        }
+      })
+      .catch((err) => {
+        if (err.message === "Network Error") {
+          toast.error("Please try again later")
+        }
+        else {
+          toast.error(err.response.data)
+          console.log(err)
+        }
+      })
+      .finally(() => {
+        // setIsOpen(false)
+        // setRefresh(!refresh)
+      })
+  }
+
   return (
     <div className=" items-center justify-center h-50 rounded bg-gray-50 dark:bg-gray-800">
      {currentAgreement && role==="TENANT" && <Card>
@@ -138,8 +168,7 @@ const ProfileUnitCard = () => {
           </div>
         </CardContent>
         <CardFooter className="flex gap-4">
-          {currentAgreement.request.type==="RENT" && <MakePaymentDialog/>}
-
+          {currentAgreement.request.type==="RENT" && <MakePaymentDialog amount={currentAgreement.request.amount} type="BUY" createAgreement={createAgreement}/>}
           <TerminateAlert terminateAgreement={terminateAgreement}/>
         </CardFooter>
       </Card>}
