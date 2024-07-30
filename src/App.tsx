@@ -13,6 +13,7 @@ import RequestPage from "./pages/requests/RequestPage";
 import ProfilePage from "./pages/shared/Profile";
 import OwnerDashboard from "./pages/owner dashboard/OwnerDashboard";
 import AgreementPage from "./pages/agreements/AgreementPage";
+import BuyerProperties from "./pages/properties/BuyerProperties";
 export default function App() {
   return (
     <div className="App">
@@ -29,6 +30,7 @@ export default function App() {
           <Route path='/agreements' element={<AgreementPage/>}/>
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/dashboard" element={<OwnerDashboard/>} />
+          <Route path="/buyerproperties" element={<BuyerProperties/>}/>
         </Routes>
       </BrowserRouter>
     </div> 

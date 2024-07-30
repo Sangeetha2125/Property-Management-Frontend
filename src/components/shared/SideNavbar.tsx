@@ -9,6 +9,7 @@ import {
   Handshake,
   Home,
   MessageSquareDot,
+  ShoppingBag,
 } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 
@@ -69,7 +70,23 @@ const SideNavbar = () => {
             </TooltipTrigger>
             <TooltipContent side="right">Agreements</TooltipContent>
           </Tooltip>:<></>}
+
+          {role==="BUYER"?
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Link
+                to={"/agreements"}
+                className={`${location.pathname==="/buyerproperties"?"group flex h-9 w-9 shrink-0 items-center justify-center gap-2 rounded-full bg-primary text-lg font-semibold text-primary-foreground md:h-8 md:w-8 md:text-base":"flex h-9 w-9 items-center bg-white justify-center rounded-lg transition-colors hover:text-foreground md:h-8 md:w-8"}`}
+              >
+                <ShoppingBag className="h-6 w-6" />
+                <span className="sr-only">Bought Properties</span>
+              </Link>
+            </TooltipTrigger>
+            <TooltipContent side="right">Bought Properties</TooltipContent>
+          </Tooltip>:<></>}
         </TooltipProvider>
+
+
       </nav>
     </aside>
   );
