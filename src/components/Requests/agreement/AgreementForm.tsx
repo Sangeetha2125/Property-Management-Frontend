@@ -42,7 +42,7 @@ export default function AgreementForm({createAgreement, request}:AgreementFormPr
   
   return (
     <Form {...form}>
-      <form className="space-y-2">
+      <form className="space-y-2" onSubmit={form.handleSubmit(onSubmit)} >
       <FormField
           control={form.control}
           name="startDate"
@@ -99,8 +99,7 @@ export default function AgreementForm({createAgreement, request}:AgreementFormPr
         />}
 
         <div className="flex justify-center">
-          {request.type==="RENT" ? <Button  className="w-full" onClick={form.handleSubmit(onSubmit)}> Submit </Button> :
-          form.formState.isValid ? <MakePaymentDialog type="LEASE" amount={request.amount} createAgreement={onSubmit}/> : <Button onClick={form.handleSubmit(onSubmit)} className="w-full"> Proceed to payment</Button> }          
+          <Button  className="w-full" type="submit"> Submit </Button>      
         </div>
       </form>
     </Form>

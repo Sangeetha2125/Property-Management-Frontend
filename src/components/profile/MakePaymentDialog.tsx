@@ -14,12 +14,13 @@ import { Button } from "../ui/button";
 interface MakePaymentDialogProps{
   amount:number,
   type: string,
-  createAgreement: Function
+  createAgreement?: Function
+  agreementId?: number,
 }
 
-export function MakePaymentDialog({amount, type, createAgreement}:MakePaymentDialogProps) {
+export function MakePaymentDialog({amount, type, createAgreement, agreementId}:MakePaymentDialogProps) {
   const proceedToPayment = () => {
-    createAgreement()
+    
   }
 
   return (

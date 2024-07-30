@@ -65,7 +65,7 @@ export default function AgreementDialog({ request, refresh, setRefresh }: Agreem
             {request.type !== "BUY" && <>The owner has accepted your request. Enter details below to create agreement.</>}
           </DialogDescription>
         </DialogHeader>
-        {request.type !== "BUY" ? <AgreementForm createAgreement={createAgreement} request={request} /> :<MakePaymentDialog amount={request.amount} type={request.type} createAgreement={createAgreement}/>}
+        {request.type === "BUY" ? <MakePaymentDialog amount={request.amount} type="BUY"/> : <AgreementForm createAgreement={createAgreement} request={request} />}
       </DialogContent>
     </Dialog>
   );
