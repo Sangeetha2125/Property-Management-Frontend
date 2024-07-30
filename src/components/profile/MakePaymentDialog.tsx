@@ -15,7 +15,7 @@ interface MakePaymentDialogProps{
   amount:number,
   type: string,
   createAgreement?: Function
-  agreementId?: number,
+  agreementId: number,
 }
 
 export function MakePaymentDialog({amount, type, createAgreement, agreementId}:MakePaymentDialogProps) {
@@ -37,7 +37,7 @@ export function MakePaymentDialog({amount, type, createAgreement, agreementId}:M
         <AlertDialogHeader>
           <AlertDialogTitle>Make Payment</AlertDialogTitle>
           <AlertDialogDescription className="text-black text-md">
-            Your rent amount is <span className="font-semibold">₹{amount}</span>. Click the button below to pay now.
+            Your {type.toLowerCase()} amount is <span className="font-semibold">₹{amount}</span>. Click the button below to pay now.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter className="flex gap-2">
