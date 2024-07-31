@@ -132,7 +132,7 @@ const ProfileUnitCard = () => {
             </CardDescription>}
             {currentAgreement.request.type==="RENT" && <CardDescription className="bg-gray-100 rounded-full px-4 py-1 text-gray-600">
               <Clock9 size="20" className="inline" />
-              <p className="inline ml-2">Last paid on:</p>
+              <p className="inline ml-2">Last paid on: {new Date(currentAgreement.lastPaidDate.split(" ")[0]).toLocaleString()}</p>
             </CardDescription>}
           </div>
         </CardContent>

@@ -61,7 +61,8 @@ export type AgreementSchema = {
     request: UnitRequestSchema,
     startDate: string,
     endDate: string|null,
-    numberOfYears: number|null
+    numberOfYears: number|null,
+    lastPaidDate: string
 }
 
 export type TransactionSchema={
