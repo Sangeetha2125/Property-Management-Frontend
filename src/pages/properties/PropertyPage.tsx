@@ -21,7 +21,6 @@ import logo from "../../assets/logo.png";
 import { Separator } from "../../components/ui/separator";
 import { Input } from "../../components/ui/input";
 import { DropdownMenu,DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../../components/ui/dropdown-menu";
-import {  } from "@radix-ui/react-dropdown-menu";
 const PropertyPage = () => {
   const token = localStorage.getItem("token");
   const role = localStorage.getItem("role");
@@ -126,7 +125,7 @@ const PropertyPage = () => {
                 <div onClick={logout}>
                 <DropdownMenuItem className="flex items-center pt-2 pb-2">
                   <LogOut className="mr-2 h-4 w-4" />
-                  <span>Log out</span>
+                  <span onClick={()=>toast.success("Logged out successfully")}>Log out</span>
                 </DropdownMenuItem>
                 </div>
               </DropdownMenuContent>

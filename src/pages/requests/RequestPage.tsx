@@ -138,7 +138,7 @@ const RequestPage = () => {
                 <div onClick={logout}>
                 <DropdownMenuItem className="flex items-center pt-2 pb-2">
                   <LogOut className="mr-2 h-4 w-4" />
-                  <span>Log out</span>
+                  <span onClick={()=>toast.success("Logged out successfully")}>Log out</span>
                 </DropdownMenuItem>
                 </div>
               </DropdownMenuContent>

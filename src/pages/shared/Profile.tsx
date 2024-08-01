@@ -5,6 +5,7 @@ import ProfileCard from "../../components/profile/ProfileCard";
 import logo from "../../assets/logo.png";
 import { Separator } from "../../components/ui/separator";
 import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 const ProfilePage = () => {
   const navigate = useNavigate()
@@ -12,6 +13,7 @@ const ProfilePage = () => {
     localStorage.removeItem("token")
     localStorage.removeItem("role")
     navigate("/")
+    toast.success("Logged out successfully")
   }
 
   return (
