@@ -24,9 +24,11 @@ import { AgreementSchema } from "@/types/schema";
 import logo from "../../assets/logo.png";
 import { Separator } from "../../components/ui/separator";
 import nodata from "../../assets/nodata.jpeg"
+import Loading from "../shared/Loading";
   
   const AgreementPage = () => {
     const [currentAgreements, setCurrentAgreements] = useState([])
+    const [loading, setLoading] = useState(true);
     const token = localStorage.getItem("token")
     const navigate = useNavigate()
     const logout = () => {
@@ -48,6 +50,9 @@ import nodata from "../../assets/nodata.jpeg"
         .then((res) => {
           console.log(res.data)
           setCurrentAgreements(res.data)
+          setTimeout(() => {
+            setLoading(false);
+          }, 250);
         })
         .catch((err) => {
           if (err.message === "Network Error") {
@@ -128,6 +133,15 @@ import nodata from "../../assets/nodata.jpeg"
       </div>
   
         <div className="p-4 sm:ml-14">
+        {loading ? (
+          <Loading />
+        ) : (
+          <>
+          <h1 className="text-3xl font-semibold text-blue-800 pb-2 px-3">
+          Agreements
+        </h1>
+        <p className="pb-3 px-3 text-gray-600">View your active agreements here.</p>
+        
         {len > 0 ? (
           <div className="grid grid-cols-2 gap-4 mb-4">
             {filteredAgreements.map((currentAgreement:AgreementSchema)=>(
@@ -138,6 +152,8 @@ import nodata from "../../assets/nodata.jpeg"
           <div className="flex items-center justify-center flex-row">
             <img src={nodata} alt="No data found" className="w-1/2" />
           </div>
+        )}
+        </>
         )}
         </div>
       </div>

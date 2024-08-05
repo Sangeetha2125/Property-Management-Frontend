@@ -30,12 +30,13 @@ import {
   DropdownMenuTrigger,
 } from "../../components/ui/dropdown-menu";
 import { HeightIcon } from "@radix-ui/react-icons";
+import Loading from "../shared/Loading";
 const PropertyPage = () => {
   const token = localStorage.getItem("token");
   const role = localStorage.getItem("role");
   const [refresh, setRefresh] = useState(false);
   const [properties, setProperties] = useState([]);
-
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     axios({
       method: "get",
@@ -47,6 +48,9 @@ const PropertyPage = () => {
     })
       .then((res) => {
         setProperties(res.data);
+        setTimeout(() => {
+          setLoading(false);
+        }, 250);
       })
       .catch((err) => {
         if (err.message === "Network Error") {
@@ -151,7 +155,15 @@ const PropertyPage = () => {
         <Separator />
       </div>
 
-      <div className="p-4 sm:ml-14">
+      <div className="p-4 pt-0 sm:ml-14">
+      {loading ? (
+          <Loading/>
+        ) : (
+          <>
+        <h1 className="text-3xl font-semibold text-blue-800 pb-2 px-3">
+          Properties
+        </h1>
+        <p className="pb-3 px-3 text-gray-600">Step into a world where comfort meets convenience; our properties are designed to suit every lifestyle. From cozy apartments to spacious homes, find a place where every detail resonates with your personal taste. Experience the ease of finding your dream property with our user-friendly interface and detailed listings. Your journey to the perfect home begins here – explore, connect, and settle into your future.</p>
         {len > 0 ? (
           <div className="grid grid-cols-3 gap-4 mb-4">
             {filteredProperties.map((property: PropertySchema) => (
@@ -162,6 +174,8 @@ const PropertyPage = () => {
           <div className="flex items-center justify-center flex-row">
             <img src={nodata} alt="No data found" className="w-1/2" />
           </div>
+        )}
+        </>
         )}
       </div>
     </div>

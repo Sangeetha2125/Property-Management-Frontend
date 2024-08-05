@@ -13,10 +13,14 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "sonner";
 import { UnitSchema } from "@/types/schema";
+import nodata from "../../assets/nodata.jpeg";
+import Loading from "../shared/Loading";
+
 
 const BuyerProperties = () => {
   const token = localStorage.getItem("token")
-  const [buyerUnits, setBuyerUnits] = useState([])
+  const [buyerUnits, setBuyerUnits] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     axios({
@@ -29,6 +33,9 @@ const BuyerProperties = () => {
     })
       .then((res) => {
         setBuyerUnits(res.data)
+        setTimeout(() => {
+          setLoading(false);
+        }, 250);
       })
       .catch((err) => {
         if (err.message === "Network Error") {
@@ -89,12 +96,30 @@ const BuyerProperties = () => {
         <Separator />
       </div>
 
-      <div className="p-4 sm:ml-14">
-        <div className="grid grid-cols-2 gap-4 mb-4">
-            {buyerUnits.map((buyerUnit:UnitSchema)=>(
-              <BuyerPropertiesCard key={buyerUnit.id} unit={buyerUnit}/>
-            ))}
-        </div>
+      <div className="p-4 pt-0 sm:ml-14">
+      {loading ? (
+          <Loading/>
+        ) : (
+          <>
+        <h1 className="text-3xl font-semibold text-blue-800 pb-2 px-3">
+          Bought Properties
+        </h1>
+        <p className="pb-3 px-3 text-gray-600"></p>
+        {buyerUnits.length > 0 ? (
+          <div className="grid grid-cols-2 gap-4 mb-4">
+          {buyerUnits.map((buyerUnit:UnitSchema)=>(
+            <BuyerPropertiesCard key={buyerUnit.id} unit={buyerUnit}/>
+          ))}
+      </div>
+        ) : (
+          <div className="flex items-center justify-center flex-row">
+            <img src={nodata} alt="No data found" className="w-1/2" />
+          </div>
+        )}
+        </>
+        )}
+      
+        
       </div>
     </div>
   );

@@ -57,6 +57,7 @@ export default function AgreementForm({
   function onSubmit(values: z.infer<typeof formSchema>) {
     if(form.formState.isValid){
       createAgreement(values,request.id)
+      //paid successfully image/page
     }
   }
 

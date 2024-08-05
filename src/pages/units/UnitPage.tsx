@@ -28,12 +28,16 @@ import logo from "../../assets/logo.png";
 import { Input } from "../../components/ui/input";
 import { Separator } from "../../components/ui/separator";
 import nodata from "../../assets/nodata.jpeg";
+import Loading from "../shared/Loading";
+
 const UnitPage = () => {
   const { id } = useParams();
   const token = localStorage.getItem("token");
   const role = localStorage.getItem("role");
   const [refresh, setRefresh] = useState(false);
   const [units, setUnits] = useState([]);
+  const [propertyName, setPropertyName] = useState("");
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     axios({
@@ -46,6 +50,12 @@ const UnitPage = () => {
     })
       .then((res) => {
         setUnits(res.data);
+        if (res.data.length > 0) {
+          setPropertyName(res.data[0].property.name);
+        }
+        setTimeout(() => {
+          setLoading(false);
+        }, 250);
       })
       .catch((err) => {
         if (err.message === "Network Error") {
@@ -53,6 +63,9 @@ const UnitPage = () => {
         } else {
           console.log(err);
         }
+        setTimeout(() => {
+          setLoading(false);
+        }, 2000);
       }); // eslint-disable-next-line
   }, [refresh]);
 
@@ -153,17 +166,39 @@ const UnitPage = () => {
         </header>
         <Separator />
       </div>
-      <div className="px-3 sm:ml-14 py-4">
-        {len > 0 ? (
-          <div className="grid grid-cols-3 gap-4 mb-4">
-            {filteredUnits.map((unit: UnitSchema) => (
-              <UnitCard key={unit.id} unit={unit} role={role} />
-            ))}
-          </div>
+      <div className="p-4 pt-0 sm:ml-14 py-4">
+        {loading ? (
+          <Loading />
         ) : (
-          <div className="flex items-center justify-center flex-row">
-            <img src={nodata} alt="No data found" className="w-1/2" />
-          </div>
+          <>
+            {propertyName.length > 0 ? (
+              <div>
+                <h1 className="text-3xl font-semibold text-blue-800 pb-2 px-3">
+                  Units in {propertyName}
+                </h1>
+                <p className="pb-3 px-3 text-gray-600">
+                  Listed below are units in {propertyName}, click on "View
+                  Details" to view further information.
+                </p>
+              </div>
+            ) : (
+              <h1 className="text-3xl font-semibold text-blue-800 pb-2 px-3">
+                No Units to show
+              </h1>
+            )}
+
+            {len > 0 ? (
+              <div className="grid grid-cols-3 gap-4 mb-4">
+                {filteredUnits.map((unit: UnitSchema) => (
+                  <UnitCard key={unit.id} unit={unit} role={role} />
+                ))}
+              </div>
+            ) : (
+              <div className="flex items-center justify-center flex-row">
+                <img src={nodata} alt="No data found" className="w-1/2" />
+              </div>
+            )}
+          </>
         )}
       </div>
     </div>

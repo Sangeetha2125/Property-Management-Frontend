@@ -1,7 +1,15 @@
 import { CircleUserRound, LogOut, User } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 
-import { DropdownMenu,DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../../components/ui/dropdown-menu";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "../../components/ui/dropdown-menu";
 import { Button } from "../../components/ui/button";
 import {
   Select,
@@ -18,13 +26,14 @@ import { toast } from "sonner";
 import { UnitRequestSchema } from "@/types/schema";
 import logo from "../../assets/logo.png";
 import { Separator } from "../../components/ui/separator";
-import nodata from "../../assets/nodata.jpeg"
+import nodata from "../../assets/nodata.jpeg";
+import Loading from "../shared/Loading";
 const RequestPage = () => {
   const token = localStorage.getItem("token");
   const role = localStorage.getItem("role");
   const [refresh, setRefresh] = useState(false);
   const [requests, setRequests] = useState([]);
-
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     axios({
       method: "get",
@@ -36,6 +45,9 @@ const RequestPage = () => {
     })
       .then((res) => {
         setRequests(res.data);
+        setTimeout(() => {
+          setLoading(false);
+        }, 250);
       })
       .catch((err) => {
         if (err.message === "Network Error") {
@@ -49,23 +61,24 @@ const RequestPage = () => {
 
   const [filterType, setFilterType] = useState<"status" | "type">("status");
   const [search, setSearch] = useState<string>("");
-  const filteredRequests = requests.filter((request: UnitRequestSchema) =>{
-    if(search===""){
+  const filteredRequests = requests.filter((request: UnitRequestSchema) => {
+    if (search === "") {
       return request;
     }
-    return String(request[filterType]).toLowerCase().includes(search.toLowerCase())
-  }
-  );
-  const len=filteredRequests.length;
+    return String(request[filterType])
+      .toLowerCase()
+      .includes(search.toLowerCase());
+  });
+  const len = filteredRequests.length;
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const logout = () => {
-    localStorage.removeItem("token")
-    localStorage.removeItem("role")
+    localStorage.removeItem("token");
+    localStorage.removeItem("role");
     setTimeout(() => {
-      navigate("/")
-    }, 1000)
-  }
+      navigate("/");
+    }, 1000);
+  };
 
   return (
     <div className="flex min-h-screen w-full flex-col bg-muted/40">
@@ -78,7 +91,10 @@ const RequestPage = () => {
               <div className="">
                 <Select
                   value={filterType}
-                  onValueChange={(val)=>{setSearch(""); setFilterType(val as SetStateAction<"status" | "type">)}}
+                  onValueChange={(val) => {
+                    setSearch("");
+                    setFilterType(val as SetStateAction<"status" | "type">);
+                  }}
                 >
                   <SelectTrigger className="btn">
                     <SelectValue />
@@ -130,19 +146,23 @@ const RequestPage = () => {
               <DropdownMenuContent className="w-40 mr-1 p-2 bg-white border-2 border-zinc-200 rounded-sm">
                 <DropdownMenuGroup>
                   <Link to={"/profile"}>
-                  <DropdownMenuItem className="flex items-center pt-2">
-                    <User className="mr-2 h-4 w-4" />
-                    <span className="">Profile</span>
-                  </DropdownMenuItem>
+                    <DropdownMenuItem className="flex items-center pt-2">
+                      <User className="mr-2 h-4 w-4" />
+                      <span className="">Profile</span>
+                    </DropdownMenuItem>
                   </Link>
                 </DropdownMenuGroup>
 
                 <DropdownMenuSeparator />
                 <div onClick={logout}>
-                <DropdownMenuItem className="flex items-center pt-2 pb-2">
-                  <LogOut className="mr-2 h-4 w-4" />
-                  <span onClick={()=>toast.success("Logged out successfully")}>Log out</span>
-                </DropdownMenuItem>
+                  <DropdownMenuItem className="flex items-center pt-2 pb-2">
+                    <LogOut className="mr-2 h-4 w-4" />
+                    <span
+                      onClick={() => toast.success("Logged out successfully")}
+                    >
+                      Log out
+                    </span>
+                  </DropdownMenuItem>
                 </div>
               </DropdownMenuContent>
             </DropdownMenu>
@@ -151,25 +171,37 @@ const RequestPage = () => {
         <Separator />
       </div>
 
-        <div className="p-4 sm:ml-14">
-        {len > 0 ? (
-          <div className="grid grid-cols-1 gap-4 mb-4">
-          {filteredRequests.map((request: UnitRequestSchema) => (
-            <RequestsCard
-              key={request.id}
-              request={request}
-              role={role}
-              refresh={refresh}
-              setRefresh={setRefresh}
-            />))}
-          </div>
+      <div className="p-4 pt-0 sm:ml-14">
+        {loading ? (
+          <Loading />
         ) : (
-          <div className="flex items-center justify-center flex-row">
-            <img src={nodata} alt="No data found" className="w-1/2" />
-          </div>
+          <>
+            <h1 className="text-3xl font-semibold text-blue-800 pb-2 px-3">
+              Requests
+            </h1>
+            <p className="pb-3 px-3 text-gray-600"></p>
+
+            {len > 0 ? (
+              <div className="grid grid-cols-1 gap-4 mb-4">
+                {filteredRequests.map((request: UnitRequestSchema) => (
+                  <RequestsCard
+                    key={request.id}
+                    request={request}
+                    role={role}
+                    refresh={refresh}
+                    setRefresh={setRefresh}
+                  />
+                ))}
+              </div>
+            ) : (
+              <div className="flex items-center justify-center flex-row">
+                <img src={nodata} alt="No data found" className="w-1/2" />
+              </div>
+            )}
+          </>
         )}
-        </div>
       </div>
+    </div>
   );
 };
 

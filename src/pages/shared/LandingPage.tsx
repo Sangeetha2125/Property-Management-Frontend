@@ -12,24 +12,34 @@ import image3 from "../../assets/image3.jpg";
 import { toast } from "sonner";
 
 export const Hero = () => {
+  const token = localStorage.getItem("token");
+  const role = localStorage.getItem("role");
+
   return (
     <div className="flex min-h-screen w-full flex-col poppins-light">
       <div className="flex flex-col sm:gap-4 sm:pt-4">
         <header className="sticky top-0 z-30 flex h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
           <img width={90} height={50} src={logo} alt="logo" />
-          <div className="ml-auto flex items-center gap-4 w-1/5">
-            <Link to="/signup" className="w-full">
-              <Button className="w-full">Sign up</Button>
-            </Link>
-            <Link to="/login" className=" w-full">
-              <Button
-                className="w-full  text-blue-500 border-blue-500  hover:text-white hover:bg-blue-500"
-                variant="outline"
-              >
-                Login
-              </Button>
-            </Link>
-          </div>
+          
+            {token ? (
+              <Link to="/profile" className=" ml-auto w-1/12">
+                <Button className="w-full">Profile</Button>
+              </Link>
+            ) : (
+              <div className="ml-auto flex items-center gap-4 w-1/5">
+                <Link to="/signup" className="w-full">
+                  <Button className="w-full">Sign up</Button>
+                </Link>
+                <Link to="/login" className="w-full">
+                  <Button
+                    className="w-full text-blue-500 border-blue-500 hover:text-white hover:bg-blue-500"
+                    variant="outline"
+                  >
+                    Login
+                  </Button>
+                </Link>
+              </div>
+            )}
         </header>
         <Separator />
       </div>
@@ -117,14 +127,28 @@ export const Hero = () => {
                   premium locations close to essential services, our properties
                   are not just residences—they're the backdrop to your future
                   memories.
-                  <Link to={"/login"} className="flex justify-center pt-5">
-                    <Button onClick={() => toast("You need to log in.")} className="w-1/4  text-blue-500 border-blue-500  hover:text-white hover:bg-blue-500"
-                variant="outline">
-                      View Properties
-                    </Button>
-                  </Link>
-                  </p>
-                  <br/>                
+                  {token ? (
+                    <Link to="/properties" className="flex justify-center pt-5">
+                      <Button
+                        className="w-1/4  text-blue-500 border-blue-500  hover:text-white hover:bg-blue-500"
+                        variant="outline"
+                      >
+                        View Properties
+                      </Button>
+                    </Link>
+                  ) : (
+                    <Link to={"/login"} className="flex justify-center pt-5">
+                      <Button
+                        onClick={() => toast("You need to log in.")}
+                        className="w-1/4  text-blue-500 border-blue-500  hover:text-white hover:bg-blue-500"
+                        variant="outline"
+                      >
+                        View Properties
+                      </Button>
+                    </Link>
+                  )}
+                </p>
+                <br />
               </div>
             </div>
           </div>

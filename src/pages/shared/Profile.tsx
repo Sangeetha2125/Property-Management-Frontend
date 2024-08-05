@@ -33,15 +33,19 @@ const ProfilePage = () => {
         </header>
         <Separator />
       </div>
-      <br />
-      <div className="p-4 sm:ml-14">
+
+      <div className="p-4 pt-0 sm:ml-14">
+      <h1 className="text-3xl font-semibold text-blue-800 pb-2 px-3">
+          Profile
+        </h1>
+        <p className="pb-3 px-3 text-gray-600">View your details here.</p>
         <div className="grid grid-cols-3 gap-4 mb-4">
           <ProfileCard />
           <div className="col-span-2">
             <ProfileUnitCard />
           </div>
         </div>
-      </div>{" "}
+      </div>
     </div>
   );
 };

@@ -9,8 +9,15 @@ import {
   User,
 } from "lucide-react";
 
-
-import { DropdownMenu,DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../../components/ui/dropdown-menu";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "../../components/ui/dropdown-menu";
 import { Button } from "../../components/ui/button";
 
 import UnitTypeCard from "../../components/unit_type/UnitTypeCard";
@@ -23,77 +30,87 @@ import { toast } from "sonner";
 import { UnitAvailabilitySchema, UnitSchema } from "@/types/schema";
 import logo from "../../assets/logo.png";
 import { Separator } from "../../components/ui/separator";
+import Loading from "../shared/Loading";
 
 export default function UnitType() {
-  const { propertyId, unitId } = useParams()
-  const [refresh, setRefresh] = useState(false)
-  const token = localStorage.getItem("token")
-  const role = localStorage.getItem("role")
-  const [unit, setUnit] = useState<UnitSchema>()
-  const [unitAvailabilities, setUnitAvailabilities] = useState([])
+  const { propertyId, unitId } = useParams();
+  const [refresh, setRefresh] = useState(false);
+  const token = localStorage.getItem("token");
+  const role = localStorage.getItem("role");
+  const [unit, setUnit] = useState<UnitSchema>();
+  const [unitAvailabilities, setUnitAvailabilities] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     axios({
-      method: 'get',
+      method: "get",
       url: `http://localhost:8080/api/properties/${propertyId}/units/${unitId}`,
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`
-      }
+        Authorization: `Bearer ${token}`,
+      },
     })
       .then((res) => {
-        setUnit(res.data)
+        setUnit(res.data);
       })
       .catch((err) => {
         if (err.message === "Network Error") {
-          toast.error("Please try again later")
+          toast.error("Please try again later");
+        } else {
+          console.log(err);
         }
-        else {
-          console.log(err)
-        }
-      }) // eslint-disable-next-line
-  }, [refresh])
+      }); // eslint-disable-next-line
+  }, [refresh]);
 
   useEffect(() => {
     axios({
-      method: 'get',
+      method: "get",
       url: `http://localhost:8080/api/properties/${propertyId}/units/${unitId}/availabilities/`,
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`
-      }
+        Authorization: `Bearer ${token}`,
+      },
     })
       .then((res) => {
-        setUnitAvailabilities(res.data)
+        setUnitAvailabilities(res.data);
+        setTimeout(() => {
+          setLoading(false);
+        }, 250);
       })
       .catch((err) => {
         if (err.message === "Network Error") {
-          toast.error("Please try again later")
+          toast.error("Please try again later");
+        } else {
+          console.log(err);
         }
-        else {
-          console.log(err)
-        }
-      }) // eslint-disable-next-line
-  }, [refresh])
+      }); // eslint-disable-next-line
+  }, [refresh]);
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const logout = () => {
-    localStorage.removeItem("token")
-    localStorage.removeItem("role")
+    localStorage.removeItem("token");
+    localStorage.removeItem("role");
     setTimeout(() => {
-      navigate("/")
-    }, 1000)
-  }
+      navigate("/");
+    }, 1000);
+  };
 
   return (
     <div>
       <SideNavbar />
       <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14">
         <header className="sticky top-0 z-30 flex h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
-        <img width={90} height={50}src={logo} alt="logo"/>   
+          <img width={90} height={50} src={logo} alt="logo" />
 
           <div className="ml-auto flex items-center gap-2">
-            {role==="OWNER" && <AddUnitTypeDialog propertyId={propertyId} unitId={unitId} refresh={refresh} setRefresh={setRefresh}/>}
+            {role === "OWNER" && (
+              <AddUnitTypeDialog
+                propertyId={propertyId}
+                unitId={unitId}
+                refresh={refresh}
+                setRefresh={setRefresh}
+              />
+            )}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <CircleUserRound
@@ -105,19 +122,23 @@ export default function UnitType() {
               <DropdownMenuContent className="w-40 mr-1 p-2 bg-white border-2 border-zinc-200 rounded-sm">
                 <DropdownMenuGroup>
                   <Link to={"/profile"}>
-                  <DropdownMenuItem className="flex items-center pt-2">
-                    <User className="mr-2 h-4 w-4" />
-                    <span className="">Profile</span>
-                  </DropdownMenuItem>
+                    <DropdownMenuItem className="flex items-center pt-2">
+                      <User className="mr-2 h-4 w-4" />
+                      <span className="">Profile</span>
+                    </DropdownMenuItem>
                   </Link>
                 </DropdownMenuGroup>
 
                 <DropdownMenuSeparator />
                 <div onClick={logout}>
-                <DropdownMenuItem className="flex items-center pt-2 pb-2">
-                  <LogOut className="mr-2 h-4 w-4" />
-                  <span onClick={()=>toast.success("Logged out successfully")}>Log out</span>
-                </DropdownMenuItem>
+                  <DropdownMenuItem className="flex items-center pt-2 pb-2">
+                    <LogOut className="mr-2 h-4 w-4" />
+                    <span
+                      onClick={() => toast.success("Logged out successfully")}
+                    >
+                      Log out
+                    </span>
+                  </DropdownMenuItem>
                 </div>
               </DropdownMenuContent>
             </DropdownMenu>
@@ -126,26 +147,63 @@ export default function UnitType() {
         <Separator />
       </div>
 
-      {unit && <div className=" flex justify-center items-center flex-col p-4 pt-0 sm:ml-8">
-        <div className="w-11/12 pb-8">
-          <h1 className="font-bold text-2xl pb-4">{unit.name}</h1>
-          <h4 className="text-lg pb-4">{unit.description}</h4>
-          <div className="flex gap-6 items-center">
-            <p className="col bg-gray-100 rounded-full px-4 py-1 text-gray-600 text-md"><Building2 size="15" className="inline mr-2" />{unit.squareFootage + " "} sqft.</p>
-            <p className="col bg-gray-100 rounded-full px-4 py-1 text-gray-600 text-md"><BedDouble size="15" className="inline mr-2" />{unit.bedrooms + " Bedrooms"}</p>
-            <p className="col bg-gray-100 rounded-full px-4 py-1 text-gray-600 text-md"><Bath size="15" className="inline mr-2" />{unit.bathrooms + " Bathrooms"}</p>
+      {unit && (
+        <div className="p-4 pt-0 sm:ml-14 py-4">
+          {loading ? (
+          <Loading/>
+        ) : (
+          <>
+      
+          <div className=" flex  flex-col p-4 pt-0">
+            <h1 className="text-3xl font-semibold text-blue-800 pb-2">
+              {unit.name}
+            </h1>
+            <h4 className="text-lg pb-4">{unit.description}</h4>
+            <div className="flex gap-6 items-center">
+              <p className="col bg-gray-100 rounded-full px-4 py-1 text-gray-600 text-md">
+                <Building2 size="15" className="inline mr-2" />
+                {unit.squareFootage + " "} sqft.
+              </p>
+              <p className="col bg-gray-100 rounded-full px-4 py-1 text-gray-600 text-md">
+                <BedDouble size="15" className="inline mr-2" />
+                {unit.bedrooms + " Bedrooms"}
+              </p>
+              <p className="col bg-gray-100 rounded-full px-4 py-1 text-gray-600 text-md">
+                <Bath size="15" className="inline mr-2" />
+                {unit.bathrooms + " Bathrooms"}
+              </p>
+            </div>
+            <div className="flex gap-6 items-center pt-5">
+              <p className="col bg-blue-100 rounded-full px-4 py-1 text-gray-600 text-md">
+                <User size="15" className="inline mr-2" />
+                {unit.property.owner.firstName +
+                  " " +
+                  unit.property.owner.lastName}
+              </p>
+              <p className="col bg-blue-100 rounded-full px-4 py-1 text-gray-600 text-md">
+                <Phone size="15" className="inline mr-2" />
+                {unit.property.owner.phoneNumber}
+              </p>
+            </div>
           </div>
-          <div className="flex gap-6 items-center pt-5">
-            <p className="col bg-blue-100 rounded-full px-4 py-1 text-gray-600 text-md"><User size="15" className="inline mr-2" />{unit.property.owner.firstName + " "+ unit.property.owner.lastName}</p>
-            <p className="col bg-blue-100 rounded-full px-4 py-1 text-gray-600 text-md"><Phone size="15" className="inline mr-2" />{unit.property.owner.phoneNumber}</p>
+          <div className="w-11/12 grid grid-cols-3 gap-4 mb-4">
+            {unitAvailabilities.map(
+              (unitAvailability: UnitAvailabilitySchema) => (
+                <UnitTypeCard
+                  key={unitAvailability.id}
+                  unitAvailability={unitAvailability}
+                  propertyId={propertyId}
+                  unitId={unitId}
+                  refresh={refresh}
+                  setRefresh={setRefresh}
+                />
+              )
+            )}
           </div>
+          </>
+        )}
         </div>
-        <div className="w-11/12 grid grid-cols-3 gap-4 mb-4">
-          {unitAvailabilities.map((unitAvailability:UnitAvailabilitySchema) => (
-            <UnitTypeCard key={unitAvailability.id} unitAvailability={unitAvailability} propertyId={propertyId} unitId={unitId}  refresh={refresh} setRefresh={setRefresh}/>
-          ))}
-        </div>
-      </div>}
+      )}
     </div>
   );
 }

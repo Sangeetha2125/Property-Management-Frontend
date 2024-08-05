@@ -55,6 +55,7 @@ export default function AgreementDialog({
         setRefresh(!refresh);
       });
   };
+  // add code to show successful payment popup/page
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
