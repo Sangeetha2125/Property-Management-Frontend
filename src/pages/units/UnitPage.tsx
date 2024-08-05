@@ -48,27 +48,27 @@ const UnitPage = () => {
         Authorization: `Bearer ${token}`,
       },
     })
-      .then((res) => {
-        setUnits(res.data);
-        if (res.data.length > 0) {
-          setPropertyName(res.data[0].property.name);
-        }
-        setTimeout(() => {
-          setLoading(false);
-        }, 250);
-      })
-      .catch((err) => {
-        if (err.message === "Network Error") {
-          toast.error("Please try again later");
-        } else {
-          console.log(err);
-        }
-        setTimeout(() => {
-          setLoading(false);
-        }, 2000);
-      }); // eslint-disable-next-line
-  }, [refresh]);
-
+    .then((res) => {
+      setUnits(res.data);
+      if (res.data.length > 0) {
+        setPropertyName(res.data[0].property.name);
+      }
+      setTimeout(() => {
+        setLoading(false);
+      }, 250);
+    })
+    .catch((err) => {
+      if (err.message === "Network Error") {
+        toast.error("Please try again later");
+      } else {
+        console.log(err);
+      }
+      setTimeout(() => {
+        setLoading(false);
+      }, 2000);
+    });
+  }, [refresh]); // Add refresh here
+  
   const [filterType, setFilterType] = useState<
     "bedrooms" | "bathrooms" | "squareFootage" | "name"
   >("name");
@@ -190,7 +190,7 @@ const UnitPage = () => {
             {len > 0 ? (
               <div className="grid grid-cols-3 gap-4 mb-4">
                 {filteredUnits.map((unit: UnitSchema) => (
-                  <UnitCard key={unit.id} unit={unit} role={role} />
+                  <UnitCard key={unit.id} unit={unit} role={role} refresh={refresh} setRefresh={setRefresh}/>
                 ))}
               </div>
             ) : (

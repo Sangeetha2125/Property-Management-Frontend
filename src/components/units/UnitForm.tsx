@@ -14,6 +14,7 @@ import {
 import { Input } from "../ui/input"
 import { Button } from "../ui/button"
 import { Textarea } from "../ui/textarea"
+import { UnitSchema } from "@/types/schema"
 
 const formSchema = z.object({
   name: z.string()
@@ -36,15 +37,24 @@ const formSchema = z.object({
 })
 
 interface AddUnitFormProps {
-  addUnit: Function;
+  addUnit?: Function;
+  updateUnit?: Function;
+  unit?: UnitSchema;
 }
 
-export default function UnitForm({ addUnit }: AddUnitFormProps) {
+export default function UnitForm({ addUnit,updateUnit,unit }: AddUnitFormProps) {
   const token = localStorage.getItem("token")
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
+    defaultValues: unit?{
+      name: unit.name,
+      floor: unit.floor,
+      squareFootage: unit.squareFootage,
+      bedrooms: unit.bedrooms,
+      bathrooms: unit.bathrooms,
+      description: unit.description
+    }:{
       name: "",
       floor: 0,
       squareFootage: 0,
@@ -55,7 +65,12 @@ export default function UnitForm({ addUnit }: AddUnitFormProps) {
   })
 
   function onSubmit(values: z.infer<typeof formSchema>) {
+    if(updateUnit){
+      updateUnit(values,token)
+    }
+    if(addUnit){ 
     addUnit(values, token)
+    }
     console.log(values)
   }
 
@@ -85,7 +100,7 @@ export default function UnitForm({ addUnit }: AddUnitFormProps) {
             <FormItem>
               <FormLabel>Square Footage</FormLabel>
               <FormControl>
-                <Input onChange={(e) =>
+                <Input type="number" value={field.value} onChange={(e) =>
                   field.onChange(parseFloat(e.target.value))
                 } placeholder="0" />
               </FormControl>
@@ -103,7 +118,7 @@ export default function UnitForm({ addUnit }: AddUnitFormProps) {
               <FormItem>
                 <FormLabel>Floor</FormLabel>
                 <FormControl>
-                  <Input type="number" onChange={(e) =>
+                  <Input type="number" value={field.value} onChange={(e) =>
                     field.onChange(parseInt(e.target.value))
                   } placeholder="0" />
                 </FormControl>
@@ -119,7 +134,7 @@ export default function UnitForm({ addUnit }: AddUnitFormProps) {
               <FormItem>
                 <FormLabel>Bedrooms</FormLabel>
                 <FormControl>
-                  <Input type="number" onChange={(e) =>
+                  <Input type="number" value={field.value} onChange={(e) =>
                     field.onChange(parseInt(e.target.value))
                   } placeholder="0" />
                 </FormControl>
@@ -135,7 +150,7 @@ export default function UnitForm({ addUnit }: AddUnitFormProps) {
               <FormItem>
                 <FormLabel>Bathrooms</FormLabel>
                 <FormControl>
-                  <Input type="number" onChange={(e) =>
+                  <Input type="number" value={field.value} onChange={(e) =>
                     field.onChange(parseInt(e.target.value))
                   } placeholder="0" />
                 </FormControl>
@@ -158,9 +173,16 @@ export default function UnitForm({ addUnit }: AddUnitFormProps) {
             </FormItem>
           )}
         />
-        <div className="flex justify-center">
-          <Button type='submit' className="w-full"> Submit</Button>
-        </div>
+        <div className="flex justify-center w-full">
+        <div className="relative group w-full">
+          <Button type='submit' className="w-full" disabled={updateUnit && !form.formState.isDirty}> Submit</Button>
+          {updateUnit && !form.formState.isDirty && (
+            <div className="absolute left-1/2 transform -translate-x-1/2 top-full mt-2 bg-muted border-gray-600 text-black text-sm rounded-md p-3 opacity-0 group-hover:opacity-100 transition duration-200 shadow-lg">
+              Change fields to update
+            </div>
+          )}
+          </div>
+          </div>
       </form>
     </Form>
   )

@@ -9,7 +9,7 @@ import {
   CardTitle,
 } from "../ui/card";
 import { PropertySchema } from "../../types/schema";
-import { Edit, MapPin, Phone, User } from "lucide-react";
+import {  MapPin, Phone, User } from "lucide-react";
 import { Badge } from "../ui/badge";
 import { UpdateProperty } from "./UpdatePropertyDialog";
 import { useState } from "react";

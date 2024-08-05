@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { Button } from "../ui/button";
 import {
   Card,
@@ -21,19 +21,36 @@ import {
 import { UnitSchema } from "../../types/schema";
 import { Bath, BedDouble, Building2 } from "lucide-react";
 import { Badge } from "../ui/badge";
+import { UpdateUnit } from "./UpdateUnitDialog";
 
 interface UnitCardProps {
   unit: UnitSchema;
   role: string | null;
+  refresh: boolean;
+  setRefresh: Function;
 }
 
-const UnitCard = ({ unit, role }: UnitCardProps) => {
+const UnitCard = ({ unit, role, refresh, setRefresh }: UnitCardProps) => {
   return (
     <div className="rounded bg-gray-50 dark:bg-gray-800">
       <Card>
         <CardHeader>
           <div className="flex justify-between">
-            <CardTitle>{unit.name}</CardTitle>
+            
+              <CardTitle className="flex space-x-2">
+                <span>{unit.name}</span>
+                {role === "OWNER" ? (
+                  <UpdateUnit
+                    refresh={refresh}
+                    setRefresh={setRefresh}
+                    unit={unit}
+                    propertyId={"" + unit.property.id}
+                  />
+                ) : (
+                  <></>
+                )}
+              </CardTitle>
+            
             <Badge variant={"outline"}>{unit.availability}</Badge>
           </div>
         </CardHeader>
@@ -71,19 +88,25 @@ const UnitCard = ({ unit, role }: UnitCardProps) => {
               </AlertDialogTrigger>
               <AlertDialogContent>
                 <AlertDialogHeader>
-                  <AlertDialogTitle className="text-center pb-2">Buyer Details</AlertDialogTitle>
+                  <AlertDialogTitle className="text-center pb-2">
+                    Buyer Details
+                  </AlertDialogTitle>
                   <AlertDialogDescription>
-                    <span className="text-black text-base">Name: {unit.soldTo?.firstName} {unit.soldTo?.lastName}</span>
+                    <span className="text-black text-base">
+                      Name: {unit.soldTo?.firstName} {unit.soldTo?.lastName}
+                    </span>
                   </AlertDialogDescription>
-                  <AlertDialogDescription className="text-black text-base" >
+                  <AlertDialogDescription className="text-black text-base">
                     Phone: {unit.soldTo?.phoneNumber}
                   </AlertDialogDescription>
                   <AlertDialogDescription className="text-black text-base">
                     Email: {unit.soldTo?.email}
                   </AlertDialogDescription>
                 </AlertDialogHeader>
-                <AlertDialogFooter >
-                  <AlertDialogAction className="w-full">Close</AlertDialogAction>
+                <AlertDialogFooter>
+                  <AlertDialogAction className="w-full">
+                    Close
+                  </AlertDialogAction>
                 </AlertDialogFooter>
               </AlertDialogContent>
             </AlertDialog>
