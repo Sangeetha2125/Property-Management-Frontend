@@ -167,7 +167,7 @@ const PropertyPage = () => {
         {len > 0 ? (
           <div className="grid grid-cols-3 gap-4 mb-4">
             {filteredProperties.map((property: PropertySchema) => (
-              <PropertyCard key={property.id} property={property} role={role} />
+              <PropertyCard key={property.id} property={property} role={role} refresh={refresh} setRefresh={setRefresh}/>
             ))}
           </div>
         ) : (

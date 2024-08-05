@@ -21,6 +21,7 @@ import {
 
 import { Input } from "../ui/input"
 import { Button } from "../ui/button"
+import { PropertySchema } from "@/types/schema"
 
 const typeSchema = z.enum(['APARTMENT', 'HOUSE', 'GATED_COMMUNITY']);
 
@@ -47,14 +48,29 @@ const formSchema = z.object({
 })
 
 interface AddPropertyFormProps {
-  addProperty: Function;
+  addProperty?: Function;
+  updateProperty?: Function;
+  property?: PropertySchema;
+}
+enum PropertyType {
+  APARTMENT = 'APARTMENT',
+  HOUSE = 'HOUSE',
+  GATED_COMMUNITY = 'GATED_COMMUNITY',
 }
 
-export default function Property_Form({ addProperty }: AddPropertyFormProps) {
+export default function Property_Form({ addProperty, updateProperty, property }: AddPropertyFormProps) {
   const token = localStorage.getItem("token")
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
+    defaultValues: property ?{
+      name:property.name,
+      address: property.address,
+      city: property.city,
+      state: property.state,
+      pincode:property.pincode,
+      numUnits: property.numUnits,
+      type: property.type as PropertyType,
+    }:{
       name: "",
       address: "",
       city: "",
@@ -64,8 +80,12 @@ export default function Property_Form({ addProperty }: AddPropertyFormProps) {
   })
 
   function onSubmit(values: z.infer<typeof formSchema>) {
+    if(updateProperty){
+      updateProperty(values,token)
+    }
+    if(addProperty){
     addProperty(values, token)
-  }
+    }}
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2">
@@ -148,7 +168,7 @@ export default function Property_Form({ addProperty }: AddPropertyFormProps) {
             <FormItem>
               <FormLabel>Number of Units</FormLabel>
               <FormControl>
-                <Input type="number" onChange={(e) =>
+                <Input type="number" value={field.value} onChange={(e) =>
                   field.onChange(parseInt(e.target.value))
                 }/>
               </FormControl>
@@ -179,8 +199,15 @@ export default function Property_Form({ addProperty }: AddPropertyFormProps) {
             </FormItem>
           )}
         />
-        <div className="flex justify-center">
-          <Button type='submit' className="w-full"> Submit</Button>
+        <div className="flex justify-center w-full">
+        <div className="relative group w-full">
+          <Button type='submit' className="w-full" disabled={updateProperty && !form.formState.isDirty}> Submit</Button>
+          {updateProperty && !form.formState.isDirty && (
+            <div className="absolute left-1/2 transform -translate-x-1/2 top-full mt-2 bg-muted border-gray-600 text-black text-sm rounded-md p-3 opacity-0 group-hover:opacity-100 transition duration-200 shadow-lg">
+              Change fields to update
+            </div>
+          )}
+        </div>
         </div>
       </form>
     </Form>

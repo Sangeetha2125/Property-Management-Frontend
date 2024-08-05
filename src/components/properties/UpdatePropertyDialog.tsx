@@ -11,18 +11,20 @@ import {
 import { useState } from "react"
 import axios from "axios"
 import { toast } from "sonner"
+import { Pencil } from "lucide-react"
 
-interface AddPropertyProps {
+interface UpdatePropertyProps {
   refresh: boolean,
   setRefresh: Function;
+  property: any;
 }
 
-export function AddProperty({ refresh, setRefresh }: AddPropertyProps) {
+export function UpdateProperty({ refresh, setRefresh, property }: UpdatePropertyProps) {
   const [isOpen, setIsOpen] = useState<boolean>(false)
-  const addProperty = (values: any, token: string) => {
+  const updateProperty = (values: any, token: string) => {
     axios({
-      method: 'post',
-      url: "http://localhost:8080/api/properties/",
+      method: 'put',
+      url: `http://localhost:8080/api/properties/${property.id}`,
       data: values,
       headers: {
         "Content-Type": "application/json",
@@ -31,7 +33,7 @@ export function AddProperty({ refresh, setRefresh }: AddPropertyProps) {
     })
       .then((res) => {
         console.log(res)
-        if (res.status === 201) {
+        if (res.status === 200) {
           toast.success(res.data)
           setRefresh(!refresh)
         }
@@ -49,21 +51,23 @@ export function AddProperty({ refresh, setRefresh }: AddPropertyProps) {
       })
   }
 
-  
-
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <Button variant="default" size="sm" className="px-6" onClick={() => setIsOpen(true)}>Add Property</Button>
-      </DialogTrigger>
+      <div className="relative group">
+        <Pencil className="cursor-pointer mt-1" color="#6b6b6b" size="20" onClick={() => setIsOpen(true)} />
+        <div className="absolute left-full ml-2 top-1/2 transform -translate-y-1/2 bg-white text-gray-700 text-sm rounded-md p-2 opacity-0 group-hover:opacity-100 transition duration-200 shadow-lg">
+          Edit
+        </div>
+      </div></DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Add Property</DialogTitle>
+          <DialogTitle>Update Property</DialogTitle>
           <DialogDescription>
-            Add you property here. Click submit when you're done.
+            Update your property here. Click submit when you're done.
           </DialogDescription>
         </DialogHeader>
-        <PropertyForm addProperty={addProperty} />
+        <PropertyForm updateProperty={updateProperty} property={property} />
       </DialogContent>
     </Dialog>
   )
