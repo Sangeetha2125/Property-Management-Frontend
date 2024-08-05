@@ -8,7 +8,14 @@ import {
   Phone,
   User,
 } from "lucide-react";
-
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "../../components/ui/breadcrumb";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -150,58 +157,90 @@ export default function UnitType() {
       {unit && (
         <div className="p-4 pt-0 sm:ml-14 py-4">
           {loading ? (
-          <Loading/>
-        ) : (
-          <>
-      
-          <div className=" flex  flex-col p-4 pt-0">
-            <h1 className="text-3xl font-semibold text-blue-800 pb-2">
-              {unit.name}
-            </h1>
-            <h4 className="text-lg pb-4">{unit.description}</h4>
-            <div className="flex gap-6 items-center">
-              <p className="col bg-gray-100 rounded-full px-4 py-1 text-gray-600 text-md">
-                <Building2 size="15" className="inline mr-2" />
-                {unit.squareFootage + " "} sqft.
-              </p>
-              <p className="col bg-gray-100 rounded-full px-4 py-1 text-gray-600 text-md">
-                <BedDouble size="15" className="inline mr-2" />
-                {unit.bedrooms + " Bedrooms"}
-              </p>
-              <p className="col bg-gray-100 rounded-full px-4 py-1 text-gray-600 text-md">
-                <Bath size="15" className="inline mr-2" />
-                {unit.bathrooms + " Bathrooms"}
-              </p>
-            </div>
-            <div className="flex gap-6 items-center pt-5">
-              <p className="col bg-blue-100 rounded-full px-4 py-1 text-gray-600 text-md">
-                <User size="15" className="inline mr-2" />
-                {unit.property.owner.firstName +
-                  " " +
-                  unit.property.owner.lastName}
-              </p>
-              <p className="col bg-blue-100 rounded-full px-4 py-1 text-gray-600 text-md">
-                <Phone size="15" className="inline mr-2" />
-                {unit.property.owner.phoneNumber}
-              </p>
-            </div>
-          </div>
-          <div className="w-11/12 grid grid-cols-3 gap-4 mb-4">
-            {unitAvailabilities.map(
-              (unitAvailability: UnitAvailabilitySchema) => (
-                <UnitTypeCard
-                  key={unitAvailability.id}
-                  unitAvailability={unitAvailability}
-                  propertyId={propertyId}
-                  unitId={unitId}
-                  refresh={refresh}
-                  setRefresh={setRefresh}
-                />
-              )
-            )}
-          </div>
-          </>
-        )}
+            <Loading />
+          ) : (
+            <>
+              <div className=" flex  flex-col p-4 pt-0">
+                <Breadcrumb className="hidden md:flex pb-1">
+                  <BreadcrumbList>
+                    <BreadcrumbItem>
+                      <BreadcrumbLink asChild>
+                        <Link to={"/properties"}>Properties</Link>
+                      </BreadcrumbLink>
+                    </BreadcrumbItem>
+                    <BreadcrumbSeparator />
+                    <BreadcrumbItem>
+                      <BreadcrumbLink asChild>
+                        <Link to={`/properties/${propertyId}/units`}>
+                          {unit.property.name}
+                        </Link>
+                      </BreadcrumbLink>
+                    </BreadcrumbItem>
+                    <BreadcrumbSeparator />
+                    <BreadcrumbItem>
+                      <BreadcrumbPage>{unit.name}</BreadcrumbPage>
+                    </BreadcrumbItem>
+                  </BreadcrumbList>
+                </Breadcrumb>
+                <h1 className="text-3xl font-semibold text-blue-800 pb-2">
+                  {unit.name}
+                </h1>
+                <h4 className="text-lg pb-4">{unit.description}</h4>
+                <div className="flex gap-6 items-center">
+                  <p className="col bg-gray-100 rounded-full px-4 py-1 text-gray-600 text-md">
+                    <Building2 size="15" className="inline mr-2" />
+                    {unit.squareFootage + " "} sqft.
+                  </p>
+                  <p className="col bg-gray-100 rounded-full px-4 py-1 text-gray-600 text-md">
+                    <BedDouble size="15" className="inline mr-2" />
+                    {unit.bedrooms + " Bedrooms"}
+                  </p>
+                  <p className="col bg-gray-100 rounded-full px-4 py-1 text-gray-600 text-md">
+                    <Bath size="15" className="inline mr-2" />
+                    {unit.bathrooms + " Bathrooms"}
+                  </p>
+                </div>
+                <div className="flex gap-6 items-center pt-5">
+                  <p className="col bg-blue-100 rounded-full px-4 py-1 text-gray-600 text-md">
+                    <User size="15" className="inline mr-2" />
+                    {unit.property.owner.firstName +
+                      " " +
+                      unit.property.owner.lastName}
+                  </p>
+                  <p className="col bg-blue-100 rounded-full px-4 py-1 text-gray-600 text-md">
+                    <Phone size="15" className="inline mr-2" />
+                    {unit.property.owner.phoneNumber}
+                  </p>
+                </div>
+              </div>
+
+              {unitAvailabilities.length > 0 ? (
+                <div className="w-11/12 grid grid-cols-3 gap-4 mb-4">
+                  {unitAvailabilities.map(
+                    (unitAvailability: UnitAvailabilitySchema) => (
+                      <UnitTypeCard
+                        key={unitAvailability.id}
+                        unitAvailability={unitAvailability}
+                        propertyId={propertyId}
+                        unitId={unitId}
+                        refresh={refresh}
+                        setRefresh={setRefresh}
+                      />
+                    )
+                  )}
+                </div>
+              ) : (
+                <div className="inset-0 flex flex-col justify-center text-gray-600 animate-pulse">
+                  <br/>
+                  <p className="">
+                    You have not added any availability for this unit. Click on "Add
+                    Unit Availability" button in the navigation bar to add
+                    availability.
+                  </p>
+                </div>
+              )}
+            </>
+          )}
         </div>
       )}
     </div>

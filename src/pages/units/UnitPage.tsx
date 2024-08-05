@@ -11,6 +11,14 @@ import {
   DropdownMenuTrigger,
 } from "../../components/ui/dropdown-menu";
 import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "../../components/ui/breadcrumb"
+import {
   Select,
   SelectContent,
   SelectItem,
@@ -38,6 +46,7 @@ const UnitPage = () => {
   const [units, setUnits] = useState([]);
   const [propertyName, setPropertyName] = useState("");
   const [loading, setLoading] = useState(true);
+  
 
   useEffect(() => {
     axios({
@@ -172,17 +181,30 @@ const UnitPage = () => {
         ) : (
           <>
             {propertyName.length > 0 ? (
-              <div>
-                <h1 className="text-3xl font-semibold text-blue-800 pb-2 px-3">
+              <div className=" flex  flex-col p-4 pt-0">
+                <Breadcrumb className="hidden md:flex pb-1">
+            <BreadcrumbList>
+              <BreadcrumbItem>
+                <BreadcrumbLink asChild>
+                  <Link to={"/properties"}>Properties</Link>
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbPage>{propertyName}</BreadcrumbPage>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          </Breadcrumb>
+                <h1 className="text-3xl font-semibold text-blue-800 pb-2 ">
                   Units in {propertyName}
                 </h1>
-                <p className="pb-3 px-3 text-gray-600">
-                  Listed below are units in {propertyName}, click on "View
-                  Details" to view further information.
+                <p className="pb-3 text-gray-600">
+                  Each property has multiple units listed by the owner. Listed below are the units in <span className="text-black">{propertyName}</span>. Click on "View
+                  Details" to view further information for available properties.
                 </p>
               </div>
             ) : (
-              <h1 className="text-3xl font-semibold text-blue-800 pb-2 px-3">
+              <h1 className="text-3xl font-semibold text-blue-800 pb-2 ">
                 No Units to show
               </h1>
             )}
