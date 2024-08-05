@@ -17,10 +17,19 @@ import axios from "axios";
 import { toast } from "sonner";
 import { PropertySchema } from "../../types/schema";
 import logo from "../../assets/logo.png";
-
+import nodata from "../../assets/nodata.jpeg";
 import { Separator } from "../../components/ui/separator";
 import { Input } from "../../components/ui/input";
-import { DropdownMenu,DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../../components/ui/dropdown-menu";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "../../components/ui/dropdown-menu";
+import { HeightIcon } from "@radix-ui/react-icons";
 const PropertyPage = () => {
   const token = localStorage.getItem("token");
   const role = localStorage.getItem("role");
@@ -55,13 +64,16 @@ const PropertyPage = () => {
   const filteredProperties = properties.filter((property: PropertySchema) =>
     property[filterType].toLowerCase().includes(search.toLowerCase())
   );
+  const len = filteredProperties.length;
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const logout = () => {
-    localStorage.removeItem("token")
-    localStorage.removeItem("role")
-    navigate("/")
-  }
+    localStorage.removeItem("token");
+    localStorage.removeItem("role");
+    setTimeout(() => {
+      navigate("/")
+    }, 1000)
+  };
 
   return (
     <div className="flex min-h-screen w-full flex-col bg-muted/40">
@@ -71,33 +83,33 @@ const PropertyPage = () => {
           <img width={90} height={30} src={logo} alt="logo" />
 
           <div className="ml-auto flex items-center gap-4">
-              <div className="">
-                <Select
-                  value={filterType}
-                  onValueChange={setFilterType as (value: string) => void}
-                >
-                  <SelectTrigger className="btn min-w-40">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="name">Name</SelectItem>
-                    <SelectItem value="city">City</SelectItem>
-                    <SelectItem value="state">State</SelectItem>
-                    <SelectItem value="address">Address</SelectItem>
-                    <SelectItem value="pincode">Pincode</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
+            <div className="">
+              <Select
+                value={filterType}
+                onValueChange={setFilterType as (value: string) => void}
+              >
+                <SelectTrigger className="btn min-w-40">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="name">Name</SelectItem>
+                  <SelectItem value="city">City</SelectItem>
+                  <SelectItem value="state">State</SelectItem>
+                  <SelectItem value="address">Address</SelectItem>
+                  <SelectItem value="pincode">Pincode</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
 
-              <Input
-                type="text"
-                value={search}
-                className="w-60 col-span-2"
-                onChange={(e) => setSearch(e.target.value)}
-                placeholder={`Search by ${
-                  filterType[0].toUpperCase() + filterType.substring(1)
-                }`}
-              ></Input>
+            <Input
+              type="text"
+              value={search}
+              className="w-60 col-span-2"
+              onChange={(e) => setSearch(e.target.value)}
+              placeholder={`Search by ${
+                filterType[0].toUpperCase() + filterType.substring(1)
+              }`}
+            ></Input>
             {role === "OWNER" && (
               <AddProperty refresh={refresh} setRefresh={setRefresh} />
             )}
@@ -114,19 +126,23 @@ const PropertyPage = () => {
               <DropdownMenuContent className="w-40 mr-1 p-2 bg-white border-2 border-zinc-200 rounded-sm">
                 <DropdownMenuGroup>
                   <Link to={"/profile"}>
-                  <DropdownMenuItem className="flex items-center pt-2">
-                    <User className="mr-2 h-4 w-4" />
-                    <span className="">Profile</span>
-                  </DropdownMenuItem>
+                    <DropdownMenuItem className="flex items-center pt-2">
+                      <User className="mr-2 h-4 w-4" />
+                      <span className="">Profile</span>
+                    </DropdownMenuItem>
                   </Link>
                 </DropdownMenuGroup>
 
                 <DropdownMenuSeparator />
                 <div onClick={logout}>
-                <DropdownMenuItem className="flex items-center pt-2 pb-2">
-                  <LogOut className="mr-2 h-4 w-4" />
-                  <span onClick={()=>toast.success("Logged out successfully")}>Log out</span>
-                </DropdownMenuItem>
+                  <DropdownMenuItem className="flex items-center pt-2 pb-2">
+                    <LogOut className="mr-2 h-4 w-4" />
+                    <span
+                      onClick={() => toast.success("Logged out successfully")}
+                    >
+                      Log out
+                    </span>
+                  </DropdownMenuItem>
                 </div>
               </DropdownMenuContent>
             </DropdownMenu>
@@ -136,11 +152,17 @@ const PropertyPage = () => {
       </div>
 
       <div className="p-4 sm:ml-14">
-        <div className="grid grid-cols-3 gap-4 mb-4">
-          {filteredProperties.map((property: PropertySchema) => (
-            <PropertyCard key={property.id} property={property} role={role} />
-          ))}
-        </div>
+        {len > 0 ? (
+          <div className="grid grid-cols-3 gap-4 mb-4">
+            {filteredProperties.map((property: PropertySchema) => (
+              <PropertyCard key={property.id} property={property} role={role} />
+            ))}
+          </div>
+        ) : (
+          <div className="flex items-center justify-center flex-row">
+            <img src={nodata} alt="No data found" className="w-1/2" />
+          </div>
+        )}
       </div>
     </div>
   );

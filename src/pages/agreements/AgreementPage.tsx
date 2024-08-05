@@ -23,7 +23,7 @@ import { toast } from "sonner";
 import { AgreementSchema } from "@/types/schema";
 import logo from "../../assets/logo.png";
 import { Separator } from "../../components/ui/separator";
-
+import nodata from "../../assets/nodata.jpeg"
   
   const AgreementPage = () => {
     const [currentAgreements, setCurrentAgreements] = useState([])
@@ -32,7 +32,9 @@ import { Separator } from "../../components/ui/separator";
     const logout = () => {
       localStorage.removeItem("token")
       localStorage.removeItem("role")
-      navigate("/")
+      setTimeout(() => {
+        navigate("/")
+      }, 1000)
     }
     useEffect(() => {
       axios({
@@ -61,6 +63,7 @@ import { Separator } from "../../components/ui/separator";
     const filteredAgreements = currentAgreements.filter((agreement: AgreementSchema) =>
       agreement.request.unit.property[filterType].toLowerCase().includes(search.toLowerCase())
     );
+    const len=filteredAgreements.length
 
     return (
       <div className="flex min-h-screen w-full flex-col bg-muted/40">
@@ -125,11 +128,17 @@ import { Separator } from "../../components/ui/separator";
       </div>
   
         <div className="p-4 sm:ml-14">
+        {len > 0 ? (
           <div className="grid grid-cols-2 gap-4 mb-4">
-           {filteredAgreements.map((currentAgreement:AgreementSchema)=>(
+            {filteredAgreements.map((currentAgreement:AgreementSchema)=>(
             <AgreementCard key={currentAgreement.id} agreement={currentAgreement}/>
            ))}
           </div>
+        ) : (
+          <div className="flex items-center justify-center flex-row">
+            <img src={nodata} alt="No data found" className="w-1/2" />
+          </div>
+        )}
         </div>
       </div>
     );

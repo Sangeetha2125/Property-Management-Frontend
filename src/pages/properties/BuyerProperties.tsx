@@ -7,7 +7,7 @@ import logo from "../../assets/logo.png";
 import { DropdownMenu,DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "../../components/ui/dropdown-menu";
 import { Separator } from "../../components/ui/separator";
 import {  } from "@radix-ui/react-dropdown-menu";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import BuyerPropertiesCard from "../../components/properties/BuyerPropertiesCard";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -40,6 +40,15 @@ const BuyerProperties = () => {
       }) // eslint-disable-next-line
   }, [])
 
+  const navigate = useNavigate();
+  const logout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("role");
+    setTimeout(() => {
+      navigate("/")
+    }, 1000)
+  };
+
   return (
     <div className="flex min-h-screen w-full flex-col bg-muted/40">
       <SideNavbar />
@@ -67,7 +76,7 @@ const BuyerProperties = () => {
                 </DropdownMenuGroup>
 
                 <DropdownMenuSeparator />
-                <div>
+                <div onClick={logout}>
                 <DropdownMenuItem className="flex items-center pt-2 pb-2">
                   <LogOut className="mr-2 h-4 w-4" />
                   <span onClick={()=>toast.success("Logged out successfully")}>Log out</span>

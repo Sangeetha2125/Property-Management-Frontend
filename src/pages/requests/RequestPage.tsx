@@ -18,7 +18,7 @@ import { toast } from "sonner";
 import { UnitRequestSchema } from "@/types/schema";
 import logo from "../../assets/logo.png";
 import { Separator } from "../../components/ui/separator";
-
+import nodata from "../../assets/nodata.jpeg"
 const RequestPage = () => {
   const token = localStorage.getItem("token");
   const role = localStorage.getItem("role");
@@ -56,12 +56,15 @@ const RequestPage = () => {
     return String(request[filterType]).toLowerCase().includes(search.toLowerCase())
   }
   );
+  const len=filteredRequests.length;
 
   const navigate = useNavigate()
   const logout = () => {
     localStorage.removeItem("token")
     localStorage.removeItem("role")
-    navigate("/")
+    setTimeout(() => {
+      navigate("/")
+    }, 1000)
   }
 
   return (
@@ -148,8 +151,9 @@ const RequestPage = () => {
         <Separator />
       </div>
 
-      <div className="p-4 sm:ml-14">
-        <div className="grid grid-cols-1 gap-4 mb-4">
+        <div className="p-4 sm:ml-14">
+        {len > 0 ? (
+          <div className="grid grid-cols-1 gap-4 mb-4">
           {filteredRequests.map((request: UnitRequestSchema) => (
             <RequestsCard
               key={request.id}
@@ -157,11 +161,15 @@ const RequestPage = () => {
               role={role}
               refresh={refresh}
               setRefresh={setRefresh}
-            />
-          ))}
+            />))}
+          </div>
+        ) : (
+          <div className="flex items-center justify-center flex-row">
+            <img src={nodata} alt="No data found" className="w-1/2" />
+          </div>
+        )}
         </div>
       </div>
-    </div>
   );
 };
 

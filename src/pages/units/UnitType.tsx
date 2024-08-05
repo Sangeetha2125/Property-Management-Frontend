@@ -5,6 +5,7 @@ import {
   Building2,
   CircleUserRound,
   LogOut,
+  Phone,
   User,
 } from "lucide-react";
 
@@ -79,7 +80,9 @@ export default function UnitType() {
   const logout = () => {
     localStorage.removeItem("token")
     localStorage.removeItem("role")
-    navigate("/")
+    setTimeout(() => {
+      navigate("/")
+    }, 1000)
   }
 
   return (
@@ -131,6 +134,10 @@ export default function UnitType() {
             <p className="col bg-gray-100 rounded-full px-4 py-1 text-gray-600 text-md"><Building2 size="15" className="inline mr-2" />{unit.squareFootage + " "} sqft.</p>
             <p className="col bg-gray-100 rounded-full px-4 py-1 text-gray-600 text-md"><BedDouble size="15" className="inline mr-2" />{unit.bedrooms + " Bedrooms"}</p>
             <p className="col bg-gray-100 rounded-full px-4 py-1 text-gray-600 text-md"><Bath size="15" className="inline mr-2" />{unit.bathrooms + " Bathrooms"}</p>
+          </div>
+          <div className="flex gap-6 items-center pt-5">
+            <p className="col bg-blue-100 rounded-full px-4 py-1 text-gray-600 text-md"><User size="15" className="inline mr-2" />{unit.property.owner.firstName + " "+ unit.property.owner.lastName}</p>
+            <p className="col bg-blue-100 rounded-full px-4 py-1 text-gray-600 text-md"><Phone size="15" className="inline mr-2" />{unit.property.owner.phoneNumber}</p>
           </div>
         </div>
         <div className="w-11/12 grid grid-cols-3 gap-4 mb-4">

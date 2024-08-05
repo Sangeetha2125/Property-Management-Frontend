@@ -1,17 +1,15 @@
 import { Button } from "../../components/ui/button";
 import { Link } from "react-router-dom";
 import "./LandingPage.css";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-} from "../../components/ui/card";
+import { Card, CardContent, CardDescription } from "../../components/ui/card";
 import { CircleCheckBig, Copyright } from "lucide-react";
 import { Separator } from "../../components/ui/separator";
 import logo from "../../assets/logo.png";
+import image1 from "../../assets/image1.jpg";
 import image2 from "../../assets/image2.png";
 
 import image3 from "../../assets/image3.jpg";
+import { toast } from "sonner";
 
 export const Hero = () => {
   return (
@@ -39,9 +37,12 @@ export const Hero = () => {
       <div className="">
         <div className="h-screen rounded-3xl w-11/12 flex items-center justify-center Home">
           {/* <p className="text-4xl text-center m-4 font-semibold text-white">Trusted Place To Find A Home For Your Family</p> */}
-          <div className="w-1/2 p-4 bg-white rounded-2xl bg-opacity-70">
+          <div className="w-1/2 p-5 bg-white rounded-2xl bg-opacity-80 shadow-lg">
             <p className="text-4xl text-center m-4 font-semibold leading-10">
-            Trusted Place To Find A Home For Your Family  
+              Trusted Place To Find A Home For
+            </p>
+            <p className="text-4xl text-center m-4 font-semibold leading-10">
+              Your Family
             </p>
           </div>
         </div>
@@ -99,11 +100,40 @@ export const Hero = () => {
             </Card>
           </div>
         </div>
-        <br/>
+        <br />
+        <div className="">
+          <div className="rounded-3xl p-5 ml-10 mr-10">
+            <h1 className="text-4xl p-8 pt-0 pb-0">Properties for you.</h1>
+            <div className="grid grid-cols-2 gap-10 p-8">
+              <img src={image1} className="rounded-lg size-fit " />
+              <div className="flex flex-row items-center">
+                <p className="text-xl text-justify">
+                  Our properties are a testament to modern living, featuring a
+                  range of amenities to cater to your every need. From luxurious
+                  high-rise condos with breathtaking city views to charming
+                  villas nestled in serene neighborhoods, each property is
+                  meticulously designed to provide the ultimate comfort and
+                  style. With state-of-the-art facilities, 24/7 security, and
+                  premium locations close to essential services, our properties
+                  are not just residences—they're the backdrop to your future
+                  memories.
+                  <Link to={"/login"} className="flex justify-center pt-5">
+                    <Button onClick={() => toast("You need to log in.")} className="w-1/4  text-blue-500 border-blue-500  hover:text-white hover:bg-blue-500"
+                variant="outline">
+                      View Properties
+                    </Button>
+                  </Link>
+                  </p>
+                  <br/>                
+              </div>
+            </div>
+          </div>
+        </div>
+        <br />
         <div className="py-6 mt-5 text-gray-400 flex space-x-2 items-center justify-center bg-muted">
-          <br/>
-          <Copyright color="#b5b5b5" size={"22px"} className="mr-1"/><span>All Copyrights reserved - Haven</span>
-
+          <br />
+          <Copyright color="#b5b5b5" size={"22px"} className="mr-1" />
+          <span>All Copyrights reserved - Haven</span>
         </div>
       </div>
     </div>
