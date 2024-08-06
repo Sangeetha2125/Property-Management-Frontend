@@ -15,12 +15,13 @@ export const Hero = () => {
   const token = localStorage.getItem("token");
   const role = localStorage.getItem("role");
 
+
   return (
-    <div className="flex min-h-screen w-full flex-col poppins-light">
+    <div className="flex flex-col min-h-screen bg-gray-100 text-gray-900">
       <div className="flex flex-col sm:gap-4 sm:pt-4">
         <header className="sticky top-0 z-30 flex h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
           <img width={90} height={50} src={logo} alt="logo" />
-          
+
             {token ? (
               <Link to="/profile" className=" ml-auto w-1/12">
                 <Button className="w-full">Profile</Button>
@@ -44,18 +45,20 @@ export const Hero = () => {
         <Separator />
       </div>
 
-      <div className="">
-        <div className="h-screen rounded-3xl w-11/12 flex items-center justify-center Home">
+      <main className="flex-grow">
+        <div className="relative h-screen rounded-xl w-11/12 bg-cover Home">
           {/* <p className="text-4xl text-center m-4 font-semibold text-white">Trusted Place To Find A Home For Your Family</p> */}
-          <div className="w-1/2 p-5 bg-white rounded-2xl bg-opacity-80 shadow-lg">
-            <p className="text-4xl text-center m-4 font-semibold leading-10">
-              Trusted Place To Find A Home For
-            </p>
-            <p className="text-4xl text-center m-4 font-semibold leading-10">
-              Your Family
-            </p>
-          </div>
+          <div className="absolute left-10 top-10 text-white space-y-5 w-3/4"
+            style={{ animation: "header-animation 1s ease-in-out" }}><h1 className="text-6xl font-bold" style={{ lineHeight: "1.25" }}>
+            Trusted Place To Find A Home For Your Family
+          </h1>
+
+          <p className="text-2xl">
+            Discover a wide range of verified properties tailored to your needs.
+          </p>
         </div>
+        </div>
+
         <div className="h-screen">
           <div className="rounded-3xl p-5 flex justify-center">
             <Card className="w-3/4 p-4 pb-0 bg-opacity-10 mb-2">
@@ -154,12 +157,12 @@ export const Hero = () => {
           </div>
         </div>
         <br />
-        <div className="py-6 mt-5 text-gray-400 flex space-x-2 items-center justify-center bg-muted">
+        <div className="py-6 mt-5 text-white flex space-x-2 items-center justify-center bg-blue-500">
           <br />
-          <Copyright color="#b5b5b5" size={"22px"} className="mr-1" />
+          <Copyright color="#ffffff" size={"22px"} className="mr-1" />
           <span>All Copyrights reserved - Haven</span>
         </div>
-      </div>
+      </main>
     </div>
   );
 };

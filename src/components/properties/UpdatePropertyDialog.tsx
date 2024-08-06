@@ -56,7 +56,7 @@ export function UpdateProperty({ refresh, setRefresh, property }: UpdateProperty
       <DialogTrigger asChild>
       <div className="relative group">
         <Pencil className="cursor-pointer mt-1" color="#6b6b6b" size="20" onClick={() => setIsOpen(true)} />
-        <div className="absolute left-full ml-2 top-1/2 transform -translate-y-1/2 bg-white text-gray-700 text-sm rounded-md p-2 opacity-0 group-hover:opacity-100 transition duration-200 shadow-lg">
+        <div className="absolute left-full ml-2 top-1/2 transform -translate-x-1/2 bg-white text-gray-700 text-sm rounded-md p-2 opacity-0 group-hover:opacity-100 transition duration-200 shadow-lg">
           Edit
         </div>
       </div></DialogTrigger>

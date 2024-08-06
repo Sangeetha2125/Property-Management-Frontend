@@ -13,12 +13,15 @@ import {  MapPin, Phone, User } from "lucide-react";
 import { Badge } from "../ui/badge";
 import { UpdateProperty } from "./UpdatePropertyDialog";
 import { useState } from "react";
+import noimage from "../../assets/noimage.png"
+import AddImage from "./AddImage";
 
 interface PropertyCardProps {
   property: PropertySchema;
   role: string | null;
   refresh: boolean;
   setRefresh: Function;
+  imageData?: string[];
 }
 
 const PropertyCard = ({
@@ -26,11 +29,22 @@ const PropertyCard = ({
   role,
   refresh,
   setRefresh,
+  imageData
 }: PropertyCardProps) => {
   return (
     <div className="flex items-center justify-center h-50 rounded bg-gray-50 dark:bg-gray-800">
       <Card className="w-[450px]">
-        <CardHeader className="grid grid-cols-12 items-center">
+        <div className="p-8 h-72">
+        {imageData && imageData.length > 0?(
+          <img
+          src={`data:image/jpeg;base64,${imageData[0]}`}
+          alt={`Property ${property.id}`}
+          className="h-full w-full object-cover"
+          
+        />):
+        <img src={noimage} className="h-full w-full object-cover"/>}
+        </div>
+        <CardHeader className="grid grid-cols-12 items-center pt-0">
           <CardTitle
             className={`${
               property.type == "GATED_COMMUNITY"
@@ -40,14 +54,15 @@ const PropertyCard = ({
                   }`
             }`}
           >
-            <p className="flex space-x-3">
+            <p className="flex space-x-3 flex-wrap">
               <span>{property.name}</span>
               {role==="OWNER"?(
-                <UpdateProperty
+                <><UpdateProperty
                 refresh={refresh}
                 setRefresh={setRefresh}
                 property={property}
               />
+              {(!imageData || imageData.length === 0) && <AddImage propertyid={""+property.id} refresh={refresh} setRefresh={setRefresh}/>}</>
               ):<></>}
               
             </p>
@@ -117,6 +132,7 @@ const PropertyCard = ({
               </Button>
             </Link>
           )}
+          
         </CardFooter>
       </Card>
     </div>

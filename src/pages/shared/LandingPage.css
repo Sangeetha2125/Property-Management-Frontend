@@ -11,4 +11,33 @@
         margin: 1rem;
         height:85vh;
         filter: grayscale(0.2);
+        
+}
+
+li {
+  transition: transform 0.3s ease;
+}
+
+li:hover {
+  transform: scale(1.1);
+}
+
+
+@keyframes header-animation {
+  0% { opacity: 0; transform: translateY(-10px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.fade-in {
+  animation-name: fadeIn;
+  animation-duration: 1s;
+  animation-fill-mode: both;
 }

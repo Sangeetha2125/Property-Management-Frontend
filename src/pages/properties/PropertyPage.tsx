@@ -9,6 +9,7 @@ import {
   SelectValue,
 } from "../../components/ui/select";
 import { Button } from "../../components/ui/button";
+
 import { AddProperty } from "../../components/properties/AddPropertyDialog";
 import PropertyCard from "../../components/properties/PropertyCard";
 import SideNavbar from "../../components/shared/SideNavbar";
@@ -37,6 +38,8 @@ const PropertyPage = () => {
   const [refresh, setRefresh] = useState(false);
   const [properties, setProperties] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [propertyImages, setPropertyImages] = useState<{ [key: number]: string[] }>({});
+  
   useEffect(() => {
     axios({
       method: "get",
@@ -48,6 +51,25 @@ const PropertyPage = () => {
     })
       .then((res) => {
         setProperties(res.data);
+        res.data.forEach((property: PropertySchema) => {
+          axios({
+            method: "get",
+            url: `http://localhost:8080/api/properties/${property.id}/getImage`,
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          })
+            .then((res) => {
+              setPropertyImages((prevImages) => ({
+                ...prevImages,
+                [property.id]: res.data,
+              }));
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        });
         setTimeout(() => {
           setLoading(false);
         }, 250);
@@ -61,6 +83,7 @@ const PropertyPage = () => {
       }); // eslint-disable-next-line
   }, [refresh]);
 
+  
   const [filterType, setFilterType] = useState<
     "city" | "state" | "pincode" | "address" | "name"
   >("city");
@@ -167,10 +190,21 @@ const PropertyPage = () => {
         {len > 0 ? (
           <div className="grid grid-cols-3 gap-4 mb-4">
             {filteredProperties.map((property: PropertySchema) => (
-              <PropertyCard key={property.id} property={property} role={role} refresh={refresh} setRefresh={setRefresh}/>
-            ))}
-          </div>
-        ) : (
+                  <div key={property.id}>
+                    <PropertyCard
+                      key={property.id}
+                      property={property}
+                      role={role}
+                      refresh={refresh}
+                      setRefresh={setRefresh}
+                      imageData={propertyImages[property.id]}
+                    />
+                  </div>
+
+                ))}
+
+              </div>
+            ) : (
           <div className="flex items-center justify-center flex-row">
             <img src={nodata} alt="No data found" className="w-1/2" />
           </div>
