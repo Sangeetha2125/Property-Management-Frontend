@@ -133,8 +133,8 @@ export const Hero = () => {
                   {token ? (
                     <Link to="/properties" className="flex justify-center pt-5">
                       <Button
-                        className="w-1/4  text-blue-500 border-blue-500  hover:text-white hover:bg-blue-500"
-                        variant="outline"
+                        className="w-1/4 transform transition duration-500 hover:scale-110 text-blue-500 border-blue-500  hover:text-white hover:bg-blue-500"
+                        variant="outline" 
                       >
                         View Properties
                       </Button>

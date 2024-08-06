@@ -200,7 +200,8 @@ export default function UnitType() {
                     {unit.bathrooms + " Bathrooms"}
                   </p>
                 </div>
-                <div className="flex gap-6 items-center pt-5">
+                {role!=="OWNER"&&(
+                  <div className="flex gap-6 items-center pt-5">
                   <p className="col bg-blue-100 rounded-full px-4 py-1 text-gray-600 text-md">
                     <User size="15" className="inline mr-2" />
                     {unit.property.owner.firstName +
@@ -212,6 +213,8 @@ export default function UnitType() {
                     {unit.property.owner.phoneNumber}
                   </p>
                 </div>
+                )}
+                
               </div>
 
               {unitAvailabilities.length > 0 ? (

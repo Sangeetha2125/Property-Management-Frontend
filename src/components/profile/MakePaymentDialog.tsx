@@ -16,9 +16,10 @@ import { toast } from "sonner";
 interface MakePaymentDialogProps{
   amount:number,
   agreementId: number,
+  isRentPaid:boolean
 }
 
-export function MakePaymentDialog({amount, agreementId}:MakePaymentDialogProps) {
+export function MakePaymentDialog({amount, agreementId, isRentPaid}:MakePaymentDialogProps) {
   const token = localStorage.getItem("token")
   const proceedToPayment = () => {
     axios({
@@ -50,6 +51,7 @@ export function MakePaymentDialog({amount, agreementId}:MakePaymentDialogProps) 
         <Button
           className="w-full text-blue-500 border-blue-500  hover:text-white hover:bg-blue-500"
           variant="outline"
+          disabled={isRentPaid}
         >
           Make Payment
         </Button>

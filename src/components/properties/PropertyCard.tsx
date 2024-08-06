@@ -39,7 +39,7 @@ const PropertyCard = ({
           <img
           src={`data:image/jpeg;base64,${imageData[0]}`}
           alt={`Property ${property.id}`}
-          className="h-full w-full object-cover"
+          className="h-full w-full object-cover transform transition duration-500 hover:scale-110"
           
         />):
         <img src={noimage} className="h-full w-full object-cover"/>}

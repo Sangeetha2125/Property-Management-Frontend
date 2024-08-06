@@ -15,12 +15,30 @@ import {
   User,
   Clock9
 } from "lucide-react";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 interface AgreementCardProps{
   agreement: AgreementSchema
 }
 
 export default function AgreementCard({agreement}:AgreementCardProps) {
+  const [lastPaidDate, setLastPaidDate] = useState<Date>(new Date('1900-01-01'));
+  useEffect(() => {
+    axios.get(`http://localhost:8080/api/transactions/lastTransactionDate/${agreement.request.id}`, {
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('token')}`, // assuming the JWT token is stored in local storage
+      },
+    })
+    .then(response => {
+      if (response.data) {
+        const day = response.data.slice(0, 2);
+        const month = response.data.slice(2, 4);
+        const year = response.data.slice(4);
+        setLastPaidDate(new Date(year,month-1,day));
+      }
+    });
+  }, [agreement]);
   return (
     <div className="rounded bg-gray-50 dark:bg-gray-800 w-full">
       {agreement && <Card className="min-h-700">
@@ -83,7 +101,7 @@ export default function AgreementCard({agreement}:AgreementCardProps) {
             </CardDescription>}
             {agreement.request.type==="RENT" && <CardDescription className="bg-gray-100 rounded-full px-4 py-1 text-gray-600">
               <Clock9 size="20" className="inline" />
-              <p className="inline ml-2">Last paid on:</p>
+              <p className="inline ml-2">Last paid on: {lastPaidDate.getFullYear() > 1900 ? lastPaidDate.toLocaleDateString() : 'N/A'}</p>
             </CardDescription>}
           </div>
         </CardContent>
