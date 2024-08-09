@@ -15,6 +15,7 @@ const ProfilePage = () => {
     navigate("/")
     toast.success("Logged out successfully")
   }
+  const role=localStorage.getItem("role")
 
   return (
     <div className="flex min-h-screen w-full flex-col bg-muted/40">
@@ -42,7 +43,7 @@ const ProfilePage = () => {
         <div className="grid grid-cols-3 gap-4 mb-4">
           <ProfileCard />
           <div className="col-span-2">
-            <ProfileUnitCard />
+          {role === "TENANT" && <ProfileUnitCard />}
           </div>
         </div>
       </div>

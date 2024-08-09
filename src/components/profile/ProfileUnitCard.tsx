@@ -52,7 +52,7 @@ const ProfileUnitCard = () => {
         }
       }); // eslint-disable-next-line
   }, []);
-
+ 
   const terminateAgreement = () => {
     axios({
       method: "post",

@@ -200,7 +200,6 @@ const PropertyPage = () => {
                       imageData={propertyImages[property.id]}
                     />
                   </div>
-
                 ))}
 
               </div>
